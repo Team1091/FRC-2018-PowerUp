@@ -12,68 +12,51 @@ import frc.team1091.robot.wrapper.EncoderWrapper;
 
 public class Robot extends IterativeRobot {
 
-    // Robot components
-    Joystick joystick = new Joystick(0);
-    SpeedController leftMotor = new Victor(0);
-    SpeedController rightMotor = new Victor(1);
-    EncoderWrapper leftEncoder = new EncoderWrapper(new Encoder(2, 3));
-    EncoderWrapper rightEncoder = new EncoderWrapper(new Encoder(4, 5));
-
-    DifferentialDrive differentialDrive = new DifferentialDrive(leftMotor, rightMotor);
-
-    // Control Systems
-    AutonomousDriveSystem autonomousDriveSystem = new AutonomousDriveSystem();
-    ManualDriveSystem manualDriveSystem = new ManualDriveSystem(joystick, differentialDrive);
+    Team1091Robot teamRobot;
 
     @Override
     public void robotInit() {
+        teamRobot =  Team1091Robot.getDefaultInstance();
     }
 
     @Override
     public void autonomousInit() {
 
-        // initialize the autonomous with a list of things to do.
-        // This depends on our starting position and goal we want to go for
-
-//        DriverStation.getInstance().getAlliance()
-
-        Command plan = new CommandList(
-                new DriveForwards(123.0, differentialDrive, leftEncoder),
-                new SpinOutOfControl(differentialDrive)
-        );
-
-        autonomousDriveSystem.init(plan);
+        teamRobot.autonomousInit();
     }
 
     @Override
     public void autonomousPeriodic() {
-        autonomousDriveSystem.drive();
+       teamRobot.autonomousPeriodic();
     }
-
 
     @Override
     public void teleopInit() {
-        manualDriveSystem.init();
+        teamRobot.teleopInit();
     }
 
     @Override
     public void teleopPeriodic() {
-        manualDriveSystem.drive();
+        teamRobot.teleopPeriodic();
     }
 
     @Override
     public void disabledInit() {
+        teamRobot.disabledInit();
     }
 
     @Override
     public void disabledPeriodic() {
+        teamRobot.disabledPeriodic();
     }
 
     @Override
     public void testInit() {
+        teamRobot.testInit();
     }
 
     @Override
     public void testPeriodic() {
+        teamRobot.testPeriodic();
     }
 }

@@ -1,18 +1,21 @@
 package frc.team1091.robot.autonomous;
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.team1091.robot.RobotComponents;
+import frc.team1091.robot.RobotControlSystems;
 
 public class SpinOutOfControl implements Command {
 
-    private final DifferentialDrive differentialDrive;
+    private final RobotComponents robotComponents;
+    private final RobotControlSystems controlSystems;
 
-    public SpinOutOfControl(DifferentialDrive differentialDrive) {
-        this.differentialDrive = differentialDrive;
+    public SpinOutOfControl(RobotComponents robotComponents, RobotControlSystems controlSystems) {
+        this.robotComponents = robotComponents;
+        this.controlSystems = controlSystems;
     }
 
     @Override
     public Command execute() {
-        differentialDrive.arcadeDrive(0, 1);
+        controlSystems.differentialDrive.arcadeDrive(0, 1);
         return this;
     }
 }

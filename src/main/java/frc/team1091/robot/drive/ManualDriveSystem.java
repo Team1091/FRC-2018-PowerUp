@@ -2,15 +2,17 @@ package frc.team1091.robot.drive;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.team1091.robot.RobotComponents;
+import frc.team1091.robot.RobotControlSystems;
 
 public class ManualDriveSystem {
 
-    private Joystick joystick;
-    private DifferentialDrive differentialDrive;
+    private RobotComponents robotComponents;
+    private RobotControlSystems controlSystems;
 
-    public ManualDriveSystem(Joystick joystick, DifferentialDrive drive) {
-        this.joystick = joystick;
-        this.differentialDrive = drive;
+    public ManualDriveSystem(RobotComponents robotComponents, RobotControlSystems controlSystems) {
+        this.robotComponents = robotComponents;
+        this.controlSystems = controlSystems;
     }
 
     public void init() {
@@ -19,8 +21,7 @@ public class ManualDriveSystem {
     }
 
     public void drive() {
-        double x = joystick.getRawAxis(1);
-        differentialDrive.arcadeDrive(x, 0);
-
+        double x = robotComponents.xboxController.getRawAxis(1);
+        controlSystems.differentialDrive.arcadeDrive(x, 0);
     }
 }

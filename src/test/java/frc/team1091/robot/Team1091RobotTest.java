@@ -1,15 +1,16 @@
-package frc.team1091.robot.drive;
+package frc.team1091.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.team1091.robot.RobotComponents;
-import frc.team1091.robot.RobotControlSystems;
+import frc.team1091.robot.drive.AutonomousDriveSystem;
+import frc.team1091.robot.drive.ManualDriveSystem;
 import org.junit.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-public class ManualDriveTest {
-
+public class Team1091RobotTest {
     @Test
     public void testDriveForwards() {
 
@@ -21,9 +22,9 @@ public class ManualDriveTest {
 
         when(joystick.getRawAxis(1)).thenReturn(0.5);
 
-        ManualDriveSystem manualDriveSystem = new ManualDriveSystem(rc, sy);
+        Team1091Robot robot = new Team1091Robot(rc, sy, new AutonomousDriveSystem());
 
-        manualDriveSystem.drive();
+        robot.teleopPeriodic();
 
         verify(joystick).getRawAxis(1);
         verify(drive).arcadeDrive(0.5, 0);
