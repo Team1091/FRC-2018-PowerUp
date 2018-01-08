@@ -1,0 +1,25 @@
+apply plugin: 'application'
+
+
+sourceCompatibility = 1.8
+version = '1.0'
+
+mainClassName = "com.team1091.vision.VisionStandalone"
+
+repositories {
+    maven {
+        url "http://www.sarxos.pl/repo/maven2"
+    }
+}
+
+dependencies {
+    compile "com.github.sarxos:webcam-capture:0.3.11"
+    compile "com.github.sarxos:webcam-capture-driver-ipcam:0.3.11"
+    compile "com.sparkjava:spark-core:2.7.1"
+}
+
+task runlocal(type: JavaExec) {
+    main = mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    args = ["local"]
+}
