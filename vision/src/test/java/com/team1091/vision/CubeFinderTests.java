@@ -22,7 +22,8 @@ public class CubeFinderTests {
 
         BufferedImage out = output.drawOntoImage(test);
 
-        float center = output.getCenter();
+        // TODO: check that the center is where we think it should be
+//        float center = output.getCenter();
 //        System.out.println(center);
 //        assert center < 0.01;
 //        assert center > -0.01;

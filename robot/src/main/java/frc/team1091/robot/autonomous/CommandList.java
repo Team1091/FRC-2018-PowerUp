@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class CommandList implements Command {
 
-    ArrayList<Command> commands;
+    private ArrayList<Command> commands;
 
     public CommandList(Command... commands) {
         this.commands = new ArrayList<>(Arrays.asList(commands));

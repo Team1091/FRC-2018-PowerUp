@@ -8,21 +8,21 @@ import frc.team1091.robot.drive.AutonomousDriveSystem;
 
 public class Team1091Robot {
     // Robot components
-    RobotComponents components;
+    private RobotComponents components;
 
     // Control Systems
-    RobotControlSystems controlSystem;
-    AutonomousDriveSystem autonomousDriveSystem;
+    private RobotControlSystems controlSystem;
+    private AutonomousDriveSystem autonomousDriveSystem;
 
-    public static Team1091Robot getDefaultInstance(){
+    public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();
         RobotControlSystems sy = RobotControlSystems.getDefaultInstance(rc);
         return new Team1091Robot(
-              rc,
-              sy,
-              new AutonomousDriveSystem()
-      );
-    };
+                rc,
+                sy,
+                new AutonomousDriveSystem()
+        );
+    }
 
     public Team1091Robot(RobotComponents components, RobotControlSystems controlSystems, AutonomousDriveSystem autonomousDriveSystem) {
         this.components = components;

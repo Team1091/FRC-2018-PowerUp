@@ -5,13 +5,13 @@ import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 
 public class TargetingOutput {
-    public static final DecimalFormat df = new DecimalFormat("#.0");
+    private static final DecimalFormat df = new DecimalFormat("#.0");
 
     public int imageWidth;
     public int imageHeight;
 
-    public int xcenter;
-    public int ycenter;
+    public int xCenter;
+    public int yCenter;
 
     int width;
 
@@ -32,21 +32,21 @@ public class TargetingOutput {
         Graphics2D g = outputImage.createGraphics();
         g.setColor(Color.RED);
 
-        g.drawLine(xcenter, ycenter - 10, xcenter, ycenter + 10);
-        g.drawLine(xcenter, ycenter, rightX, ycenter);
-        g.drawLine(xcenter, ycenter, leftX, ycenter);
-        g.drawLine(rightX, ycenter - 8, rightX, ycenter + 8);
-        g.drawLine(leftX, ycenter - 8, leftX, ycenter + 8);
+        g.drawLine(xCenter, yCenter - 10, xCenter, yCenter + 10);
+        g.drawLine(xCenter, yCenter, rightX, yCenter);
+        g.drawLine(xCenter, yCenter, leftX, yCenter);
+        g.drawLine(rightX, yCenter - 8, rightX, yCenter + 8);
+        g.drawLine(leftX, yCenter - 8, leftX, yCenter + 8);
 
         g.setColor(Color.cyan);
 
-        g.drawLine(calcXCenter, ycenter + 15, calcXCenter, ycenter - 15);
+        g.drawLine(calcXCenter, yCenter + 15, calcXCenter, yCenter - 15);
 
         // width labels, px and % screen width
-        g.drawString(width + " px", xcenter, ycenter - 25);
-        g.drawString(df.format(distance) + " in", xcenter, ycenter + 35);
+        g.drawString(width + " px", xCenter, yCenter - 25);
+        g.drawString(df.format(distance) + " in", xCenter, yCenter + 35);
 
-        g.drawLine(outputImage.getWidth() / 2, ycenter + 20, calcXCenter, ycenter + 20);
+        g.drawLine(outputImage.getWidth() / 2, yCenter + 20, calcXCenter, yCenter + 20);
 
 
         return outputImage;

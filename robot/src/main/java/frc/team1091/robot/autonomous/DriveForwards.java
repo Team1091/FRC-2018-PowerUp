@@ -1,9 +1,7 @@
 package frc.team1091.robot.autonomous;
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.RobotControlSystems;
-import frc.team1091.robot.wrapper.EncoderWrapper;
 
 public class DriveForwards implements Command {
 

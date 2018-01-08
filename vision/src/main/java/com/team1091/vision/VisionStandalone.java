@@ -10,14 +10,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.text.DecimalFormat;
 
 import static spark.Spark.get;
 import static spark.Spark.port;
 
 public class VisionStandalone {
-
-    public static final DecimalFormat df = new DecimalFormat("#.0");
 
     private static float center = 0;
     private static float distance = 0;
@@ -40,21 +37,18 @@ public class VisionStandalone {
 
             @Override
             public void paintImage(WebcamPanel panel, BufferedImage image, Graphics2D g2) {
-                try {
-                    TargetingOutput targetingOutput = process(image);
 
-                    // pull out results we care about, let web server serve them as quick as possible
-                    center = targetingOutput.getCenter();
-                    distance = targetingOutput.distance;
+                TargetingOutput targetingOutput = process(image);
 
-                    // Draw our results onto the image, so that the driver can see if the autonomous code is tracking
-                    BufferedImage outImage = targetingOutput.drawOntoImage(targetingOutput.processedImage);
+                // pull out results we care about, let web server serve them as quick as possible
+                center = targetingOutput.getCenter();
+                distance = targetingOutput.distance;
 
-                    writeToPanel(panel, g2, outImage);
+                // Draw our results onto the image, so that the driver can see if the autonomous code is tracking
+                BufferedImage outImage = targetingOutput.drawOntoImage(targetingOutput.processedImage);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                writeToPanel(panel, g2, outImage);
+
             }
 
             /**
@@ -77,13 +71,13 @@ public class VisionStandalone {
 
 
                 if (imageAspectRatio < screenAspectRatio) {
-                    // widescreen - y to the max
+                    // wide screen - y to the max
                     int scaledImageX = (int) (panelY * imageAspectRatio);
                     int scaledImageY = panelY;
                     g2.drawImage(outImage, (panelX - scaledImageX) / 2, 0, scaledImageX, scaledImageY, null);
 
                 } else {
-                    //tallscreen - x to the max
+                    // tall screen - x to the max
                     int scaledImageX = panelX;
                     int scaledImageY = (int) (panelX / imageAspectRatio);
                     g2.drawImage(outImage, 0, (panelY - scaledImageY) / 2, scaledImageX, scaledImageY, null);
@@ -102,12 +96,12 @@ public class VisionStandalone {
         get("/", (req, res) -> center + "," + distance);
     }
 
-    public static float getDistance(int widthInPixels, int totalImagePixelWidth) {
-        // TODO: deal with different camera pixelcounts
+    public static float getDistance(int widthInPixels) {
+        // TODO: deal with different camera pixel counts
         return (float) (104.4742249664 * Math.exp(-0.0484408778 * (double) widthInPixels));
     }
 
-    public static TargetingOutput process(BufferedImage inputImage) throws IOException {
+    public static TargetingOutput process(BufferedImage inputImage) {
 
         BufferedImage outputImage = new BufferedImage(inputImage.getWidth(), inputImage.getHeight(),
                 BufferedImage.TYPE_INT_RGB);
@@ -175,7 +169,7 @@ public class VisionStandalone {
             }
         }
         int width = leftWidth + rightWidth;
-        float distance = getDistance(width, inputImage.getWidth());
+        float distance = getDistance(width);
 
         TargetingOutput targetingOutput = new TargetingOutput();
         targetingOutput.imageWidth = inputImage.getWidth();
@@ -185,8 +179,8 @@ public class VisionStandalone {
         targetingOutput.leftX = xCenter - leftWidth;
         targetingOutput.calcXCenter = (targetingOutput.rightX + targetingOutput.leftX) / 2;
 
-        targetingOutput.xcenter = xCenter;
-        targetingOutput.ycenter = yCenter;
+        targetingOutput.xCenter = xCenter;
+        targetingOutput.yCenter = yCenter;
 
         targetingOutput.width = width;
         targetingOutput.distance = distance;

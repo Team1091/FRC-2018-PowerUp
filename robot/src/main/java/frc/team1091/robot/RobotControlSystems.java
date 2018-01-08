@@ -6,7 +6,7 @@ public class RobotControlSystems {
 
     public final DifferentialDrive differentialDrive;
 
-    public static RobotControlSystems getDefaultInstance(RobotComponents components){
+    public static RobotControlSystems getDefaultInstance(RobotComponents components) {
         return new RobotControlSystems(
                 new DifferentialDrive(components.leftMotor, components.rightMotor)
         );

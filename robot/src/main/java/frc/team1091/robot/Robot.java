@@ -1,22 +1,14 @@
 package frc.team1091.robot;
 
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.team1091.robot.autonomous.Command;
-import frc.team1091.robot.autonomous.CommandList;
-import frc.team1091.robot.autonomous.DriveForwards;
-import frc.team1091.robot.autonomous.SpinOutOfControl;
-import frc.team1091.robot.drive.AutonomousDriveSystem;
-import frc.team1091.robot.drive.ManualDriveSystem;
-import frc.team1091.robot.wrapper.EncoderWrapper;
+import edu.wpi.first.wpilibj.IterativeRobot;
 
 public class Robot extends IterativeRobot {
 
-    Team1091Robot teamRobot;
+    private Team1091Robot teamRobot;
 
     @Override
     public void robotInit() {
-        teamRobot =  Team1091Robot.getDefaultInstance();
+        teamRobot = Team1091Robot.getDefaultInstance();
     }
 
     @Override
@@ -27,7 +19,7 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void autonomousPeriodic() {
-       teamRobot.autonomousPeriodic();
+        teamRobot.autonomousPeriodic();
     }
 
     @Override

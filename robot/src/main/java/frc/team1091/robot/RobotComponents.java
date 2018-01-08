@@ -10,7 +10,7 @@ public class RobotComponents {
 
     public static RobotComponents getDefaultInstance() {
         return new RobotComponents(
-                new Joystick(0 ),
+                new Joystick(0),
                 new Victor(0),
                 new Victor(1),
                 new EncoderWrapper(new Encoder(2, 3)),

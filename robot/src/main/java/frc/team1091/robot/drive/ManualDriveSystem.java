@@ -1,7 +1,5 @@
 package frc.team1091.robot.drive;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.RobotControlSystems;
 

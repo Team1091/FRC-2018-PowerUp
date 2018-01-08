@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
- *  This is used to find illuminated tape targets
+ * This is used to find illuminated tape targets
  */
 public class ImageCenterTests {
 

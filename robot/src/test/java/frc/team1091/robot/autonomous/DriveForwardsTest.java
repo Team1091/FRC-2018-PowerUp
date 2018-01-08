@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 
 public class DriveForwardsTest {
-    int testNum;
+    private int testNum;
 
     @Test
     public void testThatWeDriveForwards() {
@@ -57,7 +57,7 @@ public class DriveForwardsTest {
         autonomousDriveSystem.drive();
         assert testNum == 1;
 
-        // Lets try spinning, thats a nice trick
+        // Lets try spinning, that's a nice trick
         autonomousDriveSystem.drive();
 
         verify(drive).arcadeDrive(0, 1);

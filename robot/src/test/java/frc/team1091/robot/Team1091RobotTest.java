@@ -3,7 +3,6 @@ package frc.team1091.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team1091.robot.drive.AutonomousDriveSystem;
-import frc.team1091.robot.drive.ManualDriveSystem;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
