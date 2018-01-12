@@ -19,6 +19,9 @@ dependencies {
 }
 
 task runlocal(type: JavaExec) {
+    group "team1091"
+    description "Run the vision code using your webcam."
+
     main = mainClassName
     classpath = sourceSets.main.runtimeClasspath
     args = ["local"]
