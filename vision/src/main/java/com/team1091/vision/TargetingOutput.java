@@ -15,10 +15,8 @@ public class TargetingOutput {
 
     int width;
 
-    public float distance;
+
     public BufferedImage processedImage;
-    public int rightX;
-    public int leftX;
     public int calcXCenter;
 
     /**
@@ -31,22 +29,12 @@ public class TargetingOutput {
 
         Graphics2D g = outputImage.createGraphics();
         g.setColor(Color.RED);
-
         g.drawLine(xCenter, yCenter - 10, xCenter, yCenter + 10);
-        g.drawLine(xCenter, yCenter, rightX, yCenter);
-        g.drawLine(xCenter, yCenter, leftX, yCenter);
-        g.drawLine(rightX, yCenter - 8, rightX, yCenter + 8);
-        g.drawLine(leftX, yCenter - 8, leftX, yCenter + 8);
-
-        g.setColor(Color.cyan);
-
-        g.drawLine(calcXCenter, yCenter + 15, calcXCenter, yCenter - 15);
 
         // width labels, px and % screen width
         g.drawString(width + " px", xCenter, yCenter - 25);
-        g.drawString(df.format(distance) + " in", xCenter, yCenter + 35);
 
-        g.drawLine(outputImage.getWidth() / 2, yCenter + 20, calcXCenter, yCenter + 20);
+        //g.drawLine(outputImage.getWidth() / 2, yCenter + 20, calcXCenter, yCenter + 20);
 
 
         return outputImage;

@@ -42,7 +42,6 @@ public class VisionStandalone {
 
                 // pull out results we care about, let web server serve them as quick as possible
                 center = targetingOutput.getCenter();
-                distance = targetingOutput.distance;
 
                 // Draw our results onto the image, so that the driver can see if the autonomous code is tracking
                 BufferedImage outImage = targetingOutput.drawOntoImage(targetingOutput.processedImage);
@@ -110,14 +109,19 @@ public class VisionStandalone {
         long ySum = 0;
         int totalCount = 0;
 
+
+
         for (int x = 0; x < inputImage.getWidth(); x++) {
             for (int y = 0; y < inputImage.getHeight(); y++) {
                 Color color = new Color(inputImage.getRGB(x, y));
+
                 int green = color.getGreen();
                 int red = color.getRed();
                 int blue = color.getBlue();
 
-                if (green > blue + 10 && green > red + 10 && green > 128) {
+                double yellow = Math.min(red, green) / (blue + 0.1); // TODO: find a function to find yellowness
+
+                if (yellow > 1.4) {
                     outputImage.setRGB(x, y, 0x00FF00);
                     xSum += x;
                     ySum += y;
@@ -138,95 +142,15 @@ public class VisionStandalone {
             xCenter = (int) (xSum / totalCount);
             yCenter = (int) (ySum / totalCount);
         }
-
-        //Distance
-        int counter = 0;
-        int rightWidth = 0;
-        int leftWidth = 0;
-        for (int x = xCenter; x < outputImage.getWidth(); x++) {
-            if (getAvg(outputImage, x, yCenter)) {
-                counter++;
-            } else {
-                counter = 0;
-                continue;
-            }
-            if (counter >= 5) {
-                rightWidth = x - xCenter - 5;
-                break;
-            }
-        }
-        counter = 0;
-        for (int x = xCenter; x > 0; x--) {
-            if (getAvg(outputImage, x, yCenter)) {
-                counter++;
-            } else {
-                counter = 0;
-                continue;
-            }
-            if (counter >= 5) {
-                leftWidth = xCenter - (x + 5);
-                break;
-            }
-        }
-        int width = leftWidth + rightWidth;
-        float distance = getDistance(width);
-
         TargetingOutput targetingOutput = new TargetingOutput();
         targetingOutput.imageWidth = inputImage.getWidth();
         targetingOutput.imageHeight = inputImage.getHeight();
 
-        targetingOutput.rightX = xCenter + rightWidth;
-        targetingOutput.leftX = xCenter - leftWidth;
-        targetingOutput.calcXCenter = (targetingOutput.rightX + targetingOutput.leftX) / 2;
 
         targetingOutput.xCenter = xCenter;
         targetingOutput.yCenter = yCenter;
 
-        targetingOutput.width = width;
-        targetingOutput.distance = distance;
         targetingOutput.processedImage = outputImage;
         return targetingOutput;
-    }
-
-
-    private static boolean getAvg(BufferedImage image, int x, int y) {
-        boolean given = false;
-        int green = 0;
-        int black = 0;
-        if ((image.getRGB(x, y) & 0x00FF00) == 0x00FF00) {
-            green++;
-            given = true;
-        } else {
-            black++;
-        }
-        if (x + 1 < image.getWidth()) {
-            if ((image.getRGB(x + 1, y) & 0x00FF00) == 0x00FF00) {
-                green++;
-            } else {
-                black++;
-            }
-        }
-        if (x - 1 > 0) {
-            if ((image.getRGB(x - 1, y) & 0x00FF00) == 0x00FF00) {
-                green++;
-            } else {
-                black++;
-            }
-        }
-        if (y + 1 < image.getHeight()) {
-            if ((image.getRGB(x, y + 1) & 0x00FF00) == 0x00FF00) {
-                green++;
-            } else {
-                black++;
-            }
-        }
-        if (y - 1 > 0) {
-            if ((image.getRGB(x, y - 1) & 0x00FF00) == 0x00FF00) {
-                green++;
-            } else {
-                black++;
-            }
-        }
-        return green == black ? given : green > black;
     }
 }

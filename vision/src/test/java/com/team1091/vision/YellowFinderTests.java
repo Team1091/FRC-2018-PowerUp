@@ -14,7 +14,7 @@ public class YellowFinderTests {
     public void yellowTest() throws IOException {
 
         BufferedImage inputImage = ImageIO.read(getClass().getClassLoader()
-                .getResourceAsStream("phone/IMG_20180108_191234.jpg"));
+                .getResourceAsStream("colorChart.jpg"));
 
 
         BufferedImage outputImage = new BufferedImage(inputImage.getWidth(), inputImage.getHeight(),
@@ -28,9 +28,9 @@ public class YellowFinderTests {
                 int red = color.getRed();
                 int blue = color.getBlue();
 
-                int yellow = 0; // TODO: find a function to find yellowness
+                int yellow = Math.min(red, green) - blue; // TODO: find a function to find yellowness
 
-                if (yellow > 10) {
+                if (yellow > 100) { //was 10
                     outputImage.setRGB(x, y, new Color(0, yellow, 0).getRGB());
                 } else {
                     outputImage.setRGB(x, y, color.getRGB());
