@@ -109,8 +109,6 @@ public class VisionStandalone {
         long ySum = 0;
         int totalCount = 0;
 
-
-
         for (int x = 0; x < inputImage.getWidth(); x++) {
             for (int y = 0; y < inputImage.getHeight(); y++) {
                 Color color = new Color(inputImage.getRGB(x, y));

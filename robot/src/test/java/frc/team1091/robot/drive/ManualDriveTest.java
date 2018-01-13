@@ -19,12 +19,15 @@ public class ManualDriveTest {
         RobotComponents rc = new RobotComponents(joystick, null, null, null, null);
         RobotControlSystems sy = new RobotControlSystems(drive);
 
+
+        when(joystick.getRawAxis(0)).thenReturn(0.0);
         when(joystick.getRawAxis(1)).thenReturn(0.5);
 
         ManualDriveSystem manualDriveSystem = new ManualDriveSystem(rc, sy);
 
         manualDriveSystem.drive();
 
+        verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
         verify(drive).arcadeDrive(0.5, 0);
     }

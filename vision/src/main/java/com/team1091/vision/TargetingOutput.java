@@ -13,11 +13,7 @@ public class TargetingOutput {
     public int xCenter;
     public int yCenter;
 
-    int width;
-
-
     public BufferedImage processedImage;
-    public int calcXCenter;
 
     /**
      * This draws debug info onto the image before it's displayed.
@@ -32,7 +28,7 @@ public class TargetingOutput {
         g.drawLine(xCenter, yCenter - 10, xCenter, yCenter + 10);
 
         // width labels, px and % screen width
-        g.drawString(width + " px", xCenter, yCenter - 25);
+        //g.drawString(width + " px", xCenter, yCenter - 25);
 
         //g.drawLine(outputImage.getWidth() / 2, yCenter + 20, calcXCenter, yCenter + 20);
 
@@ -46,6 +42,6 @@ public class TargetingOutput {
      * @return float from -0.5 to 0.5
      */
     public float getCenter() {
-        return ((float) calcXCenter / (float) imageWidth) - 0.5f;
+        return ((float) xCenter / (float) imageWidth) - 0.5f;
     }
 }
