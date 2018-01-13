@@ -112,21 +112,39 @@ public class VisionStandalone {
         for (int x = 0; x < inputImage.getWidth(); x++) {
             for (int y = 0; y < inputImage.getHeight(); y++) {
                 Color color = new Color(inputImage.getRGB(x, y));
+                float green = (float) color.getGreen()/255f;
+                float red = (float) color.getRed()/255f;
+                float blue = (float) color.getBlue()/255f+0.01f;
 
-                int green = color.getGreen();
-                int red = color.getRed();
-                int blue = color.getBlue();
-
-                double yellow = Math.min(red, green) / (blue + 0.1); // TODO: find a function to find yellowness
-
-                if (yellow > 1.4) {
-                    outputImage.setRGB(x, y, 0x00FF00);
+                float yellow = Math.min(red, green)/blue; // TODO: find a function to find yellowness
+                //System.out.println(yellow);
+                if (yellow > 1.2) { //was 10
+                    outputImage.setRGB(x, y, new Color(0, 255, 0).getRGB());
                     xSum += x;
                     ySum += y;
                     totalCount++;
+
                 } else {
                     outputImage.setRGB(x, y, color.getRGB());
                 }
+//                Color color = new Color(inputImage.getRGB(x, y));
+//
+//
+//
+//                int green = color.getGreen();
+//                int red = color.getRed();
+//                int blue = color.getBlue();
+//
+//                double yellow = Math.min(red, green) / (blue + 0.1); // TODO: find a function to find yellowness
+//
+//                if (yellow > 1.4) {
+//                    outputImage.setRGB(x, y, 0x00FF00);
+//                    xSum += x;
+//                    ySum += y;
+//                    totalCount++;
+//                } else {
+//                    outputImage.setRGB(x, y, color.getRGB());
+//                }
             }
         }
 
