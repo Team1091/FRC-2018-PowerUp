@@ -1,4 +1,4 @@
-package frc.team1091.robot.autonomous;
+package frc.team1091.robot.autonomous.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;

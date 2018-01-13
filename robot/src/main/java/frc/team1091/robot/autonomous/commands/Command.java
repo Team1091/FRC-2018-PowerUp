@@ -1,4 +1,4 @@
-package frc.team1091.robot.autonomous;
+package frc.team1091.robot.autonomous.commands;
 
 public interface Command {
 
