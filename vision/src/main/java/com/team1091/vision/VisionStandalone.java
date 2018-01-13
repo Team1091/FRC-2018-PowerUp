@@ -26,7 +26,7 @@ public class VisionStandalone {
             IpCamDeviceRegistry.register("RoboRioCam", "http://roborio-1091-frc.local:1181/stream.mjpg", IpCamMode.PUSH);
         }
 
-        Webcam webcam = Webcam.getDefault();
+        Webcam webcam = Webcam.getWebcams().get(1);
         WebcamPanel panel = new WebcamPanel(webcam);
 
         panel.setPainter(new WebcamPanel.Painter() {
@@ -116,9 +116,9 @@ public class VisionStandalone {
                 float red = (float) color.getRed()/255f;
                 float blue = (float) color.getBlue()/255f+0.01f;
 
-                float yellow = Math.min(red, green)/blue; // TODO: find a function to find yellowness
+                float yellow = Math.min(red, green)*(1-blue); // TODO: find a function to find yellowness
                 //System.out.println(yellow);
-                if (yellow > 1.2) { //was 10
+                if (yellow > .35) { //was 10
                     outputImage.setRGB(x, y, new Color(0, 255, 0).getRGB());
                     xSum += x;
                     ySum += y;
