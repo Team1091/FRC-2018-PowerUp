@@ -19,9 +19,6 @@ public class ManualDriveSystem {
     }
 
     public void drive() {
-        double x = robotComponents.xboxController.getRawAxis(0);
-        double y = robotComponents.xboxController.getRawAxis(1);
-        controlSystems.differentialDrive.arcadeDrive(y, x);
-//        System.out.println("I ran!!!!!!!!!");
+        //Todo: Drive the Robot
     }
 }

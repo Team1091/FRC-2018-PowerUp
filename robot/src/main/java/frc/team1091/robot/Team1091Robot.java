@@ -7,6 +7,7 @@ import frc.team1091.robot.autonomous.commands.CommandList;
 import frc.team1091.robot.autonomous.commands.DriveForwards;
 import frc.team1091.robot.autonomous.commands.SpinOutOfControl;
 import frc.team1091.robot.drive.AutonomousDriveSystem;
+import frc.team1091.robot.drive.ManualDriveSystem;
 
 public class Team1091Robot {
     // Robot components
@@ -15,6 +16,7 @@ public class Team1091Robot {
     // Control Systems
     private RobotControlSystems controlSystem;
     private AutonomousDriveSystem autonomousDriveSystem;
+    private ManualDriveSystem manualDriveSystem;
 
     public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();
@@ -22,14 +24,16 @@ public class Team1091Robot {
         return new Team1091Robot(
                 rc,
                 sy,
-                new AutonomousDriveSystem()
+                new AutonomousDriveSystem(),
+                new ManualDriveSystem(rc, sy)
         );
     }
 
-    public Team1091Robot(RobotComponents components, RobotControlSystems controlSystems, AutonomousDriveSystem autonomousDriveSystem) {
+    public Team1091Robot(RobotComponents components, RobotControlSystems controlSystems, AutonomousDriveSystem autonomousDriveSystem, ManualDriveSystem manualDriveSystem) {
         this.components = components;
         this.controlSystem = controlSystems;
         this.autonomousDriveSystem = autonomousDriveSystem;
+        this.manualDriveSystem = manualDriveSystem;
     }
 
     public void robotInit() {
@@ -50,12 +54,16 @@ public class Team1091Robot {
 
 
     public void teleopInit() {
-
+        //Todo: Complete or Stop an Actions still in process for Autonomous
     }
 
     public void teleopPeriodic() {
-        double x = components.xboxController.getRawAxis(1);
-        controlSystem.differentialDrive.arcadeDrive(x, 0);
+        //Handle Driving the Robot
+        manualDriveSystem.drive();
+        //Todo: Handle eating a box
+        //Todo: Handle barfing a box
+        //Todo: Hanlde Lifting
+        //Todo: Handle Climbing
     }
 
     public void disabledInit() {
