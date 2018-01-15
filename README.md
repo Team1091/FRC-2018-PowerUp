@@ -7,3 +7,25 @@ This year we are trying a gradle build via GradleRio.
 
 We are also trying to actually write some tests.  We have been meaning to for a while, but they always get prioritized out of the build season.
 
+
+
+
+## Commands
+```bash
+
+# To build and run tests
+gradlew.bat build
+
+# To build and deploy code to the robot
+gradlew.bat build deploy
+
+# To run tests
+gradlew.bat test
+
+# To run check the log
+gradlew.bat riolog
+
+# To run shuffleboard
+gradlew.bat shuffleboard
+
+```

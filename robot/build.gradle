@@ -1,5 +1,5 @@
 plugins {
-    id "jaci.openrio.gradle.GradleRIO" version "2018.01.11"
+    id "jaci.openrio.gradle.GradleRIO" version "2018.01.15"
 }
 
 def TEAM = 1091
@@ -26,6 +26,7 @@ dependencies {
     compile wpilib()
     compile ctre()
     compile navx()
+    // compile openrio.powerup.matchData()
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
