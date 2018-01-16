@@ -26,7 +26,7 @@ public class VisionStandalone {
             IpCamDeviceRegistry.register("RoboRioCam", "http://roborio-1091-frc.local:1181/stream.mjpg", IpCamMode.PUSH);
         }
 
-        Webcam webcam = Webcam.getWebcams().get(1);
+        Webcam webcam = Webcam.getWebcams().get(0);
         WebcamPanel panel = new WebcamPanel(webcam);
 
         panel.setPainter(new WebcamPanel.Painter() {
@@ -38,7 +38,7 @@ public class VisionStandalone {
             @Override
             public void paintImage(WebcamPanel panel, BufferedImage image, Graphics2D g2) {
 
-                TargetingOutput targetingOutput = process(image);
+                TargetingOutput targetingOutput = process(boxBlur(image,1));
 
                 // pull out results we care about, let web server serve them as quick as possible
                 center = targetingOutput.getCenter();
@@ -169,4 +169,44 @@ public class VisionStandalone {
         targetingOutput.processedImage = outputImage;
         return targetingOutput;
     }
+
+    public static BufferedImage boxBlur(BufferedImage inputImage, int radius) {
+
+        BufferedImage outputImage = new BufferedImage(inputImage.getWidth(), inputImage.getHeight(),
+                BufferedImage.TYPE_INT_RGB);
+
+        for (int x = 0; x < inputImage.getWidth(); x++) {
+            for (int y = 0; y < inputImage.getHeight(); y++) {
+
+                int pixel=0;
+                int red=0;
+                int green=0;
+                int blue=0;
+
+                for (int ix = x - radius; ix <= x + radius; ix++) {
+                    for (int iy = y - radius; iy <= y + radius; iy++) {
+
+                        if (ix<0||iy<0||ix>=inputImage.getWidth()||iy>=inputImage.getHeight())
+                            continue;
+                        //TODO: blur
+                        Color rgb = new Color(inputImage.getRGB(ix, iy));
+                        red+=Math.pow(rgb.getRed(),2);
+                        green+=Math.pow(rgb.getGreen(),2);
+                        blue+=Math.pow(rgb.getBlue(),2);
+                        pixel++;
+
+                    }
+                }
+                outputImage.setRGB(x, y, new Color(
+                        (int)Math.sqrt(red/pixel),
+                        (int)Math.sqrt(green/pixel),
+                        (int)Math.sqrt(blue/pixel)).getRGB());
+
+
+            }
+        }
+
+        return outputImage;
+    }
+
 }

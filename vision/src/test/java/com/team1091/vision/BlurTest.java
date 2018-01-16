@@ -25,7 +25,7 @@ public class BlurTest {
         graphics.fillRect(20, 20, inputImage.getWidth() - 20, inputImage.getHeight() - 20);
 
         // blur the input image
-        BufferedImage outputImage = boxBlur(inputImage, 2);
+        BufferedImage outputImage = boxBlur(inputImage, 5);
 
 
         File testOut = new File("build/testOut");
@@ -37,7 +37,7 @@ public class BlurTest {
 
 
     // https://en.wikipedia.org/wiki/Box_blur
-    public BufferedImage boxBlur(BufferedImage inputImage, int kernelWidth) {
+    public BufferedImage boxBlur(BufferedImage inputImage, int radius) {
 
         BufferedImage outputImage = new BufferedImage(inputImage.getWidth(), inputImage.getHeight(),
                 BufferedImage.TYPE_INT_RGB);
@@ -45,7 +45,30 @@ public class BlurTest {
         for (int x = 0; x < inputImage.getWidth(); x++) {
             for (int y = 0; y < inputImage.getHeight(); y++) {
 
-                //TODO: blur
+                int pixel=0;
+                int red=0;
+                int green=0;
+                int blue=0;
+
+                for (int ix = x - radius; ix <= x + radius; ix++) {
+                    for (int iy = y - radius; iy <= y + radius; iy++) {
+
+                        if (ix<0||iy<0||ix>=inputImage.getWidth()||iy>=inputImage.getHeight())
+                            continue;
+                        //TODO: blur
+                        Color rgb = new Color(inputImage.getRGB(ix, iy));
+                        red+=Math.pow(rgb.getRed(),2);
+                        green+=Math.pow(rgb.getGreen(),2);
+                        blue+=Math.pow(rgb.getBlue(),2);
+                        pixel++;
+
+                    }
+                }
+                outputImage.setRGB(x, y, new Color(
+                        (int)Math.sqrt(red/pixel),
+                        (int)Math.sqrt(green/pixel),
+                        (int)Math.sqrt(blue/pixel)).getRGB());
+
 
             }
         }
