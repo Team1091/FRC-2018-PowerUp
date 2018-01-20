@@ -2,8 +2,7 @@ package com.team1091.vision;
 
 import org.junit.Test;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 

@@ -38,7 +38,7 @@ public class VisionStandalone {
             @Override
             public void paintImage(WebcamPanel panel, BufferedImage image, Graphics2D g2) {
 
-                TargetingOutput targetingOutput = process(boxBlur(image,1));
+                TargetingOutput targetingOutput = process(boxBlur(image, 1));
 
                 // pull out results we care about, let web server serve them as quick as possible
                 center = targetingOutput.getCenter();
@@ -112,11 +112,11 @@ public class VisionStandalone {
         for (int x = 0; x < inputImage.getWidth(); x++) {
             for (int y = 0; y < inputImage.getHeight(); y++) {
                 Color color = new Color(inputImage.getRGB(x, y));
-                float green = (float) color.getGreen()/255f;
-                float red = (float) color.getRed()/255f;
-                float blue = (float) color.getBlue()/255f+0.01f;
+                float green = (float) color.getGreen() / 255f;
+                float red = (float) color.getRed() / 255f;
+                float blue = (float) color.getBlue() / 255f + 0.01f;
 
-                float yellow = Math.min(red, green)*(1-blue); // TODO: find a function to find yellowness
+                float yellow = Math.min(red, green) * (1 - blue); // TODO: find a function to find yellowness
                 //System.out.println(yellow);
                 if (yellow > .35) { //was 10
                     outputImage.setRGB(x, y, new Color(0, 255, 0).getRGB());
@@ -178,30 +178,29 @@ public class VisionStandalone {
         for (int x = 0; x < inputImage.getWidth(); x++) {
             for (int y = 0; y < inputImage.getHeight(); y++) {
 
-                int pixel=0;
-                int red=0;
-                int green=0;
-                int blue=0;
+                int pixel = 0;
+                int red = 0;
+                int green = 0;
+                int blue = 0;
 
                 for (int ix = x - radius; ix <= x + radius; ix++) {
                     for (int iy = y - radius; iy <= y + radius; iy++) {
 
-                        if (ix<0||iy<0||ix>=inputImage.getWidth()||iy>=inputImage.getHeight())
+                        if (ix < 0 || iy < 0 || ix >= inputImage.getWidth() || iy >= inputImage.getHeight())
                             continue;
                         //TODO: blur
                         Color rgb = new Color(inputImage.getRGB(ix, iy));
-                        red+=Math.pow(rgb.getRed(),2);
-                        green+=Math.pow(rgb.getGreen(),2);
-                        blue+=Math.pow(rgb.getBlue(),2);
+                        red += Math.pow(rgb.getRed(), 2);
+                        green += Math.pow(rgb.getGreen(), 2);
+                        blue += Math.pow(rgb.getBlue(), 2);
                         pixel++;
 
                     }
                 }
                 outputImage.setRGB(x, y, new Color(
-                        (int)Math.sqrt(red/pixel),
-                        (int)Math.sqrt(green/pixel),
-                        (int)Math.sqrt(blue/pixel)).getRGB());
-
+                        (int) Math.sqrt(red / pixel),
+                        (int) Math.sqrt(green / pixel),
+                        (int) Math.sqrt(blue / pixel)).getRGB());
 
             }
         }

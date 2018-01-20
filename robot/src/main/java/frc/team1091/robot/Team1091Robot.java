@@ -1,11 +1,7 @@
 package frc.team1091.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.autonomous.Planner;
 import frc.team1091.robot.autonomous.commands.Command;
-import frc.team1091.robot.autonomous.commands.CommandList;
-import frc.team1091.robot.autonomous.commands.DriveForwards;
-import frc.team1091.robot.autonomous.commands.SpinOutOfControl;
 import frc.team1091.robot.drive.AutonomousDriveSystem;
 import frc.team1091.robot.drive.ManualDriveSystem;
 

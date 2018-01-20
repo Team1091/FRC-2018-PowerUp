@@ -3,7 +3,6 @@ package frc.team1091.robot.autonomous;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.RobotControlSystems;
-import frc.team1091.robot.Team1091Robot;
 import frc.team1091.robot.autonomous.commands.Command;
 import frc.team1091.robot.autonomous.commands.CommandList;
 import frc.team1091.robot.autonomous.commands.DriveForwards;

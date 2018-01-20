@@ -2,7 +2,6 @@ package frc.team1091.robot.autonomous.commands;
 
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.RobotControlSystems;
-import frc.team1091.robot.autonomous.commands.Command;
 
 // Keep most of the top part
 public class SpinOutOfControl implements Command {
