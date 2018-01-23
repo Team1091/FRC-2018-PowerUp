@@ -38,7 +38,7 @@ public class VisionStandalone {
             @Override
             public void paintImage(WebcamPanel panel, BufferedImage image, Graphics2D g2) {
 
-                TargetingOutput targetingOutput = process(boxBlur(image, 1));
+                TargetingOutput targetingOutput = process(image);
 
                 // pull out results we care about, let web server serve them as quick as possible
                 center = targetingOutput.getCenter();
@@ -95,56 +95,61 @@ public class VisionStandalone {
         get("/", (req, res) -> center + "," + distance);
     }
 
-    public static float getDistance(int widthInPixels) {
-        // TODO: deal with different camera pixel counts
-        return (float) (104.4742249664 * Math.exp(-0.0484408778 * (double) widthInPixels));
-    }
+//    public static float getDistance(int widthInPixels) {
+//        // TODO: deal with different camera pixel counts
+//        return (float) (104.4742249664 * Math.exp(-0.0484408778 * (double) widthInPixels));
+//    }
 
     public static TargetingOutput process(BufferedImage inputImage) {
 
         BufferedImage outputImage = new BufferedImage(inputImage.getWidth(), inputImage.getHeight(),
                 BufferedImage.TYPE_INT_RGB);
 
+        int radius = 1;
         long xSum = 0;
         long ySum = 0;
         int totalCount = 0;
 
         for (int x = 0; x < inputImage.getWidth(); x++) {
             for (int y = 0; y < inputImage.getHeight(); y++) {
-                Color color = new Color(inputImage.getRGB(x, y));
-                float green = (float) color.getGreen() / 255f;
-                float red = (float) color.getRed() / 255f;
-                float blue = (float) color.getBlue() / 255f + 0.01f;
 
-                float yellow = Math.min(red, green) * (1 - blue); // TODO: find a function to find yellowness
+                int pixel = 0;
+                int red = 0;
+                int green = 0;
+                int blue = 0;
+
+                for (int ix = x - radius; ix <= x + radius; ix++) {
+                    for (int iy = y - radius; iy <= y + radius; iy++) {
+
+                        if (ix < 0 || iy < 0 || ix >= inputImage.getWidth() || iy >= inputImage.getHeight())
+                            continue;
+
+                        //TODO: blur
+                        Color rgb = new Color(inputImage.getRGB(ix, iy));
+                        red += Math.pow(rgb.getRed(), 2);
+                        green += Math.pow(rgb.getGreen(), 2);
+                        blue += Math.pow(rgb.getBlue(), 2);
+                        pixel++;
+
+                    }
+                }
+
+                double r = Math.sqrt(red / pixel) / 255.0;
+                double g = Math.sqrt(green / pixel)/ 255.0;
+                double b = Math.sqrt(blue / pixel) / 255.0;
+
+                double yellow = Math.min(r, g) * (1 - b); // TODO: find a function to find yellowness
                 //System.out.println(yellow);
                 if (yellow > .35) { //was 10
-                    outputImage.setRGB(x, y, new Color(0, 255, 0).getRGB());
+                    outputImage.setRGB(x, y, new Color(255, 0, 0).getRGB());
                     xSum += x;
                     ySum += y;
                     totalCount++;
 
                 } else {
-                    outputImage.setRGB(x, y, color.getRGB());
+                    outputImage.setRGB(x, y, inputImage.getRGB(x, y));
                 }
-//                Color color = new Color(inputImage.getRGB(x, y));
-//
-//
-//
-//                int green = color.getGreen();
-//                int red = color.getRed();
-//                int blue = color.getBlue();
-//
-//                double yellow = Math.min(red, green) / (blue + 0.1); // TODO: find a function to find yellowness
-//
-//                if (yellow > 1.4) {
-//                    outputImage.setRGB(x, y, 0x00FF00);
-//                    xSum += x;
-//                    ySum += y;
-//                    totalCount++;
-//                } else {
-//                    outputImage.setRGB(x, y, color.getRGB());
-//                }
+
             }
         }
 
