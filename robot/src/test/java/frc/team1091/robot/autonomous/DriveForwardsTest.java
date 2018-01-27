@@ -22,7 +22,7 @@ public class DriveForwardsTest {
         DifferentialDrive drive = mock(DifferentialDrive.class);
         EncoderWrapper encoder = mock(EncoderWrapper.class);
 
-        RobotComponents rc = new RobotComponents(null, null, null, encoder, null);
+        RobotComponents rc = new RobotComponents(null, null, null, null,null, null,null,null, encoder,null,null,null,null,null,null);
         RobotControlSystems sy = new RobotControlSystems(drive);
 
         when(encoder.get()).thenReturn(10);

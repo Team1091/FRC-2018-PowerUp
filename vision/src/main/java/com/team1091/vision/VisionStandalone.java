@@ -26,7 +26,7 @@ public class VisionStandalone {
             IpCamDeviceRegistry.register("RoboRioCam", "http://roborio-1091-frc.local:1181/stream.mjpg", IpCamMode.PUSH);
         }
 
-        Webcam webcam = Webcam.getWebcams().get(0);
+        Webcam webcam = Webcam.getWebcams().get(1);
         WebcamPanel panel = new WebcamPanel(webcam);
 
         panel.setPainter(new WebcamPanel.Painter() {

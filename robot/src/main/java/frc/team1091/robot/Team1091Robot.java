@@ -56,10 +56,9 @@ public class Team1091Robot {
     public void teleopPeriodic() {
         //Handle Driving the Robot
         manualDriveSystem.drive();
-        //Todo: Handle eating a box
-        //Todo: Handle barfing a box
-        //Todo: Hanlde Lifting
-        //Todo: Handle Climbing
+        //Todo: Handle borfing and eating a box
+        //Todo: Implement Lifting
+        //Todo: Implement Climbing
     }
 
     public void disabledInit() {

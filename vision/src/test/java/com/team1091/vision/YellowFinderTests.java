@@ -35,12 +35,12 @@ public class YellowFinderTests {
                 float red = (float) color.getRed() / 255f;
                 float blue = (float) color.getBlue() / 255f + 0.001f;
 
-                float yellow = Math.min(red, green) / blue; // TODO: find a function to find yellowness
-                //System.out.println(yellow);
-                if (yellow > 100) { //was 10
+                float yellow = Math.min(red, green) * (1 - blue); // TODO: find a function to find yellowness
+                System.out.println(yellow);
+                if (yellow < .4 && yellow > .35) { //was 10
                     outputImage.setRGB(x, y, new Color(0, 255, 0).getRGB());
                 } else {
-                    outputImage.setRGB(x, y, color.getRGB());
+                    outputImage.setRGB(x,y, color.getRGB());
                 }
             }
         }
