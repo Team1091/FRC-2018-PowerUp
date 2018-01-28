@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 import static spark.Spark.get;
 import static spark.Spark.port;
@@ -26,7 +27,8 @@ public class VisionStandalone {
             IpCamDeviceRegistry.register("RoboRioCam", "http://roborio-1091-frc.local:1181/stream.mjpg", IpCamMode.PUSH);
         }
 
-        Webcam webcam = Webcam.getWebcams().get(1);
+        List<Webcam> webcams = Webcam.getWebcams();
+        Webcam webcam = webcams.get(webcams.size() - 1);
         WebcamPanel panel = new WebcamPanel(webcam);
 
         panel.setPainter(new WebcamPanel.Painter() {
@@ -124,7 +126,6 @@ public class VisionStandalone {
                         if (ix < 0 || iy < 0 || ix >= inputImage.getWidth() || iy >= inputImage.getHeight())
                             continue;
 
-                        //TODO: blur
                         Color rgb = new Color(inputImage.getRGB(ix, iy));
                         red += Math.pow(rgb.getRed(), 2);
                         green += Math.pow(rgb.getGreen(), 2);
@@ -135,7 +136,7 @@ public class VisionStandalone {
                 }
 
                 double r = Math.sqrt(red / pixel) / 255.0;
-                double g = Math.sqrt(green / pixel)/ 255.0;
+                double g = Math.sqrt(green / pixel) / 255.0;
                 double b = Math.sqrt(blue / pixel) / 255.0;
 
                 double yellow = Math.min(r, g) * (1 - b); // TODO: find a function to find yellowness

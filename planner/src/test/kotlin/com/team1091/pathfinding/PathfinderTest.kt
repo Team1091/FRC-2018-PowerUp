@@ -23,10 +23,10 @@ class PathfinderTest {
 
         val fieldMap = Matrix2d<Double>(xSize, ySize, { x, y ->
 
-            val d : Double = obstacles.map { it.minDist(Vec2[x, y]) }.min()!!
-            if(d <= 0){
-                 Double.MAX_VALUE
-            } else if(d > safeDist ){
+            val d: Double = obstacles.map { it.minDist(Vec2[x, y]) }.min()!!
+            if (d <= 0) {
+                Double.MAX_VALUE
+            } else if (d > safeDist) {
                 1.0
             } else {
                 2 * (1 - (d / safeDist)) + 1
@@ -36,20 +36,17 @@ class PathfinderTest {
         })
 
 
-
-
-
         val start = Vec2(1, 1)
         val end = Vec2(16, 5)
 
         val path = findPath(fieldMap, start, end)
 
-        for (ym in 1..fieldMap.ySize){
+        for (ym in 1..fieldMap.ySize) {
             val y = fieldMap.ySize - ym
-            for (x in 0..fieldMap.xSize-1){
+            for (x in 0..fieldMap.xSize - 1) {
                 val value = Math.min(Math.round(fieldMap[x, y]), 9)
 
-                if (path?.contains(Vec2[x, y])?:false){
+                if (path?.contains(Vec2[x, y]) ?: false) {
                     print("X ")
                 } else {
                     print(value.toString() + " ")

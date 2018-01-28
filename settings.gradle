@@ -1,1 +1,1 @@
-include "vision", "robot", "spherical", "planner"
+include "vision", "robot", "peripheral", "planner"

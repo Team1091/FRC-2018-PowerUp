@@ -3,9 +3,10 @@ package frc.team1091.robot;
 public class LiftSystem {
     private RobotComponents robotComponents;
 
-    public LiftSystem (RobotComponents robotComponents) {
+    public LiftSystem(RobotComponents robotComponents) {
         this.robotComponents = robotComponents;
     }
+
     public void controlLift() {
         //Determine which way we need to go
         Boolean upButtonPressed = robotComponents.xboxController.getRawButton(Xbox.rb);

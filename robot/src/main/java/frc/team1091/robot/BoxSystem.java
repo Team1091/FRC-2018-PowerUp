@@ -6,11 +6,12 @@ public class BoxSystem {
 
     private BoxConsumptionState currentState;
 
-    public BoxSystem (RobotComponents robotComponents) {
+    public BoxSystem(RobotComponents robotComponents) {
         currentState = BoxConsumptionState.Idle;
         this.robotComponents = robotComponents;
     }
-    public void ingestBox(){
+
+    public void ingestBox() {
 
         switch (currentState) {
             case Idle:
@@ -28,7 +29,7 @@ public class BoxSystem {
                 closeGate();
                 break;
             case ClosingGate:
-                if (isGateClosed()){
+                if (isGateClosed()) {
                     gateClosed();
                 }
                 break;
@@ -38,35 +39,41 @@ public class BoxSystem {
         //lift the platform at an angle and bring to drop box
     }
 
-    public boolean isBoxIngested(){
+    public boolean isBoxIngested() {
         int averageRaw = robotComponents.ultraSonicAnalogInput.getAverageValue();
         boolean boxIngested = averageRaw >= stopBoxIngestionAtValue;
         return boxIngested;
     }
-    public boolean canIngestBox(){
+
+    public boolean canIngestBox() {
         boolean boxIngested = isBoxIngested();
         boolean isInPickupPosition = robotComponents.pickUpPositionDigitalInput.get();
         return !boxIngested && isInPickupPosition;
     }
-    public void startIngestingBox (){
+
+    public void startIngestingBox() {
         currentState = BoxConsumptionState.IngestingBox;
         robotComponents.suckerMotor.set(1);
     }
-    public void finishedIngestingBox (){
+
+    public void finishedIngestingBox() {
         currentState = BoxConsumptionState.IngestedBox;
         robotComponents.suckerMotor.set(0);
     }
-    public void closeGate (){
-            currentState = BoxConsumptionState.ClosingGate;
-            //Keep moving motor to close
-            robotComponents.gateMotor.set(.8);
+
+    public void closeGate() {
+        currentState = BoxConsumptionState.ClosingGate;
+        //Keep moving motor to close
+        robotComponents.gateMotor.set(.8);
     }
-    public void gateClosed (){
+
+    public void gateClosed() {
         currentState = BoxConsumptionState.Idle;
         //Stop moving motor
         robotComponents.gateMotor.set(0);
     }
-    public boolean isGateClosed (){
+
+    public boolean isGateClosed() {
         boolean gateIsClosed = robotComponents.gateClosePositionDigitalInput.get();
         return gateIsClosed;
     }

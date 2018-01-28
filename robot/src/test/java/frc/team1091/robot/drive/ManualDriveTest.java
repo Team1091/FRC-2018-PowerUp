@@ -16,7 +16,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null,null,null, null,null,null,null,null,null,null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         RobotControlSystems sy = new RobotControlSystems(drive);
 
         when(joystick.getRawAxis(0)).thenReturn(0.0);
@@ -37,7 +37,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null,null, null,null,null, null, null,null,null,null,null,null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         RobotControlSystems sy = new RobotControlSystems(drive);
 
 
@@ -59,7 +59,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null,null,null,null,null,null,null,null,null,null,null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         RobotControlSystems sy = new RobotControlSystems(drive);
 
 
@@ -81,7 +81,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null,null, null,null,null,null,null,null,null,null,null,null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
         RobotControlSystems sy = new RobotControlSystems(drive);
 
 

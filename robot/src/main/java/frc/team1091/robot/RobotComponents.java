@@ -11,18 +11,18 @@ public class RobotComponents {
                 new Victor(0),
                 new Victor(1),
                 new Victor(2),
-                new Victor (3),
-                new Victor (4),
-                new Victor (5),
-                new Victor (6),
+                new Victor(3),
+                new Victor(4),
+                new Victor(5),
+                new Victor(6),
                 new EncoderWrapper(new Encoder(2, 3)),
                 new EncoderWrapper(new Encoder(4, 5)),
-                new EncoderWrapper(new Encoder(6,7)),
+                new EncoderWrapper(new Encoder(6, 7)),
                 new DigitalInput(8),
                 new DigitalInput(9),
                 new DigitalInput(10),
-                new DigitalInput (11),
-                new AnalogInput (12));
+                new DigitalInput(11),
+                new AnalogInput(12));
     }
 
     public RobotComponents(Joystick xboxController,
@@ -40,8 +40,7 @@ public class RobotComponents {
                            DigitalInput gateClosePositionDigitalInput,
                            DigitalInput dropBoxPositionDigitalInput,
                            DigitalInput elevatorDigitalInput,
-                           AnalogInput ultraSonicAnalogInput)
-    {
+                           AnalogInput ultraSonicAnalogInput) {
         this.xboxController = xboxController;
         this.leftMotor = frontLeftMotor;
         this.rightMotor = frontRightMotor;

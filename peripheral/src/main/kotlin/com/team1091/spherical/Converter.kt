@@ -34,7 +34,7 @@ fun main(args: Array<String>) {
         val currentTime = System.nanoTime()
 
         if (currentTime - lastTimeNs >= second) {
-            println("fps $frames " + if(exists) "x: $avgX y: $avgY" else "Can't see the cube" )
+            println("fps $frames " + if (exists) "x: $avgX y: $avgY" else "Can't see the cube")
             frames = 0
             lastTimeNs += second
         }

@@ -3,19 +3,21 @@ package frc.team1091.robot;
 public class GateSystem {
     private RobotComponents robotComponents;
     private GateSystemState currentState;
-    public GateSystem (RobotComponents components){
+
+    public GateSystem(RobotComponents components) {
         robotComponents = components;
     }
-    public void controlGate (){
+
+    public void controlGate() {
         boolean shouldMoveUp = robotComponents.xboxController.getRawAxis(Xbox.rt) > 0;
         boolean shouldMoveDown = robotComponents.xboxController.getRawAxis(Xbox.lt) > 0;
-        switch (currentState){
+        switch (currentState) {
             case Idle:
                 if (shouldMoveUp) {
                     // start moving gate up
                     moveUp();
                 }
-                if (shouldMoveDown){
+                if (shouldMoveDown) {
                     // start moving gate down
                 }
                 break;
@@ -25,7 +27,8 @@ public class GateSystem {
                 break;
         }
     }
-    public void moveUp (){
+
+    public void moveUp() {
         currentState = GateSystemState.MovingUp;
         robotComponents.gateMotor.set(1);
     }

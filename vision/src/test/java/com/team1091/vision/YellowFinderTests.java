@@ -20,8 +20,6 @@ public class YellowFinderTests {
                 float saturation = 1.0f; //saturation
                 float brightness = (float) y / (float) inputImage.getHeight(); //brightness
                 inputImage.setRGB(x, y, Color.getHSBColor(hue, saturation, brightness).getRGB());
-
-
             }
         }
         BufferedImage outputImage = new BufferedImage(inputImage.getWidth(), inputImage.getHeight(),
@@ -30,17 +28,19 @@ public class YellowFinderTests {
 
         for (int x = 0; x < inputImage.getWidth(); x++) {
             for (int y = 0; y < inputImage.getHeight(); y++) {
+
                 Color color = new Color(inputImage.getRGB(x, y));
                 float green = (float) color.getGreen() / 255f;
                 float red = (float) color.getRed() / 255f;
                 float blue = (float) color.getBlue() / 255f + 0.001f;
 
                 float yellow = Math.min(red, green) * (1 - blue); // TODO: find a function to find yellowness
-                System.out.println(yellow);
+//                System.out.println(yellow);
+
                 if (yellow < .4 && yellow > .35) { //was 10
                     outputImage.setRGB(x, y, new Color(0, 255, 0).getRGB());
                 } else {
-                    outputImage.setRGB(x,y, color.getRGB());
+                    outputImage.setRGB(x, y, color.getRGB());
                 }
             }
         }
