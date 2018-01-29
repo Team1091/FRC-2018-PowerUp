@@ -1,4 +1,4 @@
-package com.stewsters.pathfinding
+package com.team1091.math
 
 class Matrix2d<T>(val xSize: Int, val ySize: Int, private val data: Array<T>) {
 

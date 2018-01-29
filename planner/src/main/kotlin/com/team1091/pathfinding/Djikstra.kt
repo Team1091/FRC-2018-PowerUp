@@ -1,4 +1,7 @@
-package com.stewsters.pathfinding
+package com.team1091.pathfinding
+
+import com.team1091.math.Matrix2d
+import com.team1091.math.Vec2
 
 fun findPath(field: Matrix2d<Double>, start: Vec2, end: Vec2): List<Vec2>? {
 

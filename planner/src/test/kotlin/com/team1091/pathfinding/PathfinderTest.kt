@@ -1,4 +1,8 @@
-import com.stewsters.pathfinding.*
+import com.team1091.math.Matrix2d
+import com.team1091.math.Rectangle
+import com.team1091.math.Vec2
+import com.team1091.math.getManhattanDistance
+import com.team1091.pathfinding.findPath
 import org.junit.Test
 
 class PathfinderTest {
@@ -14,6 +18,7 @@ class PathfinderTest {
         val obstacles = listOf(
                 Rectangle(Vec2[5, 5], Vec2[15, 10]), // switch
                 Rectangle(Vec2[5, 15], Vec2[15, 16]), // scale
+
                 Rectangle(Vec2[0, ySize], Vec2[xSize, ySize]), // Top of field
                 Rectangle(Vec2[xSize, -1], Vec2[xSize, ySize]), //Right of field
                 Rectangle(Vec2[-1, -1], Vec2[xSize, -1]), //Bottom of field

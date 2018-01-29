@@ -1,4 +1,4 @@
-package com.stewsters.spherical
+package com.team1091.peripheral
 
 import com.github.sarxos.webcam.Webcam
 import com.github.sarxos.webcam.ds.v4l4j.V4l4jDriver
@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
     val http: Http = ignite()
     http.port(5805)
     http.get("/") {
-        "$avgX,$avgY"
+        "${avgX},${avgY}"
     }
 
     var lastTimeNs = System.nanoTime()
@@ -34,7 +34,7 @@ fun main(args: Array<String>) {
         val currentTime = System.nanoTime()
 
         if (currentTime - lastTimeNs >= second) {
-            println("fps $frames " + if (exists) "x: $avgX y: $avgY" else "Can't see the cube")
+            println("fps $frames " + if (exists) "x: ${avgX} y: ${avgY}" else "Can't see the cube")
             frames = 0
             lastTimeNs += second
         }

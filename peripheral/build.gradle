@@ -17,7 +17,7 @@ plugins {
 group 'com.team1091'
 version '1.0'
 
-mainClassName = "com.stewsters.spherical.ConverterKt"
+mainClassName = "com.team1091.peripheral.PeripheralVisionKt"
 sourceCompatibility = 1.8
 
 repositories {

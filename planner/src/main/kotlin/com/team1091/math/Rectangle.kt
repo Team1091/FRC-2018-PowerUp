@@ -1,4 +1,4 @@
-package com.stewsters.pathfinding
+package com.team1091.math
 
 import java.lang.Math.abs
 

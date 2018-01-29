@@ -1,4 +1,4 @@
-package com.stewsters.pathfinding
+package com.team1091.math
 
 data class Vec2(val x: Int, val y: Int) {
 
@@ -13,7 +13,7 @@ data class Vec2(val x: Int, val y: Int) {
         private val offset = 4
         private val size: Int = 32
         private val actualSize = size + 2 * offset
-        private val pool = Array((actualSize * actualSize), { i -> Vec2(i % actualSize - offset, i / actualSize - offset) })
+        private val pool = Array((actualSize * actualSize), { i -> Vec2(i % (actualSize) - offset, i / actualSize - offset) })
 
         operator fun get(x: Int, y: Int): Vec2 {
 
