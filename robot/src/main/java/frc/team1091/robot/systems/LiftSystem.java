@@ -1,4 +1,7 @@
-package frc.team1091.robot;
+package frc.team1091.robot.systems;
+
+import frc.team1091.robot.RobotComponents;
+import frc.team1091.robot.Xbox;
 
 public class LiftSystem {
     private RobotComponents robotComponents;

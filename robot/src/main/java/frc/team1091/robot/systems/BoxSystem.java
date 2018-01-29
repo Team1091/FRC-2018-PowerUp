@@ -1,4 +1,6 @@
-package frc.team1091.robot;
+package frc.team1091.robot.systems;
+
+import frc.team1091.robot.RobotComponents;
 
 public class BoxSystem {
     private final double stopBoxIngestionAtValue = 3;
