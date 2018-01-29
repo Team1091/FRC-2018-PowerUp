@@ -6,8 +6,8 @@ import frc.team1091.robot.Xbox;
 public class ClimbSystem {
     private RobotComponents robotComponents;
 
-    public ClimbSystem(RobotComponents robotCompenents) {
-        this.robotComponents = robotCompenents;
+    public ClimbSystem(RobotComponents robotComponents) {
+        this.robotComponents = robotComponents;
     }
 
     //while button held, climb up

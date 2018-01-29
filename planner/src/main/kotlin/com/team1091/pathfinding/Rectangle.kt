@@ -10,7 +10,7 @@ class Rectangle(val lower: Vec2, val upper: Vec2) {
 
     fun minDist(point: Vec2): Double {
         if (inside(point)) {
-            return 0.0;
+            return 0.0
         } else if (point.x >= lower.x && point.x <= upper.x) {
             // X is centered
             if (point.y > upper.y) {
@@ -37,7 +37,7 @@ class Rectangle(val lower: Vec2, val upper: Vec2) {
         } else if (point.x < lower.x && point.y < lower.y) { // lower left
             return getEuclideanDistance(point, Vec2(lower.x, lower.y))
         } else {
-            return -1.0;//throw Exception("That's not good")
+            return -1.0//throw Exception("That's not good")
         }
 
 

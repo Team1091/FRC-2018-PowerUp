@@ -1,6 +1,6 @@
 package com.stewsters.pathfinding
 
-class Matrix2d<T>(val xSize: Int, val ySize: Int, val data: Array<T>) {
+class Matrix2d<T>(val xSize: Int, val ySize: Int, private val data: Array<T>) {
 
     operator fun get(p: Vec2): T = get(p.x, p.y)
 

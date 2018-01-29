@@ -5,9 +5,9 @@ import com.github.sarxos.webcam.ds.v4l4j.V4l4jDriver
 import spark.kotlin.Http
 import spark.kotlin.ignite
 
-var exists = false;
-var avgX: Double = 0.0;
-var avgY: Double = 0.0;
+var exists = false
+var avgX: Double = 0.0
+var avgY: Double = 0.0
 
 fun main(args: Array<String>) {
 
@@ -28,7 +28,7 @@ fun main(args: Array<String>) {
     }
 
     var lastTimeNs = System.nanoTime()
-    var frames = 0;
+    var frames = 0
 
     while (true) {
         val currentTime = System.nanoTime()
@@ -44,7 +44,7 @@ fun main(args: Array<String>) {
             var xSum = 0
             var ySum = 0
             var yellowPixelCount = 0
-            frames++;
+            frames++
             for (x in 0..image.width - 1) {
                 for (y in 0..image.height - 1) {
                     val rgb = image.getRGB(x, y)

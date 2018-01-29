@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 /**
  * This is used to find illuminated tape targets
@@ -12,7 +11,7 @@ import java.io.IOException;
 public class ImageCenterTests {
 
     @Test
-    public void testBlackImage() throws IOException {
+    public void testBlackImage() {
         // TODO: Test that the a pure black image does not cause the program to crash
         BufferedImage bi = generateColoredImage(10, 10, Color.BLACK);
 
@@ -24,7 +23,7 @@ public class ImageCenterTests {
 
 
     @Test
-    public void testGreenImage() throws IOException {
+    public void testGreenImage() {
         // TODO: Test that the a pure green image does not cause the program to crash
         BufferedImage bi = generateColoredImage(100, 100, Color.GREEN);
 

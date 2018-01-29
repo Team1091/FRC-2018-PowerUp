@@ -18,7 +18,7 @@ public class Planner {
         DriverStation driverStation = DriverStation.getInstance();
         DriverStation.Alliance alliance = driverStation.getAlliance();
 
-        // I think this is where we are starting this year, could be only the driverstation tho
+        // I think this is where we are starting this year, could be only the driver station tho
 //        int driverStationLocation = driverStation.getLocation();
 
         // http://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details

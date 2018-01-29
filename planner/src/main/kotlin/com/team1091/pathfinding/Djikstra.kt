@@ -2,8 +2,8 @@ package com.stewsters.pathfinding
 
 fun findPath(field: Matrix2d<Double>, start: Vec2, end: Vec2): List<Vec2>? {
 
-    val costs = Matrix2d<Double>(field.xSize, field.ySize, { _, _ -> Double.MAX_VALUE })
-    costs[start] = 0.0;
+    val costs = Matrix2d(field.xSize, field.ySize, { _, _ -> Double.MAX_VALUE })
+    costs[start] = 0.0
     val parent = Matrix2d<Vec2?>(field.xSize, field.ySize, { _, _ -> null })
 
     val openSet = mutableListOf<Vec2>()

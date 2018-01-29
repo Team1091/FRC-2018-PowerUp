@@ -11,7 +11,7 @@ import java.io.IOException;
 public class BlurTest {
 
     @Test
-    public void testBluring() throws IOException {
+    public void testBlurring() throws IOException {
 
         BufferedImage inputImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = inputImage.createGraphics();
