@@ -1,9 +1,9 @@
 package frc.team1091.robot;
 
-public class climbSystem {
+public class ClimbSystem {
     private RobotComponents robotComponents;
 
-    public climbSystem(RobotComponents robotCompenents) {
+    public ClimbSystem(RobotComponents robotCompenents) {
         this.robotComponents = robotCompenents;
     }
 
