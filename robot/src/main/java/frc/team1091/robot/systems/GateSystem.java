@@ -5,40 +5,88 @@ import frc.team1091.robot.Xbox;
 
 public class GateSystem {
     private RobotComponents robotComponents;
-    private GateSystemState currentState;
+    private GateSystemState nextState;
+
+    private final double gateTravelSpeed = .25;
+    private final double xboxTriggerPressedTolerance = .2;
 
     public GateSystem(RobotComponents components) {
         robotComponents = components;
     }
 
     public void controlGate() {
-        boolean shouldMoveUp = robotComponents.xboxController.getRawAxis(Xbox.rt) > 0;
-        boolean shouldMoveDown = robotComponents.xboxController.getRawAxis(Xbox.lt) > 0;
-        switch (currentState) {
-            case Idle:
-                if (shouldMoveUp) {
-                    // start moving gate up
-                    moveUp();
-                }
-                if (shouldMoveDown) {
-                    // start moving gate down
-                }
+        UpdatePositionFromConrollerInput();
+        switch (nextState) {
+            case GateUp:
+                MoveToGateUp();
                 break;
-            case MovingDown:
+            case DropPosition:
+                MoveToDrop();
                 break;
-            case MovingUp:
+            case PickupPosition:
+                MoveGateToPickup();
                 break;
         }
     }
 
-    public void moveUp() {
-        currentState = GateSystemState.MovingUp;
-        robotComponents.gateMotor.set(1);
+    public void SetGatePosition(GateSystemState moveTo){
+        nextState = moveTo;
+    }
+
+    public void UpdatePositionFromConrollerInput(){
+        boolean goToClosed = robotComponents.xboxController.getRawAxis(Xbox.rt) > xboxTriggerPressedTolerance;
+        boolean goToPickup = robotComponents.xboxController.getRawAxis(Xbox.lt) > xboxTriggerPressedTolerance;
+        boolean goToDrop = goToClosed && goToPickup;
+
+        if(goToDrop) {
+            SetGatePosition(GateSystemState.DropPosition);
+            return;
+        }
+
+        if(goToClosed) {
+            SetGatePosition(GateSystemState.GateUp);
+            return;
+        }
+
+        if(goToPickup) {
+            SetGatePosition(GateSystemState.PickupPosition);
+        }
+    }
+
+    public void MoveToGateUp(){
+        if(robotComponents.gateClosePositionDigitalInput.get()) {
+            robotComponents.gateMotor.set(0);
+            return;
+        }
+
+        robotComponents.gateMotor.set(gateTravelSpeed);
+    }
+
+    public void MoveGateToPickup(){
+        if(robotComponents.pickUpPositionDigitalInput.get()) {
+            robotComponents.gateMotor.set(0);
+            return;
+        }
+
+        if(robotComponents.gateClosePositionDigitalInput.get()){
+            robotComponents.gateMotor.set(-1 * gateTravelSpeed);
+        }
+
+        robotComponents.gateMotor.set(gateTravelSpeed);
+    }
+
+    public void MoveToDrop(){
+        if(robotComponents.dropBoxPositionDigitalInput.get()) {
+            robotComponents.gateMotor.set(0);
+            return;
+        }
+
+        robotComponents.gateMotor.set(-1 * gateTravelSpeed);
     }
 }
 
 enum GateSystemState {
-    Idle,
-    MovingDown,
-    MovingUp
+    GateUp,
+    DropPosition,
+    PickupPosition
 }
