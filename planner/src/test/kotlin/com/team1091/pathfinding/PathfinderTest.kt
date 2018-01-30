@@ -1,5 +1,8 @@
 import com.team1091.math.*
 import com.team1091.pathfinding.findPath
+import com.team1091.planning.EndingPos
+import com.team1091.planning.StartingPos
+import com.team1091.planning.makePath
 import org.junit.Test
 
 class PathfinderTest {
@@ -19,8 +22,7 @@ class PathfinderTest {
         val obstacles = listOf<Obstacle>(
                 Rectangle(Vec2[5, 5], Vec2[15, 10]), // switch
                 Rectangle(Vec2[5, 15], Vec2[15, 20]), // scale
-
-                InverseRectangle(Vec2[0, 0], Vec2[xSize, ySize])
+                InverseRectangle(Vec2[0, 0], Vec2[xSize, ySize]) // playing field
         )
 
         // This represents the cost to travel as a scalar field.  Keeping ourselves away from the edges
@@ -52,6 +54,20 @@ class PathfinderTest {
         assert(path?.size == getManhattanDistance(start, end) + 1)
 
         path?.forEach { println(it) }
+    }
+
+
+    @Test
+    fun testPathMaker() {
+
+        val start = StartingPos.CENTER
+        val end = EndingPos.RIGHT_SWITCH
+
+        var path = makePath(start, end, listOf())
+
+        assert(path?.first() == start.pos)
+        assert(path?.last() == end.pos)
+
     }
 
 

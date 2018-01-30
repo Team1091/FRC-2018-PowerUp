@@ -28,4 +28,22 @@ class MathTest {
             }
         }
     }
+
+
+    @Test
+    fun test3dMatrix() {
+
+        val matrix = Matrix3d<Vec3>(10, 10, 10, { x, y, z -> Vec3[x, y, z] });
+
+        for (x in 0 until 10) {
+            for (y in 0 until 10) {
+                for (z in 0 until 10) {
+
+                    println("$x, $y, $z :" + matrix[x, y, z].toString())
+                    assert(matrix[x, y, z] == Vec3[x, y, z])
+                }
+            }
+        }
+
+    }
 }
