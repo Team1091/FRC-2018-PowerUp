@@ -1,0 +1,4 @@
+.indicators #status{
+    border-radius: 1em;
+    background-color: red;
+}

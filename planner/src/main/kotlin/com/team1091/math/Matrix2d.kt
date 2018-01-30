@@ -14,17 +14,14 @@ class Matrix2d<T>(val xSize: Int, val ySize: Int, private val data: Array<T>) {
         data[x + y * xSize] = value
     }
 
-    fun contains(p: Vec2): Boolean {
-        return contains(p.x, p.y)
-    }
+    fun contains(p: Vec2): Boolean = contains(p.x, p.y)
 
-    fun contains(x: Int, y: Int): Boolean {
-        return !outside(x, y)
-    }
+    fun contains(x: Int, y: Int): Boolean = !outside(x, y)
 
-    fun outside(x: Int, y: Int): Boolean {
-        return (x < 0 || y < 0 || x >= xSize || y >= ySize)
-    }
+    fun outside(p: Vec2): Boolean = outside(p.x, p.y)
+
+    fun outside(x: Int, y: Int): Boolean = (x < 0 || y < 0 || x >= xSize || y >= ySize)
+
 }
 
 inline fun <reified T> Matrix2d(xSize: Int, ySize: Int, init: (Int, Int) -> T) =

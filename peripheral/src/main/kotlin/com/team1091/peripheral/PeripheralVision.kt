@@ -2,12 +2,15 @@ package com.team1091.peripheral
 
 import com.github.sarxos.webcam.Webcam
 import com.github.sarxos.webcam.ds.v4l4j.V4l4jDriver
+import com.google.gson.Gson
 import spark.kotlin.Http
 import spark.kotlin.ignite
+import javax.imageio.ImageIO
 
-var exists = false
-var avgX: Double = 0.0
-var avgY: Double = 0.0
+data class Status(var avgX: Double = 0.0, var avgY: Double = 0.0, var exists: Boolean = false)
+
+val currentStatus: Status = Status()
+val gson = Gson()
 
 fun main(args: Array<String>) {
 
@@ -22,9 +25,23 @@ fun main(args: Array<String>) {
 
 
     val http: Http = ignite()
+    http.staticFiles.location("/html")
     http.port(5805)
+
     http.get("/") {
-        "${avgX},${avgY}"
+        gson.toJson(currentStatus)
+    }
+
+    // This is not terribly efficient, but we need to see the image for calibration purposes.
+    http.get("/test.png") {
+        // Make sure we don't cache it in the browser
+        with(response) {
+            header("Cache-Control", "no-cache, no-store, must-revalidate")
+            header("Pragma", "no-cache")
+            header("Expires", "0")
+        }
+
+        ImageIO.write(webcam.image, "PNG", response.raw().outputStream)
     }
 
     var lastTimeNs = System.nanoTime()
@@ -34,7 +51,12 @@ fun main(args: Array<String>) {
         val currentTime = System.nanoTime()
 
         if (currentTime - lastTimeNs >= second) {
-            println("fps $frames " + if (exists) "x: ${avgX} y: ${avgY}" else "Can't see the cube")
+            if (currentStatus.exists) {
+                println("fps $frames x: ${currentStatus.avgX} y: ${currentStatus.avgY}")
+            } else {
+                println("fps $frames Can't see the cube")
+            }
+
             frames = 0
             lastTimeNs += second
         }
@@ -64,13 +86,17 @@ fun main(args: Array<String>) {
             }
 
             if (yellowPixelCount > 0) {
-                avgX = (xSum.toDouble() / yellowPixelCount.toDouble()) / image.width
-                avgY = (ySum.toDouble() / yellowPixelCount.toDouble()) / image.height
-                exists = true
+                with(currentStatus) {
+                    avgX = (xSum.toDouble() / yellowPixelCount.toDouble()) / image.width
+                    avgY = (ySum.toDouble() / yellowPixelCount.toDouble()) / image.height
+                    exists = true
+                }
             } else {
-                avgX = 0.5
-                avgY = 0.5
-                exists = false
+                with(currentStatus) {
+                    avgX = 0.5
+                    avgY = 0.5
+                    exists = false
+                }
             }
         }
     }

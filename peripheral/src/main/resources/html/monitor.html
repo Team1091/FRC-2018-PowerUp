@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <title>Peripheral Vision System</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+
+<body>
+<h1>Peripheral Vision System Calibration</h1>
+
+<div class="indicators">
+    <div id="status">#</div>
+</div>
+
+
+<div>
+    <img src="/test.png" id="camera-image" onload="updateImage()">
+</div>
+</body>
+
+<script type="application/javascript">
+
+    // Reloads the image after its loaded.  This kinda hammers the server
+    function updateImage() {
+        document.getElementById("camera-image").src = "/test.png";
+    }
+
+    function updateStats(){
+        //document.
+    }
+
+</script>
+</html>
