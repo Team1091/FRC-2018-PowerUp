@@ -23,17 +23,9 @@ public class LiftSystem {
         if (upButtonPressed) {
             robotComponents.gateMotor.set(0.25);
         }
-        //else stop lifting
-    /*    else {
-            robotComponents.lifterMotor.set(0);
-        }*/
         //Move motor left
         if (downButtonPressed) {
             robotComponents.gateMotor.set(-0.25);
         }
-        //else stop lifting
-  /*      else {
-            robotComponents.lifterMotor.set(0);
-        }*/
     }
 }
