@@ -3,7 +3,7 @@ package com.team1091.pathfinding
 import com.team1091.math.Matrix2d
 import com.team1091.math.Vec2
 
-fun findPath(field: Matrix2d<Double>, start: Vec2, end: Vec2): List<Vec2>? {
+fun findPath2d(field: Matrix2d<Double>, start: Vec2, end: Vec2): List<Vec2>? {
 
     val costs = Matrix2d(field.xSize, field.ySize, { _, _ -> Double.MAX_VALUE })
     costs[start] = 0.0

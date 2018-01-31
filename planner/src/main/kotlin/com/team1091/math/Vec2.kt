@@ -32,10 +32,10 @@ data class Vec2(val x: Int, val y: Int) {
     }
 
     fun vonNeumanNeighborhood(): List<Vec2> = listOf(
-            Vec2(x, y + 1),
-            Vec2(x + 1, y),
-            Vec2(x, y - 1),
-            Vec2(x - 1, y)
+            Vec2[x, y + 1],
+            Vec2[x + 1, y],
+            Vec2[x, y - 1],
+            Vec2[x - 1, y]
     )
 
     fun mooreNeighborhood(): List<Vec2> = List(8, { index ->

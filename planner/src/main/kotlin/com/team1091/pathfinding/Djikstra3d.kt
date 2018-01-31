@@ -4,8 +4,9 @@ import com.team1091.math.Matrix2d
 import com.team1091.math.Matrix3d
 import com.team1091.math.Vec3
 import com.team1091.planning.Facing
+import java.lang.Math.abs
 
-fun findPath(field: Matrix2d<Double>, start: Vec3, end: Vec3): List<Vec3>? {
+fun findPath3d(field: Matrix2d<Double>, start: Vec3, end: Vec3): List<Vec3>? {
 
     val directions = Facing.values().size
     val costs = Matrix3d(field.xSize, field.ySize, directions, { _, _, _ -> Double.MAX_VALUE })
@@ -36,14 +37,29 @@ fun findPath(field: Matrix2d<Double>, start: Vec3, end: Vec3): List<Vec3>? {
         openSet.remove(cheapestNode)
 
         // get the neighbors
-        val neighbors = cheapestNode.vonNeumanNeighborhood() // TODO: we probably need to generate neighbors
+//        val neighbors = cheapestNode.vonNeumanNeighborhood() // TODO: we probably need to generate neighbors
+
+        val facing = Facing.values()[cheapestNode.z]
+        val facings = Facing.values().size
+        val neighbors = listOf(
+                Vec3[cheapestNode.x + facing.offset.x, cheapestNode.y + facing.offset.y, cheapestNode.z],
+                Vec3[cheapestNode.x-facing.offset.x, cheapestNode.y - facing.offset.y, cheapestNode.z],
+
+                // turn to loop
+                Vec3[cheapestNode.x, cheapestNode.y, (cheapestNode.z + 1) % facings],
+                Vec3[cheapestNode.x, cheapestNode.y, (cheapestNode.z - 1  + facings) % facings]
+        )
 
         //  for each point, set the cost, and a pointer back if we set the cost
         neighbors
                 .filter { field.contains(it.x, it.y) } // make sure we are on the field
                 .filter { field[it.x, it.y] < 100000 } // make sure we don't hit switches
                 .forEach {
-                    val nextCost = costs[cheapestNode] + field[it.x, it.y]// TODO: cost needs to include rotation
+                    val nextCost = costs[cheapestNode] + field[it.x, it.y] + abs(cheapestNode.z - it.z) * 4 // TODO: cost needs to include rotation
+
+
+                    if(costs.outside(it))
+                        println ("wha")
 
                     if (nextCost < costs[it]) {
                         costs[it] = nextCost

@@ -1,16 +1,14 @@
 package com.team1091.planning
 
 import com.team1091.math.*
-import com.team1091.pathfinding.findPath
+import com.team1091.pathfinding.findPath3d
 
-fun makePath(startingPos: StartingPos, endingPosition: EndingPos, playerObstacles: List<Rectangle>): List<Vec2>? {
+fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: List<Rectangle>): List<Vec3>? {
 
     val safeDist = 3
     val xSize = 25
     val ySize = 30 // we only go a little beyond half way
 
-    val start = startingPos.pos
-    val end = endingPosition.pos
 
     val obstacles = mutableListOf<Obstacle>(
             Rectangle(Vec2[5, 5], Vec2[15, 10]), // switch
@@ -32,5 +30,7 @@ fun makePath(startingPos: StartingPos, endingPosition: EndingPos, playerObstacle
         }
     })
 
-    return findPath(fieldMap, start, end)
+    return findPath3d(fieldMap,
+            Vec3[startingPos.pos.x, startingPos.pos.y, startingPos.facing.ordinal],
+            Vec3[endingPos.pos.x, endingPos.pos.y, endingPos.facing.ordinal])
 }
