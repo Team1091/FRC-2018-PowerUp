@@ -1,9 +1,11 @@
 package com.team1091.planning
 
 import com.team1091.math.*
+import com.team1091.pathfinding.Node
 import com.team1091.pathfinding.findPath3d
+import com.team1091.pathfinding.findPathSplit
 
-fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: List<Rectangle>): List<Vec3>? {
+fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: List<Rectangle>, alt:Boolean = false): List<Vec3>? {
 
     val safeDist = 3
     val xSize = 25
@@ -11,8 +13,8 @@ fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: Li
 
 
     val obstacles = mutableListOf<Obstacle>(
-            Rectangle(Vec2[5, 5], Vec2[15, 10]), // switch
-            Rectangle(Vec2[5, 15], Vec2[15, 20]), // scale
+            Rectangle(Vec2[6, 5], Vec2[15, 10]), // switch
+            Rectangle(Vec2[6, 15], Vec2[15, 20]), // scale
             InverseRectangle(Vec2[0, 0], Vec2[xSize, ySize])
     )
     obstacles.addAll(playerObstacles)
@@ -30,6 +32,11 @@ fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: Li
         }
     })
 
+    if(alt)
+        return findPathSplit(fieldMap,
+                Node(startingPos.pos, startingPos.facing),
+                Node(endingPos.pos, endingPos.facing)
+        )?.map{Vec3[it.x,it.y,0]}
     return findPath3d(fieldMap,
             Vec3[startingPos.pos.x, startingPos.pos.y, startingPos.facing.ordinal],
             Vec3[endingPos.pos.x, endingPos.pos.y, endingPos.facing.ordinal])

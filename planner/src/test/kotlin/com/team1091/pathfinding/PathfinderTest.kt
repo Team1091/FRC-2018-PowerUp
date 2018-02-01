@@ -64,19 +64,43 @@ class PathfinderTest {
 
 
     @Test
-    fun testPathMaker() {
+    fun testPathMakerWithTurns() {
 
-        val start = StartingPos.CENTER
-        val end = EndingPos.RIGHT_SWITCH
+        StartingPos.values().forEach { start ->
+            EndingPos.values().forEach { end ->
 
-        var path = makePath(start, end, listOf())
+                var path = makePath(start, end, listOf())
 
-        path?.forEach { println("x: ${it.x} y: ${it.y} ${Facing.values()[it.z]}" ) }
+                if (path == null) {
+                    println("No possible path, do a default action instead")
+                }
+                println("start ${start} end ${end}")
+                path?.forEach { println("x: ${it.x} y: ${it.y} ${Facing.values()[it.z]}") }
 
-//        assert(path?.first() == start.pos)
-//        assert(path?.last() == end.pos)
+            }
+        }
 
     }
+
+//
+//    @Test
+//    fun testPathMakerMk2WithTurns() {
+//
+//        StartingPos.values().forEach { start ->
+//            EndingPos.values().forEach { end ->
+//
+//                var path = makePath(start, end, listOf(),true)
+//
+//                if (path == null) {
+//                    println("No possible path, do a default action instead")
+//                }
+//                println("start ${start} end ${end}")
+//                path?.forEach { println("x: ${it.x} y: ${it.y} ${Facing.values()[it.z]}") }
+//
+//            }
+//        }
+//
+//    }
 
     @Test
     fun testNeighbors() {

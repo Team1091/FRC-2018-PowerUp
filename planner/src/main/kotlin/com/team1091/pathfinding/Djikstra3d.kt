@@ -43,11 +43,11 @@ fun findPath3d(field: Matrix2d<Double>, start: Vec3, end: Vec3): List<Vec3>? {
         val facings = Facing.values().size
         val neighbors = listOf(
                 Vec3[cheapestNode.x + facing.offset.x, cheapestNode.y + facing.offset.y, cheapestNode.z],
-                Vec3[cheapestNode.x-facing.offset.x, cheapestNode.y - facing.offset.y, cheapestNode.z],
+                Vec3[cheapestNode.x - facing.offset.x, cheapestNode.y - facing.offset.y, cheapestNode.z],
 
                 // turn to loop
                 Vec3[cheapestNode.x, cheapestNode.y, (cheapestNode.z + 1) % facings],
-                Vec3[cheapestNode.x, cheapestNode.y, (cheapestNode.z - 1  + facings) % facings]
+                Vec3[cheapestNode.x, cheapestNode.y, (cheapestNode.z - 1 + facings) % facings]
         )
 
         //  for each point, set the cost, and a pointer back if we set the cost
@@ -55,11 +55,7 @@ fun findPath3d(field: Matrix2d<Double>, start: Vec3, end: Vec3): List<Vec3>? {
                 .filter { field.contains(it.x, it.y) } // make sure we are on the field
                 .filter { field[it.x, it.y] < 100000 } // make sure we don't hit switches
                 .forEach {
-                    val nextCost = costs[cheapestNode] + field[it.x, it.y] + abs(cheapestNode.z - it.z) * 4 // TODO: cost needs to include rotation
-
-
-                    if(costs.outside(it))
-                        println ("wha")
+                    val nextCost = costs[cheapestNode] + field[it.x, it.y] + abs(cheapestNode.z - it.z) * 4
 
                     if (nextCost < costs[it]) {
                         costs[it] = nextCost
