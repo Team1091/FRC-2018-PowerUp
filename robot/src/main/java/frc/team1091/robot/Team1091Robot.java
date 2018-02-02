@@ -2,34 +2,30 @@ package frc.team1091.robot;
 
 import frc.team1091.robot.autonomous.Planner;
 import frc.team1091.robot.autonomous.commands.Command;
-import frc.team1091.robot.drive.AutonomousDriveSystem;
-import frc.team1091.robot.drive.ManualDriveSystem;
+import frc.team1091.robot.systems.AutonomousSystem;
+import frc.team1091.robot.systems.DriveSystem;
 
 public class Team1091Robot {
     // Robot components
     private RobotComponents components;
 
     // Control Systems
-    private RobotControlSystems controlSystem;
-    private AutonomousDriveSystem autonomousDriveSystem;
-    private ManualDriveSystem manualDriveSystem;
+    private AutonomousSystem autonomousSystem;
+    private DriveSystem driveSystem;
 
     public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();
-        RobotControlSystems sy = RobotControlSystems.getDefaultInstance(rc);
         return new Team1091Robot(
                 rc,
-                sy,
-                new AutonomousDriveSystem(),
-                new ManualDriveSystem(rc, sy)
+                new AutonomousSystem(),
+                new DriveSystem(rc)
         );
     }
 
-    public Team1091Robot(RobotComponents components, RobotControlSystems controlSystems, AutonomousDriveSystem autonomousDriveSystem, ManualDriveSystem manualDriveSystem) {
+    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem) {
         this.components = components;
-        this.controlSystem = controlSystems;
-        this.autonomousDriveSystem = autonomousDriveSystem;
-        this.manualDriveSystem = manualDriveSystem;
+        this.autonomousSystem = autonomousSystem;
+        this.driveSystem = driveSystem;
     }
 
     public void robotInit() {
@@ -39,13 +35,13 @@ public class Team1091Robot {
 
         // Create a plan
         Planner planner = new Planner();
-        Command plan = planner.plan(components, controlSystem);
+        Command plan = planner.plan(components, driveSystem);
 
-        autonomousDriveSystem.init(plan);
+        autonomousSystem.init(plan);
     }
 
     public void autonomousPeriodic() {
-        autonomousDriveSystem.drive();
+        autonomousSystem.drive();
     }
 
 
@@ -55,7 +51,7 @@ public class Team1091Robot {
 
     public void teleopPeriodic() {
         //Handle Driving the Robot
-        manualDriveSystem.drive();
+        driveSystem.drive();
         //Todo: Handle borfing and eating a box
         //Todo: Implement Lifting
         //Todo: Implement Climbing

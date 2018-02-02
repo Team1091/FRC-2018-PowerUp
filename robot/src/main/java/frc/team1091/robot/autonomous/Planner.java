@@ -7,8 +7,11 @@ import com.team1091.planning.EndingPos;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
-import frc.team1091.robot.RobotControlSystems;
-import frc.team1091.robot.autonomous.commands.*;
+import frc.team1091.robot.autonomous.commands.Command;
+import frc.team1091.robot.autonomous.commands.CommandList;
+import frc.team1091.robot.autonomous.commands.DriveForwards;
+import frc.team1091.robot.autonomous.commands.SpinOutOfControl;
+import frc.team1091.robot.systems.DriveSystem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +21,7 @@ import static com.team1091.planning.PathMakerKt.makePath;
 
 public class Planner {
 
-    public Command plan(RobotComponents components, RobotControlSystems controlSystem) {
+    public Command plan(RobotComponents components, DriveSystem driveSystem) {
 
         // initialize the autonomous with a list of things to do.
         // This depends on our starting position and goal we want to go for
@@ -68,8 +71,8 @@ public class Planner {
         // TODO: drive to the target, unload box
 
         return new CommandList(
-                new DriveForwards(123.0, components, controlSystem),
-                new SpinOutOfControl(components, controlSystem)
+                new DriveForwards(123.0, components, driveSystem),
+                new SpinOutOfControl(components, driveSystem)
         );
 //        return new CommandList();
     }
