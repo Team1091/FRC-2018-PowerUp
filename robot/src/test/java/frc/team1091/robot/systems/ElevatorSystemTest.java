@@ -1,12 +1,9 @@
 package frc.team1091.robot.systems;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
-import frc.team1091.robot.systems.LiftSystem;
 import frc.team1091.robot.wrapper.EncoderWrapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,14 +12,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class LiftSystemTest {
+public class ElevatorSystemTest {
 
     private RobotComponents robotComponents;
     private Joystick mockJoystick;
     private SpeedController mockElevatorMotor;
     private EncoderWrapper mockElevatorEncoder;
 
-    private LiftSystem liftSystem;
+    private ElevatorSystem elevatorSystem;
 
     @Before
     public void setUp(){
@@ -44,9 +41,9 @@ public class LiftSystemTest {
                 null,
                 null,
                 null,
-                null,
-                null);
-        liftSystem = new LiftSystem(robotComponents);
+                null
+                );
+        elevatorSystem = new ElevatorSystem(robotComponents);
     }
 
     @Test

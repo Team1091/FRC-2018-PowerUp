@@ -3,10 +3,10 @@ package frc.team1091.robot.systems;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
 
-public class LiftSystem {
+public class ElevatorSystem {
     private RobotComponents robotComponents;
 
-    public LiftSystem(RobotComponents robotComponents) {
+    public ElevatorSystem(RobotComponents robotComponents) {
         this.robotComponents = robotComponents;
     }
 
@@ -16,16 +16,16 @@ public class LiftSystem {
         Boolean downButtonPressed = robotComponents.xboxController.getRawButton(Xbox.lb);
         //If both buttons are in same state, do nothing
         if (upButtonPressed == downButtonPressed) {
-            robotComponents.gateMotor.set(0);
+            robotComponents.platformMotor.set(0);
             return;
         }
         //Move motor right
         if (upButtonPressed) {
-            robotComponents.gateMotor.set(0.25);
+            robotComponents.platformMotor.set(0.25);
         }
         //Move motor left
         if (downButtonPressed) {
-            robotComponents.gateMotor.set(-0.25);
+            robotComponents.platformMotor.set(-0.25);
         }
     }
 }

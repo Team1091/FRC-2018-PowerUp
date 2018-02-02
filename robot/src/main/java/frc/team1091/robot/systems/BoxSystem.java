@@ -18,7 +18,7 @@ public class BoxSystem {
         switch (currentState) {
             case Idle:
                 //tell if box is present (ultrasonic, use mv to mm equation on the package)
-                if (canIngestBox()) {
+         /*       if (canIngestBox()) {
                     startIngestingBox();
                 }
                 break;
@@ -34,7 +34,7 @@ public class BoxSystem {
                 if (isGateClosed()) {
                     gateClosed();
                 }
-                break;
+                break;*/
         }
         //throw box
 
@@ -47,11 +47,6 @@ public class BoxSystem {
         return boxIngested;
     }
 
-    public boolean canIngestBox() {
-        boolean boxIngested = isBoxIngested();
-        boolean isInPickupPosition = robotComponents.pickUpPositionDigitalInput.get();
-        return !boxIngested && isInPickupPosition;
-    }
 
     public void startIngestingBox() {
         currentState = BoxConsumptionState.IngestingBox;
@@ -66,19 +61,15 @@ public class BoxSystem {
     public void closeGate() {
         currentState = BoxConsumptionState.ClosingGate;
         //Keep moving motor to close
-        robotComponents.gateMotor.set(.8);
+        robotComponents.platformMotor.set(.8);
     }
 
     public void gateClosed() {
         currentState = BoxConsumptionState.Idle;
         //Stop moving motor
-        robotComponents.gateMotor.set(0);
+        robotComponents.platformMotor.set(0);
     }
 
-    public boolean isGateClosed() {
-        boolean gateIsClosed = robotComponents.gateClosePositionDigitalInput.get();
-        return gateIsClosed;
-    }
 
 }
 
