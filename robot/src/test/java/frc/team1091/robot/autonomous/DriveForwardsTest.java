@@ -20,7 +20,7 @@ public class DriveForwardsTest {
         DriveSystem drive = mock(DriveSystem.class);
         EncoderWrapper encoder = mock(EncoderWrapper.class);
 
-        RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, encoder, null, null, null, null, null, null, null);
+        RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, encoder, null, null, null, null, null, null);
 
         when(encoder.get()).thenReturn(10);
 

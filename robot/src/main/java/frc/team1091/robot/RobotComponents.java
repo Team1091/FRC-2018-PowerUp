@@ -9,23 +9,26 @@ public class RobotComponents {
     //Motors
     public static final int xboxControllerPort = 0;
     public static final int leftDriveMotorChannel = 1;
-    public static final int righDrivetMotorChannel = 2;
+    public static final int rightDriveMotorChannel = 2;
     public static final int boxElevatorMotorChannel = 3;
-    public static final int boxGateMotorChannel = 4;
+    public static final int boxPlatformMotorChannel = 4;
     public static final int boxSuckerMotorChannel = 5;
     public static final int robotClimbMotorChannel = 6;
     public static final int releaseMotorChannel = 7; //What am I?
 
     //Encoders
-    public static final int leftDriveMotorEncoder = 8;
-    public static final int rightDriveMotortEncoder = 9;
-    public static final int boxElevatorEncoder = 10;
+    public static final int leftDriveMotorEncoderChannel1 = 2;
+    public static final int leftDriveMotorEncoderChannel2 = 3;
+    public static final int rightDriveMotortEncoderChannel1 = 4;
+    public static final int rightDriveMotortEncoderChannel2 = 5;
+    public static final int boxElevatorEncoderChannel1 = 6;
+    public static final int boxElevatorEncoderChannel2 = 7;
+    public static final int boxPlatformEncoderChannel1 = 8;
+    public static final int boxPlatformEncoderChannel2 = 9;
 
     //Digital Inputs
-    public static final int boxGatePickUpPositionLimitSwitchChannel = 11;
-    public static final int boxGateClosePositionLimitSwitchChannel = 12;
-    public static final int boxDropPositionLimitSwitchChannel = 13;
-    public static final int boxElevatorLimitSwitchChannel = 14; //Why do I exist
+    public static final int boxPlatformLimitSwitchChannel = 1;
+    public static final int boxElevatorLimitSwitchChannel = 10;
 
     //Anolog Inputs
     public static final int boxConsumtionUltraSonicSensor = 1;
@@ -34,53 +37,50 @@ public class RobotComponents {
         return new RobotComponents(
                 new Joystick(xboxControllerPort),
                 new Victor(0),
-                new Victor(1),
-                new Victor(2),
-                new Victor(3),
-                new Victor(4),
-                new Victor(5),
-                new Victor(6),
-                new EncoderWrapper(new Encoder(2, 3)),
-                new EncoderWrapper(new Encoder(4, 5)),
-                new EncoderWrapper(new Encoder(6, 7)),
-                new DigitalInputWrapper(new DigitalInput(8)),
-                new DigitalInputWrapper(new DigitalInput(9)),
-                new DigitalInputWrapper(new DigitalInput(10)),
-                new DigitalInputWrapper(new DigitalInput(11)),
-                new AnalogInput(1));
+                new Victor(leftDriveMotorChannel),
+                new Victor(rightDriveMotorChannel),
+                new Victor(boxElevatorMotorChannel),
+                new Victor(boxPlatformMotorChannel),
+                new Victor(boxSuckerMotorChannel),
+                new Victor(robotClimbMotorChannel),
+                new EncoderWrapper(new Encoder(leftDriveMotorEncoderChannel1, leftDriveMotorEncoderChannel2)),
+                new EncoderWrapper(new Encoder(rightDriveMotortEncoderChannel1, rightDriveMotortEncoderChannel2)),
+                new EncoderWrapper(new Encoder(boxElevatorEncoderChannel1, boxElevatorEncoderChannel2)),
+                new EncoderWrapper(new Encoder(boxPlatformEncoderChannel1, boxPlatformEncoderChannel2)),
+                new DigitalInputWrapper(new DigitalInput(boxPlatformLimitSwitchChannel)),
+                new DigitalInputWrapper(new DigitalInput(boxElevatorLimitSwitchChannel)),
+                new AnalogInput(boxConsumtionUltraSonicSensor));
     }
 
     public RobotComponents(Joystick xboxController,
                            SpeedController frontLeftMotor,
                            SpeedController frontRightMotor,
                            SpeedController elevatorMotor,
-                           SpeedController gateMotor,
+                           SpeedController platformMotor,
                            SpeedController suckerMotor,
                            SpeedController winchMotor,
                            SpeedController releaseMotor,
                            EncoderWrapper frontLeftEncoder,
                            EncoderWrapper frontRightEncoder,
                            EncoderWrapper elevatorEncoder,
-                           DigitalInputWrapper pickUpPositionDigitalInput,
-                           DigitalInputWrapper gateClosePositionDigitalInput,
-                           DigitalInputWrapper dropBoxPositionDigitalInput,
-                           DigitalInputWrapper elevatorDigitalInput,
+                           EncoderWrapper platformEncoder,
+                           DigitalInputWrapper platformLimitSwitch,
+                           DigitalInputWrapper elevatorLimitSwitch,
                            AnalogInput ultraSonicAnalogInput) {
         this.xboxController = xboxController;
         this.leftMotor = frontLeftMotor;
         this.rightMotor = frontRightMotor;
         this.elevatorMotor = elevatorMotor;
-        this.gateMotor = gateMotor;
+        this.platformMotor = platformMotor;
         this.suckerMotor = suckerMotor;
         this.winchMotor = winchMotor;
         this.releaseMotor = releaseMotor;
         this.leftEncoder = frontLeftEncoder;
         this.rightEncoder = frontRightEncoder;
         this.elevatorEncoder = elevatorEncoder;
-        this.pickUpPositionDigitalInput = pickUpPositionDigitalInput;
-        this.gateClosePositionDigitalInput = gateClosePositionDigitalInput;
-        this.dropBoxPositionDigitalInput = dropBoxPositionDigitalInput;
-        this.elevatorDigitalInput = elevatorDigitalInput;
+        this.platformEncoder = platformEncoder;
+        this.platformLimitSwitch = platformLimitSwitch;
+        this.elevatorLimitSwitch = elevatorLimitSwitch;
         this.ultraSonicAnalogInput = ultraSonicAnalogInput;
     }
 
@@ -88,7 +88,7 @@ public class RobotComponents {
     public final SpeedController leftMotor;
     public final SpeedController rightMotor;
     public final SpeedController elevatorMotor;
-    public final SpeedController gateMotor; //for box cam
+    public final SpeedController platformMotor; //for box cam
     public final SpeedController suckerMotor;
     public final SpeedController winchMotor;
     public final SpeedController releaseMotor;
@@ -96,11 +96,10 @@ public class RobotComponents {
     public final EncoderWrapper leftEncoder;
     public final EncoderWrapper rightEncoder;
     public final EncoderWrapper elevatorEncoder;
+    public final EncoderWrapper platformEncoder;
 
-    public final DigitalInputWrapper pickUpPositionDigitalInput;
-    public final DigitalInputWrapper gateClosePositionDigitalInput;
-    public final DigitalInputWrapper dropBoxPositionDigitalInput;
-    public final DigitalInputWrapper elevatorDigitalInput;
+    public final DigitalInputWrapper platformLimitSwitch;
+    public final DigitalInputWrapper elevatorLimitSwitch;
 
     public final AnalogInput ultraSonicAnalogInput;
 }
