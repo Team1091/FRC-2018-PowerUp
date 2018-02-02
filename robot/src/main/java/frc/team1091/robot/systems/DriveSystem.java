@@ -1,18 +1,23 @@
-package frc.team1091.robot.drive;
+package frc.team1091.robot.systems;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team1091.robot.RobotComponents;
-import frc.team1091.robot.RobotControlSystems;
 
 import static frc.team1091.robot.Xbox.*;
 
-public class ManualDriveSystem {
+public class DriveSystem {
 
     private RobotComponents robotComponents;
-    private RobotControlSystems controlSystems;
+    private final DifferentialDrive differentialDrive;
 
-    public ManualDriveSystem(RobotComponents robotComponents, RobotControlSystems controlSystems) {
+    public DriveSystem(RobotComponents robotComponents) {
         this.robotComponents = robotComponents;
-        this.controlSystems = controlSystems;
+        differentialDrive = new DifferentialDrive(this.robotComponents.leftMotor, this.robotComponents.rightMotor);
+    }
+
+    public DriveSystem(RobotComponents robotComponents, DifferentialDrive drive){
+        this.robotComponents = robotComponents;
+        differentialDrive = drive;
     }
 
     public void init() {
@@ -26,7 +31,11 @@ public class ManualDriveSystem {
         double desiredSpeed = robotComponents.xboxController.getRawAxis(leftStickVertical);
         double forwardSpeed = desiredSpeed * (boostPushed ? 1.0 : 0.6);
         double turnSpeed = desiredTurn * (boostPushed ? 1.0 : 0.6);
-        controlSystems.differentialDrive.arcadeDrive(forwardSpeed, turnSpeed);
+        differentialDrive.arcadeDrive(forwardSpeed, turnSpeed);
 
+    }
+
+    public void drive(double forwardSpeed, double turnSpeed) {
+        differentialDrive.arcadeDrive(forwardSpeed, turnSpeed);
     }
 }

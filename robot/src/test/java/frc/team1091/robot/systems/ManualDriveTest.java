@@ -1,9 +1,9 @@
-package frc.team1091.robot.drive;
+package frc.team1091.robot.systems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team1091.robot.RobotComponents;
-import frc.team1091.robot.RobotControlSystems;
+import frc.team1091.robot.systems.DriveSystem;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
@@ -17,14 +17,12 @@ public class ManualDriveTest {
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
         RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-        RobotControlSystems sy = new RobotControlSystems(drive);
-
         when(joystick.getRawAxis(0)).thenReturn(0.0);
         when(joystick.getRawAxis(1)).thenReturn(0.5);
 
-        ManualDriveSystem manualDriveSystem = new ManualDriveSystem(rc, sy);
+        DriveSystem driveSystem = new DriveSystem(rc, drive);
 
-        manualDriveSystem.drive();
+        driveSystem.drive();
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
@@ -38,15 +36,13 @@ public class ManualDriveTest {
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
         RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-        RobotControlSystems sy = new RobotControlSystems(drive);
-
 
         when(joystick.getRawAxis(0)).thenReturn(0.0);
         when(joystick.getRawAxis(1)).thenReturn(-0.5);
 
-        ManualDriveSystem manualDriveSystem = new ManualDriveSystem(rc, sy);
+        DriveSystem driveSystem = new DriveSystem(rc, drive);
 
-        manualDriveSystem.drive();
+        driveSystem.drive();
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
@@ -60,15 +56,13 @@ public class ManualDriveTest {
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
         RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-        RobotControlSystems sy = new RobotControlSystems(drive);
-
 
         when(joystick.getRawAxis(0)).thenReturn(-1.0);
         when(joystick.getRawAxis(1)).thenReturn(0.5);
 
-        ManualDriveSystem manualDriveSystem = new ManualDriveSystem(rc, sy);
+        DriveSystem driveSystem = new DriveSystem(rc, drive);
 
-        manualDriveSystem.drive();
+        driveSystem.drive();
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
@@ -82,15 +76,13 @@ public class ManualDriveTest {
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
         RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-        RobotControlSystems sy = new RobotControlSystems(drive);
-
 
         when(joystick.getRawAxis(0)).thenReturn(1.0);
         when(joystick.getRawAxis(1)).thenReturn(0.5);
 
-        ManualDriveSystem manualDriveSystem = new ManualDriveSystem(rc, sy);
+        DriveSystem driveSystem = new DriveSystem(rc, drive);
 
-        manualDriveSystem.drive();
+        driveSystem.drive();
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);

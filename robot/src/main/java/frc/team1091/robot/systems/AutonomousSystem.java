@@ -1,4 +1,4 @@
-package frc.team1091.robot.drive;
+package frc.team1091.robot.systems;
 
 import frc.team1091.robot.autonomous.commands.Command;
 
@@ -6,7 +6,7 @@ import frc.team1091.robot.autonomous.commands.Command;
  * This should follow a set series of Commands, where each command is an object that represents
  * something we want to do.  DriveForwards, Turn, UseMechanism, etc
  */
-public class AutonomousDriveSystem {
+public class AutonomousSystem {
     private Command command;
 
     public void init(Command command) {
