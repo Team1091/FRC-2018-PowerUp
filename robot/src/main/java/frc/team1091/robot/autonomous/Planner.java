@@ -26,8 +26,9 @@ public class Planner {
         DriverStation driverStation = DriverStation.getInstance();
         DriverStation.Alliance alliance = driverStation.getAlliance();
 
-        // I think this is where we are starting this year, could be only the driver station tho
-//        int driverStationLocation = driverStation.getLocation();
+        // starting path - set fom dropdown?
+        StartingPos start = StartingPos.LEFT;
+
 
         // http://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
         // this will be a 3 character string with your goals side marked, index 0 being the closest.
@@ -36,12 +37,9 @@ public class Planner {
         //
         // Ex: "LRL", "RRR", "LRR"
         String gameGoalData = DriverStation.getInstance().getGameSpecificMessage();
-
-        // Translate that into a goal we want to go to
-
-        // starting path - set fom dropdown?
-        StartingPos start = StartingPos.LEFT;
+        // TODO: Translate that into a goal we want to go to
         EndingPos end = EndingPos.RIGHT_SCALE;
+
 
         List<Vec3> path = makePath(start, end, Arrays.asList(
                 // another robot's plan takes this zone.  It would be nice to
@@ -66,7 +64,11 @@ public class Planner {
             }
         }
 
-        // TODO: drive to the target, unload box
+        // drive up to the target
+        commandList.add(new DriveUntilClose(components, driveSystem));
+
+        // unload box
+        commandList.add(new BarfBox(components, driveSystem));
 
         return new CommandList(commandList);
     }
