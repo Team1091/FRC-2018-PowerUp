@@ -61,7 +61,8 @@ public class Planner {
             if (lastNode.getZ() != node.getZ()) { // we turned
                 commandList.add(new Turn(90.0 * (lastNode.getZ() - node.getZ()), components, driveSystem));
             } else {
-                commandList.add(new DriveForwards(123.0, components, driveSystem));
+                // we probably should allow this to combine
+                commandList.add(new DriveForwards(16.5, components, driveSystem));
             }
         }
 
