@@ -11,6 +11,10 @@ public class CommandList implements Command {
         this.commands = new ArrayList<>(Arrays.asList(commands));
     }
 
+    public CommandList(ArrayList<Command> commandList) {
+        this.commands = commandList;
+    }
+
     @Override
     public Command execute() {
 

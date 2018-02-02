@@ -7,10 +7,7 @@ import com.team1091.planning.EndingPos;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
-import frc.team1091.robot.autonomous.commands.Command;
-import frc.team1091.robot.autonomous.commands.CommandList;
-import frc.team1091.robot.autonomous.commands.DriveForwards;
-import frc.team1091.robot.autonomous.commands.SpinOutOfControl;
+import frc.team1091.robot.autonomous.commands.*;
 import frc.team1091.robot.systems.DriveSystem;
 
 import java.util.ArrayList;
@@ -52,7 +49,7 @@ public class Planner {
         ));
 
         // Convert list of points into driving instructions - need to parse out turns.
-        List<Command> commandList = new ArrayList<>();
+        ArrayList<Command> commandList = new ArrayList<>();
 
         // At this point we have a list of positions we want to be at, we need to translate that into a list of commands to get the robot there
         // we can start at 1, since we are are already in our current position.
@@ -62,19 +59,15 @@ public class Planner {
             Vec3 node = path.get(i);
 
             if (lastNode.getZ() != node.getZ()) { // we turned
-                //commandList.add(new Turn(90.0 * (lastNode.getZ() - node.getZ()), components, controlSystem));
+                commandList.add(new Turn(90.0 * (lastNode.getZ() - node.getZ()), components, driveSystem));
             } else {
-                commandList.add(new DriveForwards(123.0, components, controlSystem));
+                commandList.add(new DriveForwards(123.0, components, driveSystem));
             }
         }
 
         // TODO: drive to the target, unload box
 
-        return new CommandList(
-                new DriveForwards(123.0, components, driveSystem),
-                new SpinOutOfControl(components, driveSystem)
-        );
-//        return new CommandList();
+        return new CommandList(commandList);
     }
 
 }
