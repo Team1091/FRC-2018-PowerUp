@@ -18,17 +18,9 @@ import static com.team1091.planning.PathMakerKt.makePath;
 
 public class Planner {
 
-    public Command plan(RobotComponents components, DriveSystem driveSystem) {
-
+    public static Command plan(StartingPos start, DriverStation.Alliance alliance, String gameGoalData, RobotComponents components, DriveSystem driveSystem) {
         // initialize the autonomous with a list of things to do.
         // This depends on our starting position and goal we want to go for
-
-        DriverStation driverStation = DriverStation.getInstance();
-        DriverStation.Alliance alliance = driverStation.getAlliance();
-
-        // starting path - set fom dropdown?
-        StartingPos start = StartingPos.LEFT;
-
 
         // http://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
         // this will be a 3 character string with your goals side marked, index 0 being the closest.
@@ -36,8 +28,7 @@ public class Planner {
         // R = right side
         //
         // Ex: "LRL", "RRR", "LRR"
-        String gameGoalData = DriverStation.getInstance().getGameSpecificMessage();
-        // TODO: Translate that into a goal we want to go to
+        // TODO: Translate gameGoalData into a goal we want to go to
         EndingPos end = EndingPos.RIGHT_SCALE;
 
 

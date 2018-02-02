@@ -1,5 +1,7 @@
 package frc.team1091.robot;
 
+import com.team1091.planning.StartingPos;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.autonomous.Planner;
 import frc.team1091.robot.autonomous.commands.Command;
 import frc.team1091.robot.systems.AutonomousSystem;
@@ -33,9 +35,18 @@ public class Team1091Robot {
 
     public void autonomousInit() {
 
+        // starting path - set fom dropdown?
+        StartingPos start = StartingPos.LEFT;
+
+        DriverStation driverStation = DriverStation.getInstance();
+
         // Create a plan
-        Planner planner = new Planner();
-        Command plan = planner.plan(components, driveSystem);
+        Command plan = Planner.plan(
+                start,
+                driverStation.getAlliance(),
+                driverStation.getGameSpecificMessage(),
+                components,
+                driveSystem);
 
         autonomousSystem.init(plan);
     }
