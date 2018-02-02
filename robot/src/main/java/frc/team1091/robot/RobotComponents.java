@@ -1,6 +1,7 @@
 package frc.team1091.robot;
 
 import edu.wpi.first.wpilibj.*;
+import frc.team1091.robot.wrapper.DigitalInputWrapper;
 import frc.team1091.robot.wrapper.EncoderWrapper;
 
 public class RobotComponents {
@@ -42,10 +43,10 @@ public class RobotComponents {
                 new EncoderWrapper(new Encoder(2, 3)),
                 new EncoderWrapper(new Encoder(4, 5)),
                 new EncoderWrapper(new Encoder(6, 7)),
-                new DigitalInput(8),
-                new DigitalInput(9),
-                new DigitalInput(10),
-                new DigitalInput(11),
+                new DigitalInputWrapper(new DigitalInput(8)),
+                new DigitalInputWrapper(new DigitalInput(9)),
+                new DigitalInputWrapper(new DigitalInput(10)),
+                new DigitalInputWrapper(new DigitalInput(11)),
                 new AnalogInput(1));
     }
 
@@ -60,10 +61,10 @@ public class RobotComponents {
                            EncoderWrapper frontLeftEncoder,
                            EncoderWrapper frontRightEncoder,
                            EncoderWrapper elevatorEncoder,
-                           DigitalInput pickUpPositionDigitalInput,
-                           DigitalInput gateClosePositionDigitalInput,
-                           DigitalInput dropBoxPositionDigitalInput,
-                           DigitalInput elevatorDigitalInput,
+                           DigitalInputWrapper pickUpPositionDigitalInput,
+                           DigitalInputWrapper gateClosePositionDigitalInput,
+                           DigitalInputWrapper dropBoxPositionDigitalInput,
+                           DigitalInputWrapper elevatorDigitalInput,
                            AnalogInput ultraSonicAnalogInput) {
         this.xboxController = xboxController;
         this.leftMotor = frontLeftMotor;
@@ -96,10 +97,10 @@ public class RobotComponents {
     public final EncoderWrapper rightEncoder;
     public final EncoderWrapper elevatorEncoder;
 
-    public final DigitalInput pickUpPositionDigitalInput;
-    public final DigitalInput gateClosePositionDigitalInput;
-    public final DigitalInput dropBoxPositionDigitalInput;
-    public final DigitalInput elevatorDigitalInput;
+    public final DigitalInputWrapper pickUpPositionDigitalInput;
+    public final DigitalInputWrapper gateClosePositionDigitalInput;
+    public final DigitalInputWrapper dropBoxPositionDigitalInput;
+    public final DigitalInputWrapper elevatorDigitalInput;
 
     public final AnalogInput ultraSonicAnalogInput;
 }

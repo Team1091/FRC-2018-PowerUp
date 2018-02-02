@@ -7,8 +7,8 @@ public class GateSystem {
     private RobotComponents robotComponents;
     private GateSystemState nextState;
 
-    private final double gateTravelSpeed = .25;
-    private final double xboxTriggerPressedTolerance = .2;
+    public final double gateTravelSpeed = .25;
+    public final double xboxTriggerPressedTolerance = .2;
 
     public GateSystem(RobotComponents components) {
         robotComponents = components;
@@ -70,6 +70,7 @@ public class GateSystem {
 
         if(robotComponents.gateClosePositionDigitalInput.get()){
             robotComponents.gateMotor.set(-1 * gateTravelSpeed);
+            return;
         }
 
         robotComponents.gateMotor.set(gateTravelSpeed);
