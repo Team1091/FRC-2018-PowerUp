@@ -2,15 +2,13 @@ package frc.team1091.robot.autonomous;
 
 import com.team1091.math.Rectangle;
 import com.team1091.math.Vec2;
+import com.team1091.math.Vec3;
 import com.team1091.planning.EndingPos;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.RobotControlSystems;
-import frc.team1091.robot.autonomous.commands.Command;
-import frc.team1091.robot.autonomous.commands.CommandList;
-import frc.team1091.robot.autonomous.commands.DriveForwards;
-import frc.team1091.robot.autonomous.commands.SpinOutOfControl;
+import frc.team1091.robot.autonomous.commands.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,15 +43,29 @@ public class Planner {
         StartingPos start = StartingPos.LEFT;
         EndingPos end = EndingPos.RIGHT_SCALE;
 
-        List<Vec2> path = makePath(start, end, Arrays.asList(
+        List<Vec3> path = makePath(start, end, Arrays.asList(
                 // another robot's plan takes this zone.  It would be nice to
                 new Rectangle(Vec2.Companion.get(15, 0), Vec2.Companion.get(15, 10))
         ));
 
         // Convert list of points into driving instructions - need to parse out turns.
-
         List<Command> commandList = new ArrayList<>();
 
+        // At this point we have a list of positions we want to be at, we need to translate that into a list of commands to get the robot there
+        // we can start at 1, since we are are already in our current position.
+
+        for (int i = 1; i < path.size(); i++) {
+            Vec3 lastNode = path.get(i - 1);
+            Vec3 node = path.get(i);
+
+            if (lastNode.getZ() != node.getZ()) { // we turned
+                //commandList.add(new Turn(90.0 * (lastNode.getZ() - node.getZ()), components, controlSystem));
+            } else {
+                commandList.add(new DriveForwards(123.0, components, controlSystem));
+            }
+        }
+
+        // TODO: drive to the target, unload box
 
         return new CommandList(
                 new DriveForwards(123.0, components, controlSystem),
