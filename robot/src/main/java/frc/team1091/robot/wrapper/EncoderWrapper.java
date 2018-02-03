@@ -15,4 +15,7 @@ public class EncoderWrapper {
         return encoder.get();
     }
 
+    public void reset(){
+        encoder.reset();
+    }
 }

@@ -10,11 +10,18 @@ public class ClimbSystem {
         this.robotComponents = robotComponents;
     }
 
+    private boolean isClimberReleased = false;
     //while button held, climb up
     public void climbUp() {
         boolean climbButtonPressed = robotComponents.xboxController.getRawButton(Xbox.y);
-
-        if (climbButtonPressed) {
+        boolean releaseButtonPressed = robotComponents.xboxController.getRawButton(Xbox.start);
+        if (releaseButtonPressed) {
+            robotComponents.releaseMotor.set(1);
+            isClimberReleased = true;
+        } else {
+            robotComponents.releaseMotor.set(0);
+        }
+        if (climbButtonPressed && isClimberReleased) {
             robotComponents.winchMotor.set(0.75);
         } else {
             robotComponents.winchMotor.set(0);

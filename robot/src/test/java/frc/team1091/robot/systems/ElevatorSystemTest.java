@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
 import frc.team1091.robot.wrapper.EncoderWrapper;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,34 +45,21 @@ public class ElevatorSystemTest {
     }
 
     @Test
-    public void controlLift_NoButtonPressed_ShouldDoNothing() {
-        when(mockJoystick.getRawButton(Xbox.rb)).thenReturn(false);
-        when(mockJoystick.getRawButton(Xbox.lb)).thenReturn(false);
-
-        verify(mockElevatorMotor).set(0);
+    public void determineMotorSpeed_ShouldReturnOne(){
+        double speed = elevatorSystem.determineMotorSpeed(0, 1000);
+        Assert.assertEquals(1, speed, .00001);
     }
 
     @Test
-    public void controlLift_BothButtonsPressed_ShouldDoNothing() {
-        when(mockJoystick.getRawButton(Xbox.rb)).thenReturn(true);
-        when(mockJoystick.getRawButton(Xbox.lb)).thenReturn(true);
+    public void determineMotorSpeed_ShouldStepDown(){
+        double result1 = elevatorSystem.determineMotorSpeed(751, 1000);
+        double result2 = elevatorSystem.determineMotorSpeed(800, 1000);
+        double result3 = elevatorSystem.determineMotorSpeed(950, 1000);
+        double result4 = elevatorSystem.determineMotorSpeed(1000, 1000);
 
-        verify(mockElevatorMotor).set(0);
-    }
-
-    @Test
-    public void controlLift_RbPressed_ShouldMoveUp() {
-        when(mockJoystick.getRawButton(Xbox.rb)).thenReturn(true);
-        when(mockJoystick.getRawButton(Xbox.lb)).thenReturn(false);
-
-        verify(mockElevatorMotor).set(.25);
-    }
-
-    @Test
-    public void controlLift_RbPressed_ShouldMoveDown() {
-        when(mockJoystick.getRawButton(Xbox.rb)).thenReturn(false);
-        when(mockJoystick.getRawButton(Xbox.lb)).thenReturn(true);
-
-        verify(mockElevatorMotor).set(-.25);
+        Assert.assertTrue(result1 < 1);
+        Assert.assertTrue(result2 < result1);
+        Assert.assertTrue(result3 < result2);
+        Assert.assertTrue(result4 == 0);
     }
 }
