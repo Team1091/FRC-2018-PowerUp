@@ -110,8 +110,3 @@ public class ElevatorSystem {
     }
 }
 
-enum ElevatorPositions {
-    GroundHeight,
-    SwitchHeight,
-    ScaleHeight,
-}
