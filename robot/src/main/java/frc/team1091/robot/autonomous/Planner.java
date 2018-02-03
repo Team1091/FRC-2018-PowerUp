@@ -4,11 +4,13 @@ import com.team1091.math.Rectangle;
 import com.team1091.math.Vec2;
 import com.team1091.math.Vec3;
 import com.team1091.planning.EndingPos;
+import com.team1091.planning.Facing;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.autonomous.commands.*;
 import frc.team1091.robot.systems.DriveSystem;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,29 +33,11 @@ public class Planner {
         // TODO: Translate gameGoalData into a goal we want to go to
         EndingPos end = EndingPos.RIGHT_SCALE;
 
-
         List<Vec3> path = makePath(start, end, Arrays.asList(
                 // another robot's plan takes this zone.  It would be nice to
                 new Rectangle(Vec2.Companion.get(15, 0), Vec2.Companion.get(15, 10))
         ));
-
-        // Convert list of points into driving instructions - need to parse out turns.
-        ArrayList<Command> commandList = new ArrayList<>();
-
-        // At this point we have a list of positions we want to be at, we need to translate that into a list of commands to get the robot there
-        // we can start at 1, since we are are already in our current position.
-
-        for (int i = 1; i < path.size(); i++) {
-            Vec3 lastNode = path.get(i - 1);
-            Vec3 node = path.get(i);
-
-            if (lastNode.getZ() != node.getZ()) { // we turned
-                commandList.add(new Turn(90.0 * (lastNode.getZ() - node.getZ()), components, driveSystem));
-            } else {
-                // we probably should allow this to combine
-                commandList.add(new DriveForwards(16.5, components, driveSystem));
-            }
-        }
+        ArrayList<Command> commandList = getCommandList(components, driveSystem, path);
 
         // drive up to the target
         commandList.add(new DriveUntilClose(components, driveSystem));
@@ -62,6 +46,54 @@ public class Planner {
         commandList.add(new BarfBox(components, driveSystem));
 
         return new CommandList(commandList);
+    }
+
+    @NotNull
+    private static ArrayList<Command> getCommandList(RobotComponents components, DriveSystem driveSystem, List<Vec3> path) {
+        // Convert list of points into driving instructions - need to parse out turns.
+        ArrayList<Command> commandList = new ArrayList<>();
+
+        // At this point we have a list of positions we want to be at, we need to translate that into a list of commands to get the robot there
+        // we can start at 1, since we are are already in our current position.
+
+        double turn = 0;
+        double forward = 0;
+
+        for (int i = 0; i < path.size() - 1; i++) {
+            Vec3 lastNode = path.get(i);
+            Vec3 nextNode = path.get(i + 1);
+//            Command command = commandList.get(commandList.size()-1);
+
+            if (lastNode.getZ() != nextNode.getZ()) { // we turned
+
+                if (forward != 0) {
+                    // we changed from turn to go forward, save forward
+                    commandList.add(new DriveForwards(forward, components, driveSystem));
+                    forward = 0;
+                }
+                turn += 90.0 * (lastNode.getZ() - nextNode.getZ());
+
+            } else {//we are going forward/backward
+
+                if (turn != 0) {
+                    // we changed from forward to turn, save it
+                    commandList.add(new Turn(turn, components, driveSystem));
+                    turn = 0;
+                }
+                Facing facing = Facing.values()[lastNode.getZ()];
+                forward += 32.0 ;// TODO/ forwards/backwards
+
+            }
+        }
+
+        // If we have a remainder, create an action
+        if (turn != 0) {
+            commandList.add(new Turn(turn, components, driveSystem));
+        }
+        if (forward != 0) {
+            commandList.add(new DriveForwards(forward, components, driveSystem));
+        }
+        return commandList;
     }
 
 }
