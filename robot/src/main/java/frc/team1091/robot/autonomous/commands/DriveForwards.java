@@ -8,6 +8,7 @@ public class DriveForwards implements Command {
     private final double distanceInInches;
     private final RobotComponents robotComponents;
     private final DriveSystem controlSystems;
+    private final static double ticksPerInch = 360; //Fix this or I will find you (add in the correct tic per inch ratio
 
     public DriveForwards(double distanceInInches, RobotComponents robotComponents, DriveSystem controlSystems) {
         this.distanceInInches = distanceInInches;
@@ -22,7 +23,7 @@ public class DriveForwards implements Command {
             controlSystems.drive(1, 0);
             return this;
         }
-        controlSystems.drive(0, 0); // If you forget me i will die, clean me dude
+        controlSystems.drive(0, 0);
         return null;  // if I return nothing, i run the next command if im in a command list
     }
 }
