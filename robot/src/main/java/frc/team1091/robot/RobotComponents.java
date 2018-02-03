@@ -6,32 +6,34 @@ import frc.team1091.robot.wrapper.EncoderWrapper;
 
 public class RobotComponents {
 
-    //Motors
+    // USB
     public static final int xboxControllerPort = 0;
+
+    //Motors
+    public static final int rightDriveMotorChannel = 0;
     public static final int leftDriveMotorChannel = 1;
-    public static final int rightDriveMotorChannel = 2;
-    public static final int boxElevatorMotorChannel = 3;
-    public static final int boxPlatformMotorChannel = 4;
-    public static final int boxSuckerMotorChannel = 5;
-    public static final int robotClimbMotorChannel = 6;
-    public static final int releaseMotorChannel = 7; //What am I?
+    public static final int boxElevatorMotorChannel = 2;
+    public static final int boxPlatformMotorChannel = 3;
+    public static final int boxSuckerMotorChannel = 4;
+    public static final int robotClimbMotorChannel = 5;
+    public static final int releaseMotorChannel = 6;
 
     //Encoders
+    public static final int rightDriveMotorEncoderChannel1 = 0;
+    public static final int rightDriveMotortEncoderChannel2 = 1;
     public static final int leftDriveMotorEncoderChannel1 = 2;
     public static final int leftDriveMotorEncoderChannel2 = 3;
-    public static final int rightDriveMotorEncoderChannel1 = 4;
-    public static final int rightDriveMotortEncoderChannel2 = 5;
-    public static final int boxElevatorEncoderChannel1 = 6;
-    public static final int boxElevatorEncoderChannel2 = 7;
-    public static final int boxPlatformEncoderChannel1 = 8;
-    public static final int boxPlatformEncoderChannel2 = 9;
+    public static final int boxElevatorEncoderChannel1 = 4;
+    public static final int boxElevatorEncoderChannel2 = 5;
+    public static final int boxPlatformEncoderChannel1 = 6;
+    public static final int boxPlatformEncoderChannel2 = 7;
 
     //Digital Inputs
-    public static final int boxPlatformLimitSwitchChannel = 1;
-    public static final int boxElevatorLimitSwitchChannel = 10;
+    public static final int boxPlatformLimitSwitchChannel = 8;
+    public static final int boxElevatorLimitSwitchChannel = 9;
 
     //Anolog Inputs
-    public static final int boxConsumtionUltraSonicSensor = 1;
+//    public static final int boxConsumtionUltraSonicSensor = 1;
 
     public static RobotComponents getDefaultInstance() {
         return new RobotComponents(
@@ -48,8 +50,9 @@ public class RobotComponents {
                 new EncoderWrapper(new Encoder(boxElevatorEncoderChannel1, boxElevatorEncoderChannel2)),
                 new EncoderWrapper(new Encoder(boxPlatformEncoderChannel1, boxPlatformEncoderChannel2)),
                 new DigitalInputWrapper(new DigitalInput(boxPlatformLimitSwitchChannel)),
-                new DigitalInputWrapper(new DigitalInput(boxElevatorLimitSwitchChannel)),
-                new AnalogInput(boxConsumtionUltraSonicSensor));
+                new DigitalInputWrapper(new DigitalInput(boxElevatorLimitSwitchChannel))//,
+         //       new AnalogInput(boxConsumtionUltraSonicSensor)
+        );
     }
 
     public RobotComponents(Joystick xboxController,
@@ -65,8 +68,9 @@ public class RobotComponents {
                            EncoderWrapper elevatorEncoder,
                            EncoderWrapper platformEncoder,
                            DigitalInputWrapper platformLimitSwitch,
-                           DigitalInputWrapper elevatorLimitSwitch,
-                           AnalogInput ultraSonicAnalogInput) {
+                           DigitalInputWrapper elevatorLimitSwitch//,
+    //                       AnalogInput ultraSonicAnalogInput
+    ) {
         this.xboxController = xboxController;
         this.leftMotor = frontLeftMotor;
         this.rightMotor = frontRightMotor;
@@ -81,7 +85,7 @@ public class RobotComponents {
         this.platformEncoder = platformEncoder;
         this.platformLimitSwitch = platformLimitSwitch;
         this.elevatorLimitSwitch = elevatorLimitSwitch;
-        this.ultraSonicAnalogInput = ultraSonicAnalogInput;
+//        this.ultraSonicAnalogInput = ultraSonicAnalogInput;
     }
 
     public final Joystick xboxController;
@@ -101,5 +105,5 @@ public class RobotComponents {
     public final DigitalInputWrapper platformLimitSwitch;
     public final DigitalInputWrapper elevatorLimitSwitch;
 
-    public final AnalogInput ultraSonicAnalogInput;
+    //public final AnalogInput ultraSonicAnalogInput;
 }

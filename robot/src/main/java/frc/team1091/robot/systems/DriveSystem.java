@@ -26,7 +26,7 @@ public class DriveSystem {
     }
 
     public void drive() {
-        boolean boostPushed = robotComponents.xboxController.getRawButton(l3);
+        boolean boostPushed = robotComponents.xboxController.getRawButton(L3);
         double desiredTurn = robotComponents.xboxController.getRawAxis(leftStickHorizontal);
         double desiredSpeed = robotComponents.xboxController.getRawAxis(leftStickVertical);
         double forwardSpeed = desiredSpeed * (boostPushed ? 1.0 : 0.6);

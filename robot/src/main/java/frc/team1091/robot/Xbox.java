@@ -5,7 +5,7 @@ public class Xbox {
     public static final int leftStickVertical = 1;
     public static final int rightStickHorizontal = 4;
     public static final int rightStickVertical = 5;
-    public static final int l3 = 9;
+    public static final int L3 = 9;
     public static final int r3 = 10;
     public static final int rb = 3;
     public static final int lb = 4;

@@ -18,8 +18,10 @@ public class PlatformSystem {
         UpdatePositionFromConrollerInput();
         switch (nextState) {
             case GateUp:
+                // do something
                 break;
-                case DropPosition:
+            case DropPosition:
+                //drop pos
                 break;
             case PickupPosition:
                 break;
