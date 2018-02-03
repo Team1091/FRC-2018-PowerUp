@@ -3,7 +3,6 @@ package frc.team1091.robot.systems;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team1091.robot.RobotComponents;
-import frc.team1091.robot.systems.DriveSystem;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
@@ -16,7 +15,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null);
         when(joystick.getRawAxis(0)).thenReturn(0.0);
         when(joystick.getRawAxis(1)).thenReturn(0.5);
 
@@ -35,7 +34,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
         when(joystick.getRawAxis(0)).thenReturn(0.0);
         when(joystick.getRawAxis(1)).thenReturn(-0.5);
@@ -55,7 +54,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
         when(joystick.getRawAxis(0)).thenReturn(-1.0);
         when(joystick.getRawAxis(1)).thenReturn(0.5);
@@ -75,7 +74,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
         when(joystick.getRawAxis(0)).thenReturn(1.0);
         when(joystick.getRawAxis(1)).thenReturn(0.5);

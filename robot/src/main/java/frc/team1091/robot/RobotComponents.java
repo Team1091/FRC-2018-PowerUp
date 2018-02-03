@@ -51,7 +51,7 @@ public class RobotComponents {
                 new EncoderWrapper(new Encoder(boxPlatformEncoderChannel1, boxPlatformEncoderChannel2)),
                 new DigitalInputWrapper(new DigitalInput(boxPlatformLimitSwitchChannel)),
                 new DigitalInputWrapper(new DigitalInput(boxElevatorLimitSwitchChannel))//,
-         //       new AnalogInput(boxConsumtionUltraSonicSensor)
+                //       new AnalogInput(boxConsumtionUltraSonicSensor)
         );
     }
 
@@ -69,7 +69,7 @@ public class RobotComponents {
                            EncoderWrapper platformEncoder,
                            DigitalInputWrapper platformLimitSwitch,
                            DigitalInputWrapper elevatorLimitSwitch//,
-    //                       AnalogInput ultraSonicAnalogInput
+                           //                       AnalogInput ultraSonicAnalogInput
     ) {
         this.xboxController = xboxController;
         this.leftMotor = frontLeftMotor;

@@ -15,7 +15,7 @@ public class Team1091Robot {
     // Control Systems
     private AutonomousSystem autonomousSystem;
     private DriveSystem driveSystem;
-private BoxSystem boxSystem;
+    private BoxSystem boxSystem;
 
     public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();

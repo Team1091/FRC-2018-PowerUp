@@ -15,7 +15,7 @@ public class DriveSystem {
         differentialDrive = new DifferentialDrive(this.robotComponents.leftMotor, this.robotComponents.rightMotor);
     }
 
-    public DriveSystem(RobotComponents robotComponents, DifferentialDrive drive){
+    public DriveSystem(RobotComponents robotComponents, DifferentialDrive drive) {
         this.robotComponents = robotComponents;
         differentialDrive = drive;
     }

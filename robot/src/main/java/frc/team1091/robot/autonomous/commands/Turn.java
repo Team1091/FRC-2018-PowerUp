@@ -9,6 +9,7 @@ import frc.team1091.robot.systems.DriveSystem;
 public class Turn implements Command {
     private final RobotComponents components;
     private final DriveSystem driveSystem;
+
     public Turn(double turnRightInDegrees, RobotComponents components, DriveSystem driveSystem) {
         this.components = components;
         this.driveSystem = driveSystem;
@@ -17,7 +18,7 @@ public class Turn implements Command {
     @Override
     public Command execute() {
         //TODO: make the turn code so that the robot doesn't just run turn once
-        driveSystem.drive(0,1);
+        driveSystem.drive(0, 1);
 
         return null;
     }

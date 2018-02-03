@@ -81,7 +81,7 @@ public class Planner {
                     turn = 0;
                 }
                 Facing facing = Facing.values()[lastNode.getZ()];
-                forward += 32.0 ;// TODO/ forwards/backwards
+                forward += 32.0;// TODO/ forwards/backwards
 
             }
         }

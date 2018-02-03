@@ -8,9 +8,7 @@ import frc.team1091.robot.wrapper.EncoderWrapper;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ElevatorSystemTest {
 
@@ -22,7 +20,7 @@ public class ElevatorSystemTest {
     private ElevatorSystem elevatorSystem;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         mockJoystick = mock(Joystick.class);
         mockElevatorMotor = mock(SpeedController.class);
         mockElevatorEncoder = mock(EncoderWrapper.class);
@@ -30,24 +28,23 @@ public class ElevatorSystemTest {
         robotComponents = new RobotComponents(mockJoystick,
                 null,
                 null,
-                 mockElevatorMotor,
+                mockElevatorMotor,
                 null,
                 null,
                 null,
                 null,
                 null,
                 null,
-                 mockElevatorEncoder,
-                null,
+                mockElevatorEncoder,
                 null,
                 null,
                 null
-                );
+        );
         elevatorSystem = new ElevatorSystem(robotComponents);
     }
 
     @Test
-    public void controlLift_NoButtonPressed_ShouldDoNothing(){
+    public void controlLift_NoButtonPressed_ShouldDoNothing() {
         when(mockJoystick.getRawButton(Xbox.rb)).thenReturn(false);
         when(mockJoystick.getRawButton(Xbox.lb)).thenReturn(false);
 
@@ -55,7 +52,7 @@ public class ElevatorSystemTest {
     }
 
     @Test
-    public void controlLift_BothButtonsPressed_ShouldDoNothing(){
+    public void controlLift_BothButtonsPressed_ShouldDoNothing() {
         when(mockJoystick.getRawButton(Xbox.rb)).thenReturn(true);
         when(mockJoystick.getRawButton(Xbox.lb)).thenReturn(true);
 
@@ -63,7 +60,7 @@ public class ElevatorSystemTest {
     }
 
     @Test
-    public void controlLift_RbPressed_ShouldMoveUp(){
+    public void controlLift_RbPressed_ShouldMoveUp() {
         when(mockJoystick.getRawButton(Xbox.rb)).thenReturn(true);
         when(mockJoystick.getRawButton(Xbox.lb)).thenReturn(false);
 
@@ -71,7 +68,7 @@ public class ElevatorSystemTest {
     }
 
     @Test
-    public void controlLift_RbPressed_ShouldMoveDown(){
+    public void controlLift_RbPressed_ShouldMoveDown() {
         when(mockJoystick.getRawButton(Xbox.rb)).thenReturn(false);
         when(mockJoystick.getRawButton(Xbox.lb)).thenReturn(true);
 

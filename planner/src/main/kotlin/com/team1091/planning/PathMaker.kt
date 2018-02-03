@@ -1,9 +1,7 @@
 package com.team1091.planning
 
 import com.team1091.math.*
-import com.team1091.pathfinding.Node
 import com.team1091.pathfinding.findPath3d
-import com.team1091.pathfinding.findPathSplit
 
 fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: List<Rectangle>): List<Vec3>? {
 
