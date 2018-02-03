@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.autonomous.Planner;
 import frc.team1091.robot.autonomous.commands.Command;
 import frc.team1091.robot.systems.AutonomousSystem;
+import frc.team1091.robot.systems.BoxSystem;
 import frc.team1091.robot.systems.DriveSystem;
 
 public class Team1091Robot {
@@ -14,20 +15,23 @@ public class Team1091Robot {
     // Control Systems
     private AutonomousSystem autonomousSystem;
     private DriveSystem driveSystem;
+private BoxSystem boxSystem;
 
     public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();
         return new Team1091Robot(
                 rc,
                 new AutonomousSystem(),
-                new DriveSystem(rc)
+                new DriveSystem(rc),
+                new BoxSystem(rc)
         );
     }
 
-    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem) {
+    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem, BoxSystem boxsystem) {
         this.components = components;
         this.autonomousSystem = autonomousSystem;
         this.driveSystem = driveSystem;
+        this.boxSystem = boxsystem;
     }
 
     public void robotInit() {
@@ -63,6 +67,8 @@ public class Team1091Robot {
     public void teleopPeriodic() {
         //Handle Driving the Robot
         driveSystem.drive();
+        boxSystem.ingestBox();
+
         //Todo: Handle borfing and eating a box
         //Todo: Implement Lifting
         //Todo: Implement Climbing
