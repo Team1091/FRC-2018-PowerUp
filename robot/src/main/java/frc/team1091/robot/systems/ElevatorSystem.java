@@ -16,16 +16,16 @@ public class ElevatorSystem {
         Boolean downButtonPressed = robotComponents.xboxController.getRawButton(Xbox.lb);
         //If both buttons are in same state, do nothing
         if (upButtonPressed == downButtonPressed) {
-            robotComponents.platformMotor.set(0);
+            robotComponents.elevatorMotor.set(0);
             return;
         }
         //Move motor right
         if (upButtonPressed) {
-            robotComponents.platformMotor.set(0.25);
+            robotComponents.elevatorMotor.set(0.25);
         }
         //Move motor left
         if (downButtonPressed) {
-            robotComponents.platformMotor.set(-0.25);
+            robotComponents.elevatorMotor.set(-0.25);
         }
     }
 }
