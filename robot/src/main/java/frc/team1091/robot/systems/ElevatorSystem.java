@@ -28,4 +28,8 @@ public class ElevatorSystem {
             robotComponents.elevatorMotor.set(-0.25);
         }
     }
+
+    public boolean isAtBottom() {
+        return true;
+    }
 }

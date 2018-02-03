@@ -8,15 +8,17 @@ import frc.team1091.robot.Xbox;
  */
 public class BoxSystem {
     private RobotComponents robotComponents;
-
-    public BoxSystem(RobotComponents robotComponents) {
+private ElevatorSystem elevatorSystem;
+    public BoxSystem(RobotComponents robotComponents, ElevatorSystem elevatorSystem) {
         this.robotComponents = robotComponents;
+        this.elevatorSystem = elevatorSystem;
     }
 
     public void ingestBox() {
 
+        boolean elevatorIsAtBottom = elevatorSystem.isAtBottom();
         boolean xButton = robotComponents.xboxController.getRawButton(Xbox.x);
-        if (xButton) {
+        if (xButton && elevatorIsAtBottom) {
             robotComponents.suckerMotor.set(1);
         } else
             robotComponents.suckerMotor.set(0);
