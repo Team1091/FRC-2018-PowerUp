@@ -19,7 +19,7 @@ public class PlatformSystem {
         switch (nextState) {
             case GateUp:
                 break;
-            case DropPosition:
+                case DropPosition:
                 break;
             case PickupPosition:
                 break;

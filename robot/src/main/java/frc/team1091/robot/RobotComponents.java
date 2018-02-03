@@ -19,7 +19,7 @@ public class RobotComponents {
     //Encoders
     public static final int leftDriveMotorEncoderChannel1 = 2;
     public static final int leftDriveMotorEncoderChannel2 = 3;
-    public static final int rightDriveMotortEncoderChannel1 = 4;
+    public static final int rightDriveMotorEncoderChannel1 = 4;
     public static final int rightDriveMotortEncoderChannel2 = 5;
     public static final int boxElevatorEncoderChannel1 = 6;
     public static final int boxElevatorEncoderChannel2 = 7;
@@ -36,15 +36,15 @@ public class RobotComponents {
     public static RobotComponents getDefaultInstance() {
         return new RobotComponents(
                 new Joystick(xboxControllerPort),
-                new Victor(0),
                 new Victor(leftDriveMotorChannel),
                 new Victor(rightDriveMotorChannel),
                 new Victor(boxElevatorMotorChannel),
                 new Victor(boxPlatformMotorChannel),
                 new Victor(boxSuckerMotorChannel),
                 new Victor(robotClimbMotorChannel),
+                new Victor(releaseMotorChannel),
                 new EncoderWrapper(new Encoder(leftDriveMotorEncoderChannel1, leftDriveMotorEncoderChannel2)),
-                new EncoderWrapper(new Encoder(rightDriveMotortEncoderChannel1, rightDriveMotortEncoderChannel2)),
+                new EncoderWrapper(new Encoder(rightDriveMotorEncoderChannel1, rightDriveMotortEncoderChannel2)),
                 new EncoderWrapper(new Encoder(boxElevatorEncoderChannel1, boxElevatorEncoderChannel2)),
                 new EncoderWrapper(new Encoder(boxPlatformEncoderChannel1, boxPlatformEncoderChannel2)),
                 new DigitalInputWrapper(new DigitalInput(boxPlatformLimitSwitchChannel)),
