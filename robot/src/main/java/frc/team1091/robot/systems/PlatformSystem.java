@@ -5,57 +5,61 @@ import frc.team1091.robot.Xbox;
 
 public class PlatformSystem {
     private RobotComponents robotComponents;
-    private PlatformSystemState nextState;
+
+    private PlatformPosition targetState = PlatformPosition.UP;
 
     public final double gateTravelSpeed = .25;
     public final double xboxTriggerPressedTolerance = .2;
+    public final double ticksTolerance = 10;
 
     public PlatformSystem(RobotComponents components) {
         robotComponents = components;
     }
 
     public void controlGate() {
-        UpdatePositionFromConrollerInput();
-        switch (nextState) {
-            case GateUp:
-                // do something
-                break;
-            case DropPosition:
-                //drop pos
-                break;
-            case PickupPosition:
-                break;
+        updatePositionFromControllerInput();
+
+        double power = 0;
+        if (targetState.rotation > robotComponents.platformEncoder.get() + ticksTolerance) {
+            power = -gateTravelSpeed;
+        } else if (targetState.rotation < robotComponents.platformEncoder.get() - ticksTolerance) {
+            power = gateTravelSpeed;
         }
+        robotComponents.platformMotor.set(power);
     }
 
-    public void SetGatePosition(PlatformSystemState moveTo) {
-        nextState = moveTo;
+    public void setGatePosition(PlatformPosition moveTo) {
+        targetState = moveTo;
     }
 
-    public void UpdatePositionFromConrollerInput() {
+    public void updatePositionFromControllerInput() {
         boolean goToClosed = robotComponents.xboxController.getRawAxis(Xbox.rt) > xboxTriggerPressedTolerance;
         boolean goToPickup = robotComponents.xboxController.getRawAxis(Xbox.lt) > xboxTriggerPressedTolerance;
         boolean goToDrop = goToClosed && goToPickup;
 
         if (goToDrop) {
-            SetGatePosition(PlatformSystemState.DropPosition);
+            setGatePosition(PlatformPosition.DOWN);
             return;
         }
 
         if (goToClosed) {
-            SetGatePosition(PlatformSystemState.GateUp);
+            setGatePosition(PlatformPosition.UP);
             return;
         }
 
         if (goToPickup) {
-            SetGatePosition(PlatformSystemState.PickupPosition);
+            setGatePosition(PlatformPosition.CENTER);
+            return;
         }
     }
 
 }
 
-enum PlatformSystemState {
-    GateUp,
-    DropPosition,
-    PickupPosition
+enum PlatformPosition {
+    UP(0), CENTER(90), DOWN(180);
+    final int rotation;
+
+    PlatformPosition(int i) {
+        rotation = i;
+    }
 }
