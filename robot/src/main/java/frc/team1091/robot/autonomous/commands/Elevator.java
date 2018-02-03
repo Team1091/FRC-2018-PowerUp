@@ -4,9 +4,9 @@ package frc.team1091.robot.autonomous.commands;
  * Set the lifter height
  */
 
-public class Lift implements Command {
+public class Elevator implements Command {
 
-    public Lift(double targetHeight) {
+    public Elevator(double targetHeight) {
 
     }
 
