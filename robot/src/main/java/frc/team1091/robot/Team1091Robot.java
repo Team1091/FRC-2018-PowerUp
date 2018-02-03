@@ -4,9 +4,7 @@ import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.autonomous.Planner;
 import frc.team1091.robot.autonomous.commands.Command;
-import frc.team1091.robot.systems.AutonomousSystem;
-import frc.team1091.robot.systems.BoxSystem;
-import frc.team1091.robot.systems.DriveSystem;
+import frc.team1091.robot.systems.*;
 
 public class Team1091Robot {
     // Robot components
@@ -16,22 +14,34 @@ public class Team1091Robot {
     private AutonomousSystem autonomousSystem;
     private DriveSystem driveSystem;
     private BoxSystem boxSystem;
+    private ElevatorSystem elevatorSystem;
+private ClimbSystem climbSystem;
+private PlatformSystem platformSystem;
 
     public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();
+        ElevatorSystem es = new ElevatorSystem(rc);
+
         return new Team1091Robot(
                 rc,
                 new AutonomousSystem(),
                 new DriveSystem(rc),
-                new BoxSystem(rc)
+                new BoxSystem(rc, es),
+                es,
+                new ClimbSystem(rc),
+                new PlatformSystem(rc)
+
         );
     }
 
-    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem, BoxSystem boxsystem) {
+    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem, BoxSystem boxsystem, ElevatorSystem elevatorSystem, ClimbSystem climbSystem, PlatformSystem platformSystem) {
         this.components = components;
         this.autonomousSystem = autonomousSystem;
         this.driveSystem = driveSystem;
         this.boxSystem = boxsystem;
+        this.elevatorSystem = elevatorSystem;
+        this.climbSystem = climbSystem;
+        this.platformSystem = platformSystem;
     }
 
     public void robotInit() {
@@ -68,6 +78,9 @@ public class Team1091Robot {
         //Handle Driving the Robot
         driveSystem.drive();
         boxSystem.ingestBox();
+        elevatorSystem.controlLift();
+        climbSystem.climbUp();
+        platformSystem.controlGate();
 
         //Todo: Handle borfing and eating a box
         //Todo: Implement Lifting

@@ -17,7 +17,7 @@ public class PlanningTest {
         DriveSystem drive = mock(DriveSystem.class);
         EncoderWrapper encoder = mock(EncoderWrapper.class);
 
-        RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, encoder, null, null, null, null, null, null);
+        RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, encoder, null, null, null, null, null);
 
         Command result = Planner.plan(StartingPos.CENTER, DriverStation.Alliance.Blue, "RRR", rc, drive);
 
