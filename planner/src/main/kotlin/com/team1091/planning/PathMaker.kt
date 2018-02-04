@@ -5,9 +5,9 @@ import com.team1091.pathfinding.findPath3d
 
 fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: List<Rectangle>): List<Vec3>? {
 
-    val safeDist = 3
-    val xSize = 25
-    val ySize = 30 // we only go a little beyond half way
+    val xSize = FieldMeasurement.pathfinderBlocksWidth
+    val ySize = FieldMeasurement.pathfinderBlocksLength
+    val safeDist = FieldMeasurement.safeDistance
 
     val obstacles = mutableListOf<Obstacle>(
             Rectangle(Vec2[6, 5], Vec2[15, 10]), // switch
@@ -29,11 +29,6 @@ fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: Li
         }
     })
 
-//    if(alt)
-//        return findPathSplit(fieldMap,
-//                Node(startingPos.pos, startingPos.facing),
-//                Node(endingPos.pos, endingPos.facing)
-//        )?.map{Vec3[it.x,it.y,0]}
     return findPath3d(fieldMap,
             Vec3[startingPos.pos.x, startingPos.pos.y, startingPos.facing.ordinal],
             Vec3[endingPos.pos.x, endingPos.pos.y, endingPos.facing.ordinal])
