@@ -1,5 +1,6 @@
 package com.team1091.math
 
+import com.team1091.math.measurement.*
 import org.junit.Test
 
 class MathTest {
@@ -39,11 +40,25 @@ class MathTest {
             for (y in 0 until 10) {
                 for (z in 0 until 10) {
 
-                    println("$x, $y, $z :" + matrix[x, y, z].toString())
+                    // println("$x, $y, $z :" + matrix[x, y, z].toString())
                     assert(matrix[x, y, z] == Vec3[x, y, z])
                 }
             }
         }
 
+    }
+
+    @Test
+    fun fieldMeasurements() {
+        assert(120.yards.toAmericanFootballFields() == 1.0)
+        assert(1.americanFootballFields.toYards() == 120.0)
+
+        assert(2.feet.toInches() == 24.0)
+        assert(18.inches.toFeet() == 1.5)
+
+        assert((1.0 + 2.0 / 3.0).feet.toInches() == 20.0)
+
+        assert((Math.PI * 2).radians.toDegrees() == 360.0)
+        assert(180.degrees.toRadians() == Math.PI)
     }
 }

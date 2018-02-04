@@ -1,5 +1,6 @@
 package com.team1091.math
 
+import com.team1091.planning.Obstacle
 import java.lang.Math.abs
 
 open class Rectangle(val lower: Vec2, val upper: Vec2) : Obstacle {

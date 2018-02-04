@@ -1,9 +1,6 @@
 import com.team1091.math.*
 import com.team1091.pathfinding.findPath2d
-import com.team1091.planning.EndingPos
-import com.team1091.planning.Facing
-import com.team1091.planning.StartingPos
-import com.team1091.planning.makePath
+import com.team1091.planning.*
 import org.junit.Test
 
 class PathfinderTest {
@@ -16,8 +13,8 @@ class PathfinderTest {
         // ySize = 100
 
         val safeDist = 3
-        val xSize = 20
-        val ySize = 30
+        val xSize = FieldMeasurement.pathfinderBlocksWidth
+        val ySize = FieldMeasurement.pathfinderBlocksLength
 
         // We should take in a list of autonomous "safe zones" for our allies too
         val obstacles = listOf<Obstacle>(
@@ -54,11 +51,12 @@ class PathfinderTest {
         assert(path?.last() == end)
 //        assert(path?.size == getManhattanDistance(start, end) + 1)
 
-        path?.forEach { println(it) }
+        // path?.forEach { println(it) }
     }
 
     @Test
-    fun testPathfindingIn3d() {
+    fun testPathfindingInOpen3d() {
+
 
     }
 
@@ -74,8 +72,11 @@ class PathfinderTest {
                 if (path == null) {
                     println("No possible path, do a default action instead")
                 }
-                println("start ${start} end ${end}")
-                path?.forEach { println("x: ${it.x} y: ${it.y} ${Facing.values()[it.z]}") }
+
+                assert(path != null)
+
+//                println("start ${start} end ${end}")
+//                path?.forEach { println("x: ${it.x} y: ${it.y} ${Facing.values()[it.z]}") }
 
             }
         }
