@@ -74,7 +74,8 @@ public class Team1091Robot {
                 driverStation.getAlliance(),
                 driverStation.getGameSpecificMessage(),
                 components,
-                driveSystem);
+                driveSystem,
+                visionSystem);
 
         autonomousSystem.init(plan);
     }
