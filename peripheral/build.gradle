@@ -29,7 +29,6 @@ dependencies {
     compile "com.github.sarxos:v4l4j:0.9.1-r507"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "com.sparkjava:spark-kotlin:1.0.0-alpha"
-    compile "com.google.code.gson:gson:2.8.2"
     testCompile "junit:junit:4.12"
 }
 

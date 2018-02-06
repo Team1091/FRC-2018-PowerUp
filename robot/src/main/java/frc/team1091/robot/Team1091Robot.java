@@ -2,6 +2,7 @@ package frc.team1091.robot;
 
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.team1091.robot.autonomous.Planner;
 import frc.team1091.robot.autonomous.commands.Command;
 import frc.team1091.robot.systems.*;
@@ -15,8 +16,13 @@ public class Team1091Robot {
     private DriveSystem driveSystem;
     private BoxSystem boxSystem;
     private ElevatorSystem elevatorSystem;
-private ClimbSystem climbSystem;
-private PlatformSystem platformSystem;
+    private ClimbSystem climbSystem;
+    private PlatformSystem platformSystem;
+
+    // Communications with laptop
+    private VisionSystem visionSystem;
+    private SendableChooser<StartingPos> startingPositionChooser;
+
 
     public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();
@@ -29,12 +35,12 @@ private PlatformSystem platformSystem;
                 new BoxSystem(rc, es),
                 es,
                 new ClimbSystem(rc),
-                new PlatformSystem(rc)
-
+                new PlatformSystem(rc),
+                new VisionSystem()
         );
     }
 
-    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem, BoxSystem boxsystem, ElevatorSystem elevatorSystem, ClimbSystem climbSystem, PlatformSystem platformSystem) {
+    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem, BoxSystem boxsystem, ElevatorSystem elevatorSystem, ClimbSystem climbSystem, PlatformSystem platformSystem, VisionSystem visionSystem) {
         this.components = components;
         this.autonomousSystem = autonomousSystem;
         this.driveSystem = driveSystem;
@@ -42,16 +48,24 @@ private PlatformSystem platformSystem;
         this.elevatorSystem = elevatorSystem;
         this.climbSystem = climbSystem;
         this.platformSystem = platformSystem;
+        this.visionSystem = visionSystem;
     }
 
     public void robotInit() {
+
+        visionSystem.init();
+
+        startingPositionChooser = new SendableChooser<>();
+        startingPositionChooser.addDefault(StartingPos.CENTER.name(), StartingPos.CENTER);
+        for (StartingPos p : StartingPos.values()) {
+            startingPositionChooser.addObject(p.name(), p);
+        }
+
     }
 
     public void autonomousInit() {
 
-        // starting path - set fom dropdown?
-        StartingPos start = StartingPos.LEFT;
-
+        StartingPos start = startingPositionChooser.getSelected();
         DriverStation driverStation = DriverStation.getInstance();
 
         // Create a plan
