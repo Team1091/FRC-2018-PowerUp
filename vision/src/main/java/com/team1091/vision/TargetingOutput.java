@@ -10,8 +10,14 @@ public class TargetingOutput {
     public int imageWidth;
     public int imageHeight;
 
-    public int xCenter;
-    public int yCenter;
+    public int xCenterYellow;
+    public int yCenterYellow;
+
+    public int xCenterRed;
+    public int yCenterRed;
+
+    public int xCenterBlue;
+    public int yCenterBlue;
 
     public BufferedImage processedImage;
 
@@ -24,13 +30,20 @@ public class TargetingOutput {
     public BufferedImage drawOntoImage(BufferedImage outputImage) {
 
         Graphics2D g = outputImage.createGraphics();
+
+        g.setColor(Color.YELLOW);
+        g.drawLine(xCenterYellow, yCenterYellow - 10, xCenterYellow, yCenterYellow + 10);
+
         g.setColor(Color.RED);
-        g.drawLine(xCenter, yCenter - 10, xCenter, yCenter + 10);
+        g.drawLine(xCenterRed, yCenterRed - 10, xCenterRed, yCenterRed + 10);
+
+        g.setColor(Color.BLUE);
+        g.drawLine(xCenterBlue, yCenterBlue - 10, xCenterBlue, yCenterBlue + 10);
 
         // width labels, px and % screen width
-        //g.drawString(width + " px", xCenter, yCenter - 25);
+        //g.drawString(width + " px", xCenterYellow, yCenterYellow - 25);
 
-        //g.drawLine(outputImage.getWidth() / 2, yCenter + 20, calcXCenter, yCenter + 20);
+        //g.drawLine(outputImage.getWidth() / 2, yCenterYellow + 20, calcXCenter, yCenterYellow + 20);
 
 
         return outputImage;
@@ -41,7 +54,15 @@ public class TargetingOutput {
      *
      * @return float from -0.5 to 0.5
      */
-    public float getCenter() {
-        return ((float) xCenter / (float) imageWidth) - 0.5f;
+    public float getYellowCenter() {
+        return ((float) xCenterYellow / (float) imageWidth) - 0.5f;
+    }
+
+    public float getRedCenter() {
+        return ((float) xCenterRed / (float) imageWidth) - 0.5f;
+    }
+
+    public float getBlueCenter() {
+        return ((float) xCenterBlue / (float) imageWidth) - 0.5f;
     }
 }

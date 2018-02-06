@@ -17,8 +17,9 @@ import static spark.Spark.port;
 
 public class VisionStandalone {
 
-    private static float center = 0;
-    private static float distance = 0;
+    private static float centerYellow = 0;
+    private static float centerRed = 0;
+    private static float centerBlue = 0;
 
     public static void main(String[] args) throws IOException {
 
@@ -43,7 +44,9 @@ public class VisionStandalone {
                 TargetingOutput targetingOutput = process(image);
 
                 // pull out results we care about, let web server serve them as quick as possible
-                center = targetingOutput.getCenter();
+                centerYellow = targetingOutput.getYellowCenter();
+                centerRed = targetingOutput.getRedCenter();
+                centerBlue = targetingOutput.getBlueCenter();
 
                 // Draw our results onto the image, so that the driver can see if the autonomous code is tracking
                 BufferedImage outImage = targetingOutput.drawOntoImage(targetingOutput.processedImage);
@@ -70,7 +73,6 @@ public class VisionStandalone {
 
                 float screenAspectRatio = (float) panelX / (float) panelY;
 
-
                 if (imageAspectRatio < screenAspectRatio) {
                     // wide screen - y to the max
                     int scaledImageX = (int) (panelY * imageAspectRatio);
@@ -92,9 +94,9 @@ public class VisionStandalone {
         window.pack();
         window.setVisible(true);
 
-        // We host a small webserver so that the robot can ask us where the center is and how far it is.
+        // We host a small webserver so that the robot can ask us where the centerYellow is and how far it is.
         port(5805);
-        get("/", (req, res) -> center + "," + distance);
+        get("/", (req, res) -> "{y:" + centerYellow + ",r:" + centerRed + ",b:" + centerBlue + "}");
     }
 
 //    public static float getDistance(int widthInPixels) {
@@ -108,9 +110,17 @@ public class VisionStandalone {
                 BufferedImage.TYPE_INT_RGB);
 
         int radius = 1;
-        long xSum = 0;
-        long ySum = 0;
-        int totalCount = 0;
+        long xSumY = 0;
+        long ySumY = 0;
+        int totalCountY = 0;
+
+        long xSumR = 0;
+        long ySumR = 0;
+        int totalCountR = 0;
+
+        long xSumB = 0;
+        long ySumB = 0;
+        int totalCountB = 0;
 
         for (int x = 0; x < inputImage.getWidth(); x++) {
             for (int y = 0; y < inputImage.getHeight(); y++) {
@@ -140,37 +150,77 @@ public class VisionStandalone {
                 double b = Math.sqrt(blue / pixel) / 255.0;
 
                 double yellow = Math.min(r, g) * (1 - b); // TODO: find a function to find yellowness
-                //System.out.println(yellow);
-                if (yellow > .35) { //was 10
-                    outputImage.setRGB(x, y, new Color(255, 0, 0).getRGB());
-                    xSum += x;
-                    ySum += y;
-                    totalCount++;
 
+                if (yellow > .35) { //was 10
+                    outputImage.setRGB(x, y, Color.YELLOW.getRGB());
+                    xSumY += x;
+                    ySumY += y;
+                    totalCountY++;
                 } else {
                     outputImage.setRGB(x, y, inputImage.getRGB(x, y));
                 }
 
+                if (r > 0.5 && r > b + 0.18 && r > g + 0.18) {
+                    // its Red
+                    outputImage.setRGB(x, y, Color.RED.getRGB());
+                    xSumR += x;
+                    ySumR += y;
+                    totalCountR++;
+                }
+
+                if (b > 0.5 && b > r + 0.15 && b > g + 0.15) {
+                    outputImage.setRGB(x, y, Color.BLUE.getRGB());
+                    // its blue
+                    xSumB += x;
+                    ySumB += y;
+                    totalCountB++;
+                }
             }
         }
 
-        int xCenter;
-        int yCenter;
+        int xCenterY;
+        int yCenterY;
 
-        if (totalCount == 0) {
-            xCenter = inputImage.getWidth() / 2;
-            yCenter = inputImage.getHeight() / 2;
+        if (totalCountY == 0) {
+            xCenterY = inputImage.getWidth() / 2;
+            yCenterY = inputImage.getHeight() / 2;
         } else {
-            xCenter = (int) (xSum / totalCount);
-            yCenter = (int) (ySum / totalCount);
+            xCenterY = (int) (xSumY / totalCountY);
+            yCenterY = (int) (ySumY / totalCountY);
         }
+
+        int xCenterR;
+        int yCenterR;
+        if (totalCountR == 0) {
+            xCenterR = inputImage.getWidth() / 2;
+            yCenterR = inputImage.getHeight() / 2;
+        } else {
+            xCenterR = (int) (xSumR / totalCountR);
+            yCenterR = (int) (ySumR / totalCountR);
+        }
+
+        int xCenterB;
+        int yCenterB;
+        if (totalCountB == 0) {
+            xCenterB = inputImage.getWidth() / 2;
+            yCenterB = inputImage.getHeight() / 2;
+        } else {
+            xCenterB = (int) (xSumB / totalCountB);
+            yCenterB = (int) (ySumB / totalCountB);
+        }
+
         TargetingOutput targetingOutput = new TargetingOutput();
         targetingOutput.imageWidth = inputImage.getWidth();
         targetingOutput.imageHeight = inputImage.getHeight();
 
+        targetingOutput.xCenterYellow = xCenterY;
+        targetingOutput.yCenterYellow = yCenterY;
 
-        targetingOutput.xCenter = xCenter;
-        targetingOutput.yCenter = yCenter;
+        targetingOutput.xCenterRed = xCenterR;
+        targetingOutput.yCenterRed = yCenterR;
+
+        targetingOutput.xCenterBlue = xCenterB;
+        targetingOutput.yCenterBlue = yCenterB;
 
         targetingOutput.processedImage = outputImage;
         return targetingOutput;

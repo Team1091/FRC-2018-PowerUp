@@ -60,5 +60,7 @@ class MathTest {
 
         assert((Math.PI * 2).radians.toDegrees() == 360.0)
         assert(180.degrees.toRadians() == Math.PI)
+
+        println(1.americanFootballFields.toRobots())
     }
 }

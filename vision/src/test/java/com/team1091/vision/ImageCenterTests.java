@@ -17,7 +17,7 @@ public class ImageCenterTests {
 
         TargetingOutput output = VisionStandalone.process(bi);
         assert output != null;
-        assert output.getCenter() == 0;
+        assert output.getYellowCenter() == 0;
 
     }
 
@@ -29,7 +29,7 @@ public class ImageCenterTests {
 
         TargetingOutput output = VisionStandalone.process(bi);
         assert output != null;
-        assert Math.abs(output.getCenter()) <= 0.01;
+        assert Math.abs(output.getYellowCenter()) <= 0.01;
     }
 
 

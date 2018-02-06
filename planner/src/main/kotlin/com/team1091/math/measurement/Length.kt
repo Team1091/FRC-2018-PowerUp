@@ -14,9 +14,12 @@ public val Number.feet: Length
 public val Number.inches: Length
     get() = Length(this.toDouble())
 
+public val Number.robots: Length
+    get() = Length(this.toDouble() * 38.0)
 
 public class Length(val distance: Double) {
     fun toAmericanFootballFields() = distance / (120.0 * 12.0 * 3.0)
+    fun toRobots() = distance / 38.0
     fun toYards() = distance / (12.0 * 3.0)
     fun toFeet() = distance / (12.0)
     fun toInches() = distance
