@@ -13,7 +13,6 @@ import frc.team1091.robot.systems.DriveSystem;
 import frc.team1091.robot.systems.ElevatorSystem;
 import frc.team1091.robot.systems.PlatformSystem;
 import frc.team1091.robot.systems.VisionSystem;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,7 +57,6 @@ public class Planner {
         return new CommandList(commandList);
     }
 
-    @NotNull
     private static ArrayList<Command> getCommandList(RobotComponents components, DriveSystem driveSystem, List<Vec3> path) {
         // Convert list of points into driving instructions - need to parse out turns.
         ArrayList<Command> commandList = new ArrayList<>();
