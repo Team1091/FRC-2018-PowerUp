@@ -14,15 +14,15 @@ We are also trying to actually write some tests.  We have been meaning to for a 
 ```bash
 
 # To build and run tests
-gradlew.bat build
+gradlew.bat robot:build
 
 # To build and deploy code to the robot
-gradlew.bat build deploy
+gradlew.bat robot:build robot:deploy
 
 # To just build, in the case that you broke all the tests
-gradlew.bat assemble
+gradlew.bat robot:assemble
 
-# To run tests
+# To run all tests
 gradlew.bat test
 
 # To run check the log

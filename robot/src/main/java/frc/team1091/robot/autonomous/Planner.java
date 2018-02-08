@@ -5,6 +5,7 @@ import com.team1091.math.Vec2;
 import com.team1091.math.Vec3;
 import com.team1091.planning.EndingPos;
 import com.team1091.planning.Facing;
+import com.team1091.planning.FieldMeasurement;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
@@ -88,8 +89,13 @@ public class Planner {
                     commandList.add(new Turn(turn, components, driveSystem));
                     turn = 0;
                 }
+
+                // If we go backwards its * -1
                 Facing facing = Facing.values()[lastNode.getZ()];
-                forward += 32.0;// TODO/ forwards/backwards
+                Vec3 travel = lastNode.minus(nextNode);
+                int dir = (facing.getOffset().getX() == travel.getX() && facing.getOffset().getY() == travel.getY()) ? 1 : -1;
+
+                forward += dir * FieldMeasurement.Companion.getRobotSize().toInches();
 
             }
         }

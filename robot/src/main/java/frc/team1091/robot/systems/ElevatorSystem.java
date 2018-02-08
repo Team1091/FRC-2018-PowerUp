@@ -6,16 +6,15 @@ import frc.team1091.robot.Xbox;
 public class ElevatorSystem {
     private RobotComponents robotComponents;
 
-    public final double stepDownStartAt = .25;
-    public final int scaleHeight = 1000;
-    public final int switchHeight = 300;
-    public final int switchRange = 50;
+    private final double stepDownStartAt = .25;
+    private final int scaleHeight = 1000;
+    private final int switchHeight = 300;
+    private final int switchRange = 50;
+    private ElevatorPositions currentPosition = ElevatorPositions.GroundHeight;
 
     public ElevatorSystem(RobotComponents robotComponents) {
         this.robotComponents = robotComponents;
     }
-
-    private ElevatorPositions currentPosition;
 
     public void controlLift() {
         //Determine which way we need to go
@@ -42,11 +41,11 @@ public class ElevatorSystem {
         return robotComponents.elevatorLimitSwitch.get();
     }
 
-    public void setElevatorPosition (ElevatorPositions desiredPosition) {
+    public void setElevatorPosition(ElevatorPositions desiredPosition) {
         currentPosition = desiredPosition;
     }
 
-    public void goToGround (){
+    public void goToGround() {
         boolean isPlatformOnGround = robotComponents.elevatorLimitSwitch.get();
         if (isPlatformOnGround) {
             robotComponents.elevatorEncoder.reset();
@@ -79,23 +78,24 @@ public class ElevatorSystem {
         return false;
     }
 
-    public void goToScale () {
+    public void goToScale() {
         int currentHeight = robotComponents.elevatorEncoder.get();
-        if (currentHeight<scaleHeight) {
+        if (currentHeight < scaleHeight) {
             double motorSpeed = determineMotorSpeed(currentHeight, scaleHeight);
             robotComponents.elevatorMotor.set(motorSpeed);
-        } else{
+        } else {
             robotComponents.elevatorMotor.set(0);
         }
     }
-    public void goToSwitch () {
+
+    public void goToSwitch() {
         int currentHeight = robotComponents.elevatorEncoder.get();
-        if (currentHeight>switchHeight+switchRange){
+        if (currentHeight > switchHeight + switchRange) {
             double motorSpeed = determineMotorSpeed(currentHeight, switchHeight);
-            robotComponents.elevatorMotor.set(-1*motorSpeed);
+            robotComponents.elevatorMotor.set(-1 * motorSpeed);
             return;
         }
-        if (currentHeight<switchHeight-switchRange){
+        if (currentHeight < switchHeight - switchRange) {
             double motorSpeed = determineMotorSpeed(currentHeight, switchHeight);
             robotComponents.elevatorMotor.set(motorSpeed);
             return;
@@ -104,32 +104,32 @@ public class ElevatorSystem {
         robotComponents.elevatorMotor.set(0);
     }
 
-    public double determineMotorSpeed(int currentPosition, int desiredPosition){
-        int distanceRemaining = Math.abs(currentPosition-desiredPosition);
+    public double determineMotorSpeed(int currentPosition, int desiredPosition) {
+        int distanceRemaining = Math.abs(currentPosition - desiredPosition);
 
-        double percentOfDistanceRenaming = ((double)distanceRemaining / (double)desiredPosition);
-        if(percentOfDistanceRenaming > stepDownStartAt){
+        double percentOfDistanceRenaming = ((double) distanceRemaining / (double) desiredPosition);
+        if (percentOfDistanceRenaming > stepDownStartAt) {
             return 1;
         }
 
-        int excludedTravel = (int) Math.floor(desiredPosition * ((double)1-stepDownStartAt));
-        double motorSpeed = (((double)distanceRemaining) / (double)(desiredPosition - excludedTravel));
+        int excludedTravel = (int) Math.floor(desiredPosition * ((double) 1 - stepDownStartAt));
+        double motorSpeed = (((double) distanceRemaining) / (double) (desiredPosition - excludedTravel));
         return motorSpeed;
     }
 
-    public void setStateFromController (){
+    public void setStateFromController() {
         Boolean goToSwitch = robotComponents.xboxController.getRawButton(Xbox.rb);
         Boolean goToScale = robotComponents.xboxController.getRawButton(Xbox.lb);
         Boolean goToGround = robotComponents.xboxController.getRawButton(Xbox.x);
-        if (goToSwitch){
+        if (goToSwitch) {
             setElevatorPosition(ElevatorPositions.SwitchHeight);
             return;
         }
-        if (goToScale){
+        if (goToScale) {
             setElevatorPosition(ElevatorPositions.ScaleHeight);
             return;
         }
-        if (goToGround){
+        if (goToGround) {
             setElevatorPosition(ElevatorPositions.GroundHeight);
             return;
         }

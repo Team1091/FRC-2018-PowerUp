@@ -27,3 +27,7 @@ public class Length(val distance: Double) {
     operator fun plus(other: Length) = Length(this.distance + other.distance)
     operator fun minus(other: Length) = Length(this.distance - other.distance)
 }
+
+fun min(one: Length, two: Length): Length = if (one.distance <= two.distance) one else two
+
+fun max(one: Length, two: Length): Length = if (one.distance >= two.distance) one else two
