@@ -2,7 +2,6 @@ package frc.team1091.robot.systems;
 
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
-import javafx.application.Platform;
 
 public class PlatformSystem {
     private RobotComponents robotComponents;
