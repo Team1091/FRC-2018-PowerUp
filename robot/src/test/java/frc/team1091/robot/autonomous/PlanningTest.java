@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.autonomous.commands.Command;
 import frc.team1091.robot.systems.DriveSystem;
+import frc.team1091.robot.systems.ElevatorSystem;
+import frc.team1091.robot.systems.PlatformSystem;
 import frc.team1091.robot.systems.VisionSystem;
 import frc.team1091.robot.wrapper.EncoderWrapper;
 import org.junit.Test;
@@ -18,10 +20,12 @@ public class PlanningTest {
         DriveSystem drive = mock(DriveSystem.class);
         EncoderWrapper encoder = mock(EncoderWrapper.class);
         VisionSystem vs = mock(VisionSystem.class);
+        PlatformSystem ps = mock(PlatformSystem.class);
+        ElevatorSystem es = mock(ElevatorSystem.class);
 
         RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, encoder, null, null, null, null, null);
 
-        Command result = Planner.plan(StartingPos.CENTER, DriverStation.Alliance.Blue, "RRR", rc, drive,vs);
+        Command result = Planner.plan(StartingPos.CENTER, DriverStation.Alliance.Blue, "RRR", rc, drive,vs,ps,es);
 
         assert result != null;
     }

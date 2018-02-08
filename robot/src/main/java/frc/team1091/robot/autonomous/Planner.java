@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.autonomous.commands.*;
 import frc.team1091.robot.systems.DriveSystem;
+import frc.team1091.robot.systems.ElevatorSystem;
+import frc.team1091.robot.systems.PlatformSystem;
 import frc.team1091.robot.systems.VisionSystem;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +23,14 @@ import static com.team1091.planning.PathMakerKt.makePath;
 
 public class Planner {
 
-    public static Command plan(StartingPos start, DriverStation.Alliance alliance, String gameGoalData, RobotComponents components, DriveSystem driveSystem, VisionSystem visionSystem) {
+    public static Command plan(StartingPos start,
+                               DriverStation.Alliance alliance,
+                               String gameGoalData,
+                               RobotComponents components,
+                               DriveSystem driveSystem,
+                               VisionSystem visionSystem,
+                               PlatformSystem platformSystem,
+                               ElevatorSystem elevatorSystem) {
         // initialize the autonomous with a list of things to do.
         // This depends on our starting position and goal we want to go for
 
@@ -44,7 +53,7 @@ public class Planner {
         commandList.add(new DriveUntilClose(alliance, components, driveSystem, visionSystem));
 
         // unload box
-        commandList.add(new BarfBox(components, driveSystem));
+        commandList.add(new BarfBox(components, platformSystem, elevatorSystem));
 
         return new CommandList(commandList);
     }

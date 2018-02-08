@@ -2,6 +2,7 @@ package frc.team1091.robot.systems;
 
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
+import javafx.application.Platform;
 
 public class PlatformSystem {
     private RobotComponents robotComponents;
@@ -53,13 +54,12 @@ public class PlatformSystem {
         }
     }
 
-}
-
-enum PlatformPosition {
-    UP(0), CENTER(90), DOWN(180);
-    final int rotation;
-
-    PlatformPosition(int i) {
-        rotation = i;
+    public boolean isPlatformAtState(PlatformPosition position) {
+        double x = robotComponents.platformEncoder.get();
+        double upperBound = position.rotation + ticksTolerance;
+        double lowerBound = position.rotation - ticksTolerance;
+        return x >= lowerBound && x <= upperBound;
     }
+
 }
+

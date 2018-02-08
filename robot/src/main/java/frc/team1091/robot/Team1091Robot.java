@@ -75,7 +75,9 @@ public class Team1091Robot {
                 driverStation.getGameSpecificMessage(),
                 components,
                 driveSystem,
-                visionSystem);
+                visionSystem,
+                platformSystem,
+                elevatorSystem);
 
         autonomousSystem.init(plan);
     }
@@ -97,9 +99,6 @@ public class Team1091Robot {
         climbSystem.climbUp();
         platformSystem.controlGate();
 
-        //Todo: Handle borfing and eating a box
-        //Todo: Implement Lifting
-        //Todo: Implement Climbing
     }
 
     public void disabledInit() {

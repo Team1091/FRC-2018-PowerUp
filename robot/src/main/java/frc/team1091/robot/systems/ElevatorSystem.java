@@ -34,6 +34,10 @@ public class ElevatorSystem {
         }
     }
 
+    public ElevatorPositions getCurrentPosition() {
+        return currentPosition;
+    }
+
     public boolean isAtBottom() {
         return robotComponents.elevatorLimitSwitch.get();
     }
@@ -51,6 +55,28 @@ public class ElevatorSystem {
         }
         //Slam it to the bottom
         robotComponents.elevatorMotor.set(-1);
+    }
+
+    public boolean isAtScale() {
+        double currentHeight = robotComponents.elevatorEncoder.get();
+        return currentHeight >= scaleHeight;
+    }
+
+    public boolean isAtSwitch() {
+        double currentHeight = robotComponents.elevatorEncoder.get();
+        double upperSwitchRange = switchHeight + switchRange;
+        double lowerSwitchRange = switchHeight - switchRange;
+        return !(currentHeight <= upperSwitchRange && currentHeight >= lowerSwitchRange);
+    }
+
+    public boolean isAtDropPosistion() {
+        if (currentPosition == ElevatorPositions.ScaleHeight && isAtScale()) {
+            return true;
+        }
+        if (currentPosition == ElevatorPositions.SwitchHeight && isAtSwitch()) {
+            return true;
+        }
+        return false;
     }
 
     public void goToScale () {

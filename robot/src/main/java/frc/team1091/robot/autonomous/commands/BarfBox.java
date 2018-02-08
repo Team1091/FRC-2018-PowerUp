@@ -1,25 +1,38 @@
 package frc.team1091.robot.autonomous.commands;
 
 import frc.team1091.robot.RobotComponents;
-import frc.team1091.robot.systems.DriveSystem;
+import frc.team1091.robot.systems.ElevatorPositions;
+import frc.team1091.robot.systems.PlatformPosition;
+import frc.team1091.robot.systems.PlatformSystem;
+import frc.team1091.robot.systems.ElevatorSystem;
 
 public class BarfBox implements Command {
     private RobotComponents components;
+    private PlatformSystem platformSystem;
+    private ElevatorSystem elevatorSystem;
 
-    public BarfBox(RobotComponents components, DriveSystem driveSystem) {
-        this.components = components;
+    public BarfBox(RobotComponents components, PlatformSystem platformSystem, ElevatorSystem elevatorSystem) {
+        this.components     = components;
+        this.platformSystem = platformSystem;
+        this.elevatorSystem = elevatorSystem;
     }
 
     @Override
     public Command execute() {
-        //Check to make sure box is present... Maybe?
-        //Check to make sure platform is in close posistion
+        //If elevator at ground height we cannot drop
+        if (elevatorSystem.getCurrentPosition() == ElevatorPositions.GroundHeight) {
+            return null;
+        }
+        //Wait for elevator to be at drop position if still moving
+        if (!elevatorSystem.isAtDropPosistion()) {
+            return this;
+        }
         //Angle the platform down to release the box
-        components.elevatorMotor.set(-0.25);
-        //stop after set amount of revolutions
-        //Angle the box back up
-        components.elevatorMotor.set(0.25);
-        //stop at limit switch
+        platformSystem.setGatePosition(PlatformPosition.DOWN);
+        if (!platformSystem.isPlatformAtState(PlatformPosition.DOWN)) {
+            return this;
+        }
+        //TODO: check that the box actually dropped.
         return null;
     }
 }
