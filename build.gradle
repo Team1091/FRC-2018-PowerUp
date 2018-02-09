@@ -27,3 +27,15 @@ subprojects {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.4'
 }
+
+task compileAndDeploy() {
+    group "team1091"
+    description "Compile all the projects and deploy the robot code"
+
+    dependsOn(getTasksByName('assemble', true))
+
+    finalizedBy("robot:deploy")
+    doLast {
+        println "Done Compiling, will try to deploy"
+    }
+}
