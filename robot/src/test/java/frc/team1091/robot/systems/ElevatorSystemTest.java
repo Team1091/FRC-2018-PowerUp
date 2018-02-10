@@ -3,13 +3,12 @@ package frc.team1091.robot.systems;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 import frc.team1091.robot.RobotComponents;
-import frc.team1091.robot.Xbox;
 import frc.team1091.robot.wrapper.EncoderWrapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 public class ElevatorSystemTest {
 
@@ -45,13 +44,13 @@ public class ElevatorSystemTest {
     }
 
     @Test
-    public void determineMotorSpeed_ShouldReturnOne(){
+    public void determineMotorSpeed_ShouldReturnOne() {
         double speed = elevatorSystem.determineMotorSpeed(0, 1000);
         Assert.assertEquals(1, speed, .00001);
     }
 
     @Test
-    public void determineMotorSpeed_ShouldStepDown(){
+    public void determineMotorSpeed_ShouldStepDown() {
         double result1 = elevatorSystem.determineMotorSpeed(751, 1000);
         double result2 = elevatorSystem.determineMotorSpeed(800, 1000);
         double result3 = elevatorSystem.determineMotorSpeed(950, 1000);

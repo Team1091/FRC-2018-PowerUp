@@ -26,7 +26,7 @@ public class AutonomousSystem {
         command = command.execute(dt);
     }
 
-    public void log(String message){
+    public void log(String message) {
         SmartDashboard.putString("Autonomous", message);
     }
 }

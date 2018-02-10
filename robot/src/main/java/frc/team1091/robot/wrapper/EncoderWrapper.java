@@ -17,8 +17,8 @@ public class EncoderWrapper {
         return encoder.get();
     }
 
-    public double getDistance (){
-        return encoder.get()/ticksPerDistanceUnit;
+    public double getDistance() {
+        return encoder.get() / ticksPerDistanceUnit;
     }
 
     public void reset() {

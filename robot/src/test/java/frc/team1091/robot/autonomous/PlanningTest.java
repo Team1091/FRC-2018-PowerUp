@@ -25,7 +25,7 @@ public class PlanningTest {
 
         RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, encoder, null, null, null, null, null);
 
-        Command result = Planner.plan(StartingPos.CENTER, DriverStation.Alliance.Blue, "RRR", rc, drive,vs,ps,es);
+        Command result = Planner.plan(StartingPos.CENTER, DriverStation.Alliance.Blue, "RRR", rc, drive, vs, ps, es);
 
         assert result != null;
     }

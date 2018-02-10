@@ -57,7 +57,7 @@ public class Planner {
         commandList.add(new Wait(100));
         commandList.add(new BarfBox(components, platformSystem, elevatorSystem));
 
-        return new DriveForwards(36.0,components,driveSystem);
+        return new DriveForwards(36.0, components, driveSystem);
 //        return new Turn(960.0, components, driveSystem);
         //        return new CommandList(commandList);
     }

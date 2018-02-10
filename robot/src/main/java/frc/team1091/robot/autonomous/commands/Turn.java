@@ -19,7 +19,7 @@ public class Turn implements Command {
         this.components = components;
         this.driveSystem = driveSystem;
         this.turnDegrees = turnDegrees;
-        this.requiredTurnDistance = (Math.abs(turnDegrees/360))* (29*Math.PI);
+        this.requiredTurnDistance = (Math.abs(turnDegrees / 360)) * (29 * Math.PI);
 //        SmartDashboard.putNumber("requiredTurn",requiredTurnDistance);
         isTurnRight = turnDegrees > 0;
     }
@@ -37,7 +37,7 @@ public class Turn implements Command {
         double ltix = components.leftEncoder.getDistance();
         double rtix = components.rightEncoder.getDistance();
 
-        double difference = Math.abs(rtix - ltix)/2.0; // ticks per degree
+        double difference = Math.abs(rtix - ltix) / 2.0; // ticks per degree
 
         if (difference > requiredTurnDistance) {
             // We have turned far enough, we are done
