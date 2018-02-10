@@ -6,19 +6,19 @@ import edu.wpi.first.wpilibj.Encoder;
 // so we are using this to fake it out
 public class EncoderWrapper {
     private Encoder encoder;
-    private boolean reverse;
+    private double ticksPerDistanceUnit;
 
-    public EncoderWrapper(Encoder encoder) {
-        this(encoder, false);
-    }
-
-    public EncoderWrapper(Encoder encoder, boolean reverse) {
+    public EncoderWrapper(Encoder encoder, double ticksPerDistanceUnit) {
         this.encoder = encoder;
-        this.reverse = reverse;
+        this.ticksPerDistanceUnit = ticksPerDistanceUnit;
     }
 
     public int get() {
-        return encoder.get() * (reverse ? -1 : 1);
+        return encoder.get();
+    }
+
+    public double getDistance (){
+        return encoder.get()/ticksPerDistanceUnit;
     }
 
     public void reset() {

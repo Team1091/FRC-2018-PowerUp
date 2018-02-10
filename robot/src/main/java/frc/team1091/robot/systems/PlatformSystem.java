@@ -20,9 +20,9 @@ public class PlatformSystem {
         updatePositionFromControllerInput();
 
         double power = 0;
-        if (targetState.rotation > robotComponents.platformEncoder.get() + ticksTolerance) {
+        if (targetState.rotation > robotComponents.platformEncoder.getDistance() + ticksTolerance) {
             power = -gateTravelSpeed;
-        } else if (targetState.rotation < robotComponents.platformEncoder.get() - ticksTolerance) {
+        } else if (targetState.rotation < robotComponents.platformEncoder.getDistance() - ticksTolerance) {
             power = gateTravelSpeed;
         }
         robotComponents.platformMotor.set(power);
@@ -54,7 +54,7 @@ public class PlatformSystem {
     }
 
     public boolean isPlatformAtState(PlatformPosition position) {
-        double x = robotComponents.platformEncoder.get();
+        double x = robotComponents.platformEncoder.getDistance();
         double upperBound = position.rotation + ticksTolerance;
         double lowerBound = position.rotation - ticksTolerance;
         return x >= lowerBound && x <= upperBound;

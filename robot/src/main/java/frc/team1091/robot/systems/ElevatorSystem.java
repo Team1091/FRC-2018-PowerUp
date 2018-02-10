@@ -57,12 +57,12 @@ public class ElevatorSystem {
     }
 
     public boolean isAtScale() {
-        double currentHeight = robotComponents.elevatorEncoder.get();
+        double currentHeight = robotComponents.elevatorEncoder.getDistance();
         return currentHeight >= scaleHeight;
     }
 
     public boolean isAtSwitch() {
-        double currentHeight = robotComponents.elevatorEncoder.get();
+        double currentHeight = robotComponents.elevatorEncoder.getDistance();
         double upperSwitchRange = switchHeight + switchRange;
         double lowerSwitchRange = switchHeight - switchRange;
         return !(currentHeight <= upperSwitchRange && currentHeight >= lowerSwitchRange);
@@ -79,7 +79,7 @@ public class ElevatorSystem {
     }
 
     public void goToScale() {
-        int currentHeight = robotComponents.elevatorEncoder.get();
+        double currentHeight = robotComponents.elevatorEncoder.getDistance();
         if (currentHeight < scaleHeight) {
             double motorSpeed = determineMotorSpeed(currentHeight, scaleHeight);
             robotComponents.elevatorMotor.set(motorSpeed);
@@ -89,7 +89,7 @@ public class ElevatorSystem {
     }
 
     public void goToSwitch() {
-        int currentHeight = robotComponents.elevatorEncoder.get();
+        double currentHeight = robotComponents.elevatorEncoder.getDistance();
         if (currentHeight > switchHeight + switchRange) {
             double motorSpeed = determineMotorSpeed(currentHeight, switchHeight);
             robotComponents.elevatorMotor.set(-1 * motorSpeed);
@@ -104,8 +104,8 @@ public class ElevatorSystem {
         robotComponents.elevatorMotor.set(0);
     }
 
-    public double determineMotorSpeed(int currentPosition, int desiredPosition) {
-        int distanceRemaining = Math.abs(currentPosition - desiredPosition);
+    public double determineMotorSpeed(double currentPosition, double desiredPosition) {
+        double distanceRemaining = Math.abs(currentPosition - desiredPosition);
 
         double percentOfDistanceRenaming = ((double) distanceRemaining / (double) desiredPosition);
         if (percentOfDistanceRenaming > stepDownStartAt) {

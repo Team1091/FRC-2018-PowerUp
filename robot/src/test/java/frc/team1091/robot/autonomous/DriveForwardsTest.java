@@ -24,8 +24,8 @@ public class DriveForwardsTest {
 
         RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, lEncoder, rEncoder, null, null, null, null);
 
-        when(rEncoder.get()).thenReturn(10);
-        when(lEncoder.get()).thenReturn(10);
+        when(rEncoder.getDistance()).thenReturn(10.0);
+        when(lEncoder.getDistance()).thenReturn(10.0);
 
         AutonomousSystem autonomousSystem = Mockito.spy(new AutonomousSystem());
         Mockito.doNothing().when(autonomousSystem).log((String) notNull()); // Skip smartdashboard
@@ -39,13 +39,13 @@ public class DriveForwardsTest {
 
         autonomousSystem.drive();
 
-        verify(lEncoder).get();
-        verify(rEncoder).get();
+        verify(lEncoder).getDistance();
+        verify(rEncoder).getDistance();
         verify(drive).drive(1, 0);
 
         // Next we want to test that when the encoder is past the threshold, that it stops and goes to the next command
-        when(lEncoder.get()).thenReturn(101 * 360 / 4);
-        when(rEncoder.get()).thenReturn(101 * 360 / 4);
+        when(lEncoder.getDistance()).thenReturn(101.0 * 360.0 / 4.0);
+        when(rEncoder.getDistance()).thenReturn(101.0 * 360.0 / 4.0);
 
         autonomousSystem.drive();
 

@@ -106,10 +106,10 @@ public class Team1091Robot {
     }
 
     private void printEncoders() {
-        SmartDashboard.putNumber("left", components.leftEncoder.get());
-        SmartDashboard.putNumber("right", components.rightEncoder.get());
-        SmartDashboard.putNumber("elevator", components.elevatorEncoder.get());
-        SmartDashboard.putNumber("platform", components.platformEncoder.get());
+        SmartDashboard.putNumber("left", components.leftEncoder.getDistance());
+        SmartDashboard.putNumber("right", components.rightEncoder.getDistance());
+        SmartDashboard.putNumber("elevator", components.elevatorEncoder.getDistance());
+        SmartDashboard.putNumber("platform", components.platformEncoder.getDistance());
     }
 
     public void disabledInit() {
@@ -122,20 +122,20 @@ public class Team1091Robot {
     }
 
     public void testPeriodic() {
-        components.leftMotor.set(limit(SmartDashboard.getNumber("leftMotor - 1",0.0)));
-        components.rightMotor.set(limit(SmartDashboard.getNumber("rightMotor - 0",0.0)));
-        components.elevatorMotor.set(limit(SmartDashboard.getNumber("elevatorMotor - 2",0.0)));
-        components.platformMotor.set(limit(SmartDashboard.getNumber("platformMotor 3",0.0)));
-        components.releaseMotor.set(limit(SmartDashboard.getNumber("releaseMotor - 6",0.0)));
-        components.suckerMotor.set(limit(SmartDashboard.getNumber("suckerMotor - 4",0.0)));
+        components.rightMotor.set(limit(SmartDashboard.getNumber("rightMotor - 0", 0.0)));
+        components.leftMotor.set(limit(SmartDashboard.getNumber("leftMotor - 1", 0.0)));
+        components.elevatorMotor.set(limit(SmartDashboard.getNumber("elevatorMotor - 2", 0.0)));
+        components.platformMotor.set(limit(SmartDashboard.getNumber("platformMotor 3", 0.0)));
+        components.suckerMotor.set(limit(SmartDashboard.getNumber("suckerMotor - 4", 0.0)));
         components.winchMotor.set(limit(SmartDashboard.getNumber("winchMotor - 5", 0.0)));
+        components.releaseMotor.set(limit(SmartDashboard.getNumber("releaseMotor - 6", 0.0)));
 
         printEncoders();
 
     }
 
-    private double limit(double val){
-        return Math.max(-1, Math.min (1, val));
+    private double limit(double val) {
+        return Math.max(-1, Math.min(1, val));
     }
 }
 

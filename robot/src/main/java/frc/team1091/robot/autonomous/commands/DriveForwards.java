@@ -27,10 +27,10 @@ public class DriveForwards implements Command {
             robotComponents.rightEncoder.reset();
         }
 
-        double l = robotComponents.leftEncoder.get();
-        double r = robotComponents.rightEncoder.get();
+        double l = robotComponents.leftEncoder.getDistance();
+        double r = robotComponents.rightEncoder.getDistance();
 
-        double distanceTraveled = Math.min(l, r) / ticksPerInch;
+        double distanceTraveled = Math.min(l, r);
 
         if (distanceTraveled > distanceInInches) {
             controlSystems.drive(0, 0);

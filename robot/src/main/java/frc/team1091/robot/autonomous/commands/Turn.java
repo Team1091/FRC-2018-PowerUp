@@ -31,10 +31,10 @@ public class Turn implements Command {
         }
 
 
-        int ltix = components.leftEncoder.get();
-        int rtix = components.rightEncoder.get();
+        double ltix = components.leftEncoder.getDistance();
+        double rtix = components.rightEncoder.getDistance();
 
-        double difference = Math.abs(rtix - ltix) * ticksPerDegree; // ticks per degree
+        double difference = Math.abs(rtix - ltix); // ticks per degree
 
         if (difference > Math.abs(turnRightInDegrees)) {
             // We have turned far enough, we are done
