@@ -21,8 +21,10 @@ public class VisionSystem {
         Runnable visionUpdater = () -> {
             while (true) {
                 try {
-                    URL visionURL = new URL("http://10.10.91.20:5805/"); //comp
-                    //ForTesting//URL visionURL = new URL("http://169.254.71.106:5805/");
+
+                    // URL visionURL = new URL("http://sif.local:5605"); // We should try to get mDNS working
+                    URL visionURL = new URL("http://10.10.91.20:5805/"); // competition we hard code ip
+                    // URL visionURL = new URL("http://169.254.71.106:5805/"); // For Testing
 
                     BufferedReader in = new BufferedReader(new InputStreamReader(visionURL.openStream()));
 

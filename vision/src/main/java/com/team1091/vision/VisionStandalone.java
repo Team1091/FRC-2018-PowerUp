@@ -54,10 +54,7 @@ public class VisionStandalone {
                 imageInfo.blue = targetingOutput.getBlueCenter();
                 imageInfo.blueDistance = targetingOutput.getBlueDistance();
 
-                // Draw our results onto the image, so that the driver can see if the autonomous code is tracking
-                BufferedImage outImage = targetingOutput.drawOntoImage(targetingOutput.processedImage);
-
-                writeToPanel(panel, g2, outImage);
+                writeToPanel(panel, g2, targetingOutput);
 
             }
 
@@ -65,9 +62,13 @@ public class VisionStandalone {
              * Writes an image onto the panel, and deals with stretching it while keeping aspect ratio
              * @param panel
              * @param g2
-             * @param outImage
+             * @param targetingOutput
              */
-            private void writeToPanel(WebcamPanel panel, Graphics2D g2, BufferedImage outImage) {
+            private void writeToPanel(WebcamPanel panel, Graphics2D g2, TargetingOutput targetingOutput) {
+
+                // Draw our results onto the image, so that the driver can see if the autonomous code is tracking
+                BufferedImage outImage = targetingOutput.drawOntoImage(targetingOutput.processedImage);
+
 
                 int imageX = outImage.getWidth();
                 int imageY = outImage.getHeight();
@@ -170,7 +171,7 @@ public class VisionStandalone {
                     ySumR += y;
                     totalCountR++;
 
-                } else if (b > 0.5 && b > r + 0.15 && b > g + 0.15) {
+                } else if (b > 0.5 && b > r + 0.18 && b > g + 0.18) {
                     outputImage.setRGB(x, y, Color.BLUE.getRGB());
                     // its blue
                     xSumB += x;
