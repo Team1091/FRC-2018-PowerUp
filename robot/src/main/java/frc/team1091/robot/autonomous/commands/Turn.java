@@ -1,5 +1,6 @@
 package frc.team1091.robot.autonomous.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.systems.DriveSystem;
 
@@ -19,7 +20,8 @@ public class Turn implements Command {
         this.components = components;
         this.driveSystem = driveSystem;
         this.turnDegrees = turnDegrees;
-        this.requiredTurnDistance = (29*Math.PI)/(Math.abs(turnDegrees/360));
+        this.requiredTurnDistance = (Math.abs(turnDegrees/360))* (29*Math.PI);
+//        SmartDashboard.putNumber("requiredTurn",requiredTurnDistance);
         isTurnRight = turnDegrees > 0;
     }
 
