@@ -25,7 +25,7 @@ public class ManualDriveTest {
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
-        verify(drive).arcadeDrive(0.5 * 0.6, 0);
+        verify(drive).arcadeDrive(-0.5 * 0.8, 0);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class ManualDriveTest {
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
-        verify(drive).arcadeDrive(-0.5 * 0.6, 0);
+        verify(drive).arcadeDrive(0.5 * 0.8, 0);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class ManualDriveTest {
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
-        verify(drive).arcadeDrive(0.5 * 0.6, -1.0 * 0.6);
+        verify(drive).arcadeDrive(-0.5 * 0.8, -1.0 * 0.8);
     }
 
     @Test
@@ -85,6 +85,6 @@ public class ManualDriveTest {
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
-        verify(drive).arcadeDrive(0.5 * 0.6, 1.0 * 0.6);
+        verify(drive).arcadeDrive(-0.5 * 0.8, 1.0 * 0.8);
     }
 }
