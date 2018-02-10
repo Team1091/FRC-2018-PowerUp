@@ -21,7 +21,7 @@ public class ManualDriveTest {
 
         DriveSystem driveSystem = new DriveSystem(rc, drive);
 
-        driveSystem.drive();
+        driveSystem.manualDrive(0.1);
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
@@ -41,7 +41,7 @@ public class ManualDriveTest {
 
         DriveSystem driveSystem = new DriveSystem(rc, drive);
 
-        driveSystem.drive();
+        driveSystem.manualDrive(0.1);
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
@@ -61,7 +61,7 @@ public class ManualDriveTest {
 
         DriveSystem driveSystem = new DriveSystem(rc, drive);
 
-        driveSystem.drive();
+        driveSystem.manualDrive(0.1);
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
@@ -81,7 +81,7 @@ public class ManualDriveTest {
 
         DriveSystem driveSystem = new DriveSystem(rc, drive);
 
-        driveSystem.drive();
+        driveSystem.manualDrive(0.1);
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
