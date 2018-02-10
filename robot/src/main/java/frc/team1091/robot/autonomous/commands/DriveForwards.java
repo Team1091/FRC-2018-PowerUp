@@ -8,7 +8,9 @@ public class DriveForwards implements Command {
     private final double distanceInInches;
     private final RobotComponents robotComponents;
     private final DriveSystem controlSystems;
-    private final static double ticksPerInch = 360; //Fix this or I will find you (add in the correct tic per inch ratio
+    private final static double ticksPerInch = 360.0 / 4.0; //Fix this or I will find you (add in the correct tic per inch ratio
+
+    private boolean firstRun = true;
 
     public DriveForwards(double distanceInInches, RobotComponents robotComponents, DriveSystem controlSystems) {
         this.distanceInInches = distanceInInches;
@@ -16,17 +18,23 @@ public class DriveForwards implements Command {
         this.controlSystems = controlSystems;
     }
 
-
     @Override
     public Command execute() {
+        if (firstRun) {
+            // Reset driving encoders so we can drive a set distance
+            firstRun = false;
+            robotComponents.leftEncoder.reset();
+            robotComponents.rightEncoder.reset();
+        }
+
         double l = robotComponents.leftEncoder.get();
         double r = robotComponents.rightEncoder.get();
 
-        double distanceTraveled = Math.min(l, r);
+        double distanceTraveled = Math.min(l, r) / ticksPerInch;
 
         if (distanceTraveled > distanceInInches) {
             controlSystems.drive(0, 0);
-            return null;  // if I return nothing, i run the next command if im in a command list
+            return null;  // if I return nothing, I run the next command if im in a command list
         }
 
         double rightBias = (r - l) / 10.0;
@@ -36,6 +44,6 @@ public class DriveForwards implements Command {
     }
 
     private double limit(double qty) {
-        return Math.min(Math.max(0, qty), 1);
+        return Math.min(Math.max(-0.5, qty), 0.5);
     }
 }

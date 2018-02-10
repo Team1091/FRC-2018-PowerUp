@@ -13,6 +13,8 @@ public class Turn implements Command {
 
     private final static double ticksPerDegree = 1.0;
 
+    private boolean firstRun = true;
+
     public Turn(double turnRightInDegrees, RobotComponents components, DriveSystem driveSystem) {
         this.components = components;
         this.driveSystem = driveSystem;
@@ -21,6 +23,13 @@ public class Turn implements Command {
 
     @Override
     public Command execute() {
+        if (firstRun) {
+            // Reset driving encoders so we can measure turn
+            firstRun = false;
+            components.leftEncoder.reset();
+            components.rightEncoder.reset();
+        }
+
 
         int ltix = components.leftEncoder.get();
         int rtix = components.rightEncoder.get();

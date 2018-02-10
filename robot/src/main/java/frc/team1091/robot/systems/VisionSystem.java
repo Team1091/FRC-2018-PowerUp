@@ -16,6 +16,7 @@ public class VisionSystem {
     private ImageInfo imageInfo = new ImageInfo();
     private Gson gson = new Gson();
 
+
     public void init() {
         Runnable visionUpdater = () -> {
             while (true) {
@@ -27,6 +28,7 @@ public class VisionSystem {
 
                     String inputLine = in.readLine();
                     this.imageInfo = gson.fromJson(inputLine, ImageInfo.class);
+                    this.imageInfo.lastUpdated = System.currentTimeMillis();
 
                     in.close();
                     Thread.sleep(100); // wait a 10th of a second before we ask again
@@ -40,16 +42,27 @@ public class VisionSystem {
         new Thread(visionUpdater).start();
     }
 
-    public float getRedCenter() {
+    public double getRedCenter() {
         return imageInfo.red;
     }
 
-    public float getBlueCenter() {
+    public double getBlueCenter() {
         return imageInfo.blue;
     }
 
-    public float getYellowCenter() {
+    public double getYellowCenter() {
         return imageInfo.yellow;
     }
 
+    public double getRedDistance() {
+        return imageInfo.redDistance;
+    }
+
+    public double getBlueDistance() {
+        return imageInfo.blueDistance;
+    }
+
+    public double getYellowDistance() {
+        return imageInfo.yellowDistance;
+    }
 }

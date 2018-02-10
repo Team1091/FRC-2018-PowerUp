@@ -13,11 +13,11 @@ We are also trying to actually write some tests.  We have been meaning to for a 
 ## Robot Commands
 ```bash
 
-# To build and run tests
-gradlew.bat robot:build
-
 # To build and deploy code to the robot
 gradlew.bat :compileAndDeploy
+
+# To build and run tests
+gradlew.bat robot:build
 
 # To just build, in the case that you broke all the tests
 gradlew.bat robot:assemble
@@ -28,7 +28,7 @@ gradlew.bat test
 # To run check the log
 gradlew.bat riolog
 
-# To run shuffleboard
+# To start shuffleboard
 gradlew.bat shuffleboard
 
 ```

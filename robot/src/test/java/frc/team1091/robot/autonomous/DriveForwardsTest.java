@@ -42,8 +42,8 @@ public class DriveForwardsTest {
         verify(drive).drive(1, 0);
 
         // Next we want to test that when the encoder is past the threshold, that it stops and goes to the next command
-        when(lEncoder.get()).thenReturn(101);
-        when(rEncoder.get()).thenReturn(101);
+        when(lEncoder.get()).thenReturn(101 * 360 / 4);
+        when(rEncoder.get()).thenReturn(101 * 360 / 4);
 
         autonomousSystem.drive();
 

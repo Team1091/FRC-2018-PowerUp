@@ -45,7 +45,7 @@ public class RobotComponents {
                 new Victor(boxSuckerMotorChannel),
                 new Victor(robotClimbMotorChannel),
                 new Victor(releaseMotorChannel),
-                new EncoderWrapper(new Encoder(leftDriveMotorEncoderChannel1, leftDriveMotorEncoderChannel2)),
+                new EncoderWrapper(new Encoder(leftDriveMotorEncoderChannel1, leftDriveMotorEncoderChannel2), true),
                 new EncoderWrapper(new Encoder(rightDriveMotorEncoderChannel1, rightDriveMotorEncoderChannel2)),
                 new EncoderWrapper(new Encoder(boxElevatorEncoderChannel1, boxElevatorEncoderChannel2)),
                 new EncoderWrapper(new Encoder(boxPlatformEncoderChannel1, boxPlatformEncoderChannel2)),
