@@ -53,6 +53,8 @@ public class Planner {
         commandList.add(new DriveUntilClose(alliance, components, driveSystem, visionSystem));
 
         // unload box
+
+        commandList.add(new Wait(100));
         commandList.add(new BarfBox(components, platformSystem, elevatorSystem));
 
         return new CommandList(commandList);

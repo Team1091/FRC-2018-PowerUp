@@ -69,7 +69,6 @@ public class VisionStandalone {
                 // Draw our results onto the image, so that the driver can see if the autonomous code is tracking
                 BufferedImage outImage = targetingOutput.drawOntoImage(targetingOutput.processedImage);
 
-
                 int imageX = outImage.getWidth();
                 int imageY = outImage.getHeight();
 
