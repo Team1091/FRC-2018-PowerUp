@@ -29,13 +29,13 @@ public class DriveSystem {
         boolean boostPushed = robotComponents.xboxController.getRawButton(L3);
         double desiredTurn = robotComponents.xboxController.getRawAxis(leftStickHorizontal);
         double desiredSpeed = robotComponents.xboxController.getRawAxis(leftStickVertical);
-        double forwardSpeed = desiredSpeed * (boostPushed ? 1.0 : 0.6);
-        double turnSpeed = desiredTurn * (boostPushed ? 1.0 : 0.6);
-        differentialDrive.arcadeDrive(forwardSpeed, turnSpeed);
+        double forwardSpeed = desiredSpeed * (boostPushed ? 1.0 : 0.8);
+        double turnSpeed = desiredTurn * (boostPushed ? 1.0 : 0.8);
+        differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed);
 
     }
 
     public void drive(double forwardSpeed, double turnSpeed) {
-        differentialDrive.arcadeDrive(forwardSpeed, turnSpeed);
+        differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed);
     }
 }

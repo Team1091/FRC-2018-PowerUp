@@ -3,6 +3,7 @@ package frc.team1091.robot;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1091.robot.autonomous.Planner;
 import frc.team1091.robot.autonomous.commands.Command;
 import frc.team1091.robot.systems.*;
@@ -64,7 +65,6 @@ public class Team1091Robot {
     }
 
     public void autonomousInit() {
-
         StartingPos start = startingPositionChooser.getSelected();
         DriverStation driverStation = DriverStation.getInstance();
 
@@ -91,14 +91,37 @@ public class Team1091Robot {
         //Todo: Complete or Stop an Actions still in process for Autonomous
     }
 
+//    private int leftEncoderValue = 0;
+//    private int rightEncoderValue = 0;
+//    private long lastChecked = 0;
     public void teleopPeriodic() {
         //Handle Driving the Robot
         driveSystem.drive();
+
+        SmartDashboard.putNumber("left", components.leftEncoder.get());
+        SmartDashboard.putNumber("right", components.rightEncoder.get());
+        SmartDashboard.putNumber("elevator", components.elevatorEncoder.get());
+        SmartDashboard.putNumber("platform", components.platformEncoder.get());
+
         boxSystem.ingestBox();
         elevatorSystem.controlLift();
         climbSystem.climbUp();
         platformSystem.controlGate();
-
+//        long now = System.currentTimeMillis();
+//        if (now > lastChecked + 100) {
+//            lastChecked = now;
+//            int leftVal = components.leftEncoder.get();
+//            int rightVal = components.rightEncoder.get();
+//            if (leftVal != leftEncoderValue) {
+//                leftEncoderValue = leftVal;
+//                System.out.println("Left encoder ticks: " + leftEncoderValue);
+//            }
+//            if (rightVal != rightEncoderValue) {
+//                rightEncoderValue = rightVal;
+//                System.out.println("Right encoder ticks: " + rightEncoderValue);
+//            }
+//
+//        }
     }
 
     public void disabledInit() {

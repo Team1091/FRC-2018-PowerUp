@@ -20,7 +20,7 @@ public class RobotComponents {
 
     //Encoders
     public static final int rightDriveMotorEncoderChannel1 = 0;
-    public static final int rightDriveMotortEncoderChannel2 = 1;
+    public static final int rightDriveMotorEncoderChannel2 = 1;
     public static final int leftDriveMotorEncoderChannel1 = 2;
     public static final int leftDriveMotorEncoderChannel2 = 3;
     public static final int boxElevatorEncoderChannel1 = 4;
@@ -46,7 +46,7 @@ public class RobotComponents {
                 new Victor(robotClimbMotorChannel),
                 new Victor(releaseMotorChannel),
                 new EncoderWrapper(new Encoder(leftDriveMotorEncoderChannel1, leftDriveMotorEncoderChannel2)),
-                new EncoderWrapper(new Encoder(rightDriveMotorEncoderChannel1, rightDriveMotortEncoderChannel2)),
+                new EncoderWrapper(new Encoder(rightDriveMotorEncoderChannel1, rightDriveMotorEncoderChannel2)),
                 new EncoderWrapper(new Encoder(boxElevatorEncoderChannel1, boxElevatorEncoderChannel2)),
                 new EncoderWrapper(new Encoder(boxPlatformEncoderChannel1, boxPlatformEncoderChannel2)),
                 new DigitalInputWrapper(new DigitalInput(boxPlatformLimitSwitchChannel)),
