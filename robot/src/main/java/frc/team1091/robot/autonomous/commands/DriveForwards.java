@@ -8,7 +8,6 @@ public class DriveForwards implements Command {
     private final double distanceInInches;
     private final RobotComponents robotComponents;
     private final DriveSystem controlSystems;
-    private final static double ticksPerInch = 360.0 / 4.0; //Fix this or I will find you (add in the correct tic per inch ratio
 
     private boolean firstRun = true;
 

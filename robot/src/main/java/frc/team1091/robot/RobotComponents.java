@@ -32,6 +32,9 @@ public class RobotComponents {
     public static final int boxPlatformLimitSwitchChannel = 8;
     public static final int boxElevatorLimitSwitchChannel = 9;
 
+    public static final double wheelBaseDiameter = 29.0;
+    public static final double wheelDiameter = 6.0;
+
     //Anolog Inputs
 //    public static final int boxConsumtionUltraSonicSensor = 1;
 
@@ -45,8 +48,8 @@ public class RobotComponents {
                 new Victor(boxSuckerMotorChannel),
                 new Victor(robotClimbMotorChannel),
                 new Victor(releaseMotorChannel),
-                new EncoderWrapper(new Encoder(leftDriveMotorEncoderChannel1, leftDriveMotorEncoderChannel2), -360.0/(6.0*Math.PI)),
-                new EncoderWrapper(new Encoder(rightDriveMotorEncoderChannel1, rightDriveMotorEncoderChannel2), 110.0/(6.0*Math.PI)),
+                new EncoderWrapper(new Encoder(leftDriveMotorEncoderChannel1, leftDriveMotorEncoderChannel2), -360.0/(wheelDiameter*Math.PI)),
+                new EncoderWrapper(new Encoder(rightDriveMotorEncoderChannel1, rightDriveMotorEncoderChannel2), 110.0/(wheelDiameter*Math.PI)),
                 new EncoderWrapper(new Encoder(boxElevatorEncoderChannel1, boxElevatorEncoderChannel2), 1),
                 new EncoderWrapper(new Encoder(boxPlatformEncoderChannel1, boxPlatformEncoderChannel2), 1),
                 new DigitalInputWrapper(new DigitalInput(boxPlatformLimitSwitchChannel)),

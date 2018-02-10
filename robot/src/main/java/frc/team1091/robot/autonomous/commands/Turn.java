@@ -9,16 +9,18 @@ import frc.team1091.robot.systems.DriveSystem;
 public class Turn implements Command {
     private final RobotComponents components;
     private final DriveSystem driveSystem;
-    private final double turnRightInDegrees;
+    private final double turnDegrees;
 
-    private final static double ticksPerDegree = 1.0;
-
+    private double requiredTurnDistance;
+    private boolean isTurnRight;
     private boolean firstRun = true;
 
-    public Turn(double turnRightInDegrees, RobotComponents components, DriveSystem driveSystem) {
+    public Turn(double turnDegrees, RobotComponents components, DriveSystem driveSystem) {
         this.components = components;
         this.driveSystem = driveSystem;
-        this.turnRightInDegrees = turnRightInDegrees;
+        this.turnDegrees = turnDegrees;
+        this.requiredTurnDistance = (29*Math.PI)/(Math.abs(turnDegrees/360));
+        isTurnRight = turnDegrees > 0;
     }
 
     @Override
@@ -34,21 +36,21 @@ public class Turn implements Command {
         double ltix = components.leftEncoder.getDistance();
         double rtix = components.rightEncoder.getDistance();
 
-        double difference = Math.abs(rtix - ltix); // ticks per degree
+        double difference = Math.abs(rtix - ltix)/2.0; // ticks per degree
 
-        if (difference > Math.abs(turnRightInDegrees)) {
+        if (difference > requiredTurnDistance) {
             // We have turned far enough, we are done
             driveSystem.drive(0, 0);
             return null;
 
         } else {
-            driveSystem.drive(0, (turnRightInDegrees > 0) ? 1 : -1);
+            driveSystem.drive(0, (isTurnRight) ? 1 : -1);
             return this;
         }
     }
 
     @Override
     public String getMessage() {
-        return "Turning " + turnRightInDegrees + " degrees";
+        return "Turning " + turnDegrees + " degrees";
     }
 }

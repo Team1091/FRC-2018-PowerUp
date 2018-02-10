@@ -57,7 +57,8 @@ public class Planner {
         commandList.add(new Wait(100));
         commandList.add(new BarfBox(components, platformSystem, elevatorSystem));
 
-        return new CommandList(commandList);
+        return new Turn(960.0, components, driveSystem);
+        //        return new CommandList(commandList);
     }
 
     private static ArrayList<Command> getCommandList(RobotComponents components, DriveSystem driveSystem, List<Vec3> path) {
