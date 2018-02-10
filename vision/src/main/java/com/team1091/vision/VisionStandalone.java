@@ -5,6 +5,7 @@ import com.github.sarxos.webcam.WebcamPanel;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDeviceRegistry;
 import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
+import com.google.gson.Gson;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,9 +18,9 @@ import static spark.Spark.port;
 
 public class VisionStandalone {
 
-    private static float centerYellow = 0;
-    private static float centerRed = 0;
-    private static float centerBlue = 0;
+    private static ImageInfo imageInfo = new ImageInfo();
+
+    private static Gson gson = new Gson();
 
     public static void main(String[] args) throws IOException {
 
@@ -44,9 +45,14 @@ public class VisionStandalone {
                 TargetingOutput targetingOutput = process(image);
 
                 // pull out results we care about, let web server serve them as quick as possible
-                centerYellow = targetingOutput.getYellowCenter();
-                centerRed = targetingOutput.getRedCenter();
-                centerBlue = targetingOutput.getBlueCenter();
+                imageInfo.yellow = targetingOutput.getYellowCenter();
+                imageInfo.yellowDistance = targetingOutput.getYellowDistance();
+
+                imageInfo.red = targetingOutput.getRedCenter();
+                imageInfo.redDistance = targetingOutput.getRedDistance();
+
+                imageInfo.blue = targetingOutput.getBlueCenter();
+                imageInfo.blueDistance = targetingOutput.getBlueDistance();
 
                 // Draw our results onto the image, so that the driver can see if the autonomous code is tracking
                 BufferedImage outImage = targetingOutput.drawOntoImage(targetingOutput.processedImage);
@@ -96,7 +102,7 @@ public class VisionStandalone {
 
         // We host a small webserver so that the robot can ask us where the centerYellow is and how far it is.
         port(5805);
-        get("/", (req, res) -> "{'yellow':" + centerYellow + ",'red':" + centerRed + ",'blue':" + centerBlue + "}");
+        get("/", (req, res) -> gson.toJson(imageInfo));
     }
 
 //    public static float getDistance(int widthInPixels) {
@@ -156,31 +162,30 @@ public class VisionStandalone {
                     xSumY += x;
                     ySumY += y;
                     totalCountY++;
-                } else {
-                    outputImage.setRGB(x, y, inputImage.getRGB(x, y));
-                }
 
-                if (r > 0.5 && r > b + 0.18 && r > g + 0.18) {
+                } else if (r > 0.5 && r > b + 0.18 && r > g + 0.18) {
                     // its Red
                     outputImage.setRGB(x, y, Color.RED.getRGB());
                     xSumR += x;
                     ySumR += y;
                     totalCountR++;
-                }
 
-                if (b > 0.5 && b > r + 0.15 && b > g + 0.15) {
+                } else if (b > 0.5 && b > r + 0.15 && b > g + 0.15) {
                     outputImage.setRGB(x, y, Color.BLUE.getRGB());
                     // its blue
                     xSumB += x;
                     ySumB += y;
                     totalCountB++;
+
+                } else {
+                    outputImage.setRGB(x, y, inputImage.getRGB(x, y));
                 }
+
             }
         }
 
         int xCenterY;
         int yCenterY;
-
         if (totalCountY == 0) {
             xCenterY = inputImage.getWidth() / 2;
             yCenterY = inputImage.getHeight() / 2;

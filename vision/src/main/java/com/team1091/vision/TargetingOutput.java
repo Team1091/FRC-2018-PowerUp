@@ -54,15 +54,27 @@ public class TargetingOutput {
      *
      * @return float from -0.5 to 0.5
      */
-    public float getYellowCenter() {
-        return ((float) xCenterYellow / (float) imageWidth) - 0.5f;
+    public double getYellowCenter() {
+        return ((double) xCenterYellow / (double) imageWidth) - 0.5;
     }
 
-    public float getRedCenter() {
-        return ((float) xCenterRed / (float) imageWidth) - 0.5f;
+    public double getRedCenter() {
+        return ((double) xCenterRed / (double) imageWidth) - 0.5;
     }
 
-    public float getBlueCenter() {
-        return ((float) xCenterBlue / (float) imageWidth) - 0.5f;
+    public double getBlueCenter() {
+        return ((double) xCenterBlue / (double) imageWidth) - 0.5;
+    }
+
+    public double getYellowDistance() {
+        return 0;
+    }
+
+    public double getRedDistance() {
+        return 0;
+    }
+
+    public double getBlueDistance() {
+        return 0;
     }
 }
