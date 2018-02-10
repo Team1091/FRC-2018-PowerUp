@@ -20,18 +20,33 @@ public class DriveUntilClose implements Command {
         this.components = components;
         this.driveSystem = driveSystem;
         this.visionSystem = visionSystem;
-
     }
 
     @Override
     public Command execute() {
+
+        double center = 0.0;
+        switch (alliance) {
+            case Red:
+                center = visionSystem.getRedCenter();
+                break;
+            case Blue:
+                center = visionSystem.getBlueCenter();
+                break;
+            default:
+                // for invalid
+                System.out.println("Invalid Alliance");
+                return null;
+        }
+
         // If we cannot see the goal, break out.  Maybe we are in the wrong spot, and its best not to drop
 
         // If we see the color goal we are looking for, drive towards it.
 
+
         // Drive forwards turning to keep the goal centered
 
         // If we are close enough, break
-        return null;
+        return this;
     }
 }

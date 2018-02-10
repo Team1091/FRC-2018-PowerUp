@@ -3,7 +3,7 @@ package frc.team1091.robot.autonomous;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.autonomous.commands.CommandList;
 import frc.team1091.robot.autonomous.commands.DriveForwards;
-import frc.team1091.robot.autonomous.commands.SpinOutOfControl;
+import frc.team1091.robot.autonomous.commands.Turn;
 import frc.team1091.robot.systems.AutonomousSystem;
 import frc.team1091.robot.systems.DriveSystem;
 import frc.team1091.robot.wrapper.EncoderWrapper;
@@ -33,7 +33,7 @@ public class DriveForwardsTest {
                             System.out.println("We can use functional programming here too.");
                             return null;
                         },
-                        new SpinOutOfControl(rc, drive)
+                        new Turn(90, rc, drive)
                 )
         );
 

@@ -17,7 +17,7 @@ We are also trying to actually write some tests.  We have been meaning to for a 
 gradlew.bat robot:build
 
 # To build and deploy code to the robot
-gradlew.bat :build robot:deploy
+gradlew.bat :compileAndDeploy
 
 # To just build, in the case that you broke all the tests
 gradlew.bat robot:assemble

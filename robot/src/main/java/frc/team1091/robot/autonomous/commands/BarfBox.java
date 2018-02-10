@@ -24,10 +24,10 @@ public class BarfBox implements Command {
             return null;
         }
         //Wait for elevator to be at drop position if still moving
-        if (!elevatorSystem.isAtDropPosistion()) {
+        if (!elevatorSystem.isAtDropPosition()) {
             return this;
         }
-        //Angle the platform down to release the box
+        //We are at the top, Angle the platform down to release the box
         platformSystem.setGatePosition(PlatformPosition.DOWN);
         if (!platformSystem.isPlatformAtState(PlatformPosition.DOWN)) {
             return this;

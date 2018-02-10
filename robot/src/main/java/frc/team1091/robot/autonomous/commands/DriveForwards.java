@@ -19,11 +19,21 @@ public class DriveForwards implements Command {
 
     @Override
     public Command execute() {
-        if (distanceInInches > robotComponents.leftEncoder.get()) {
-            controlSystems.drive(1, 0);
-            return this;
+
+        float distanceTraveled = Math.min(robotComponents.leftEncoder.get(), robotComponents.rightEncoder.get());
+
+        if (distanceTraveled > distanceInInches) {
+            controlSystems.drive(0, 0);
+            return null;  // if I return nothing, i run the next command if im in a command list
         }
-        controlSystems.drive(0, 0);
-        return null;  // if I return nothing, i run the next command if im in a command list
+
+        double rightBias = (robotComponents.rightEncoder.get() - robotComponents.leftEncoder.get()) / 10.0;
+        controlSystems.drive(1, limit(rightBias));
+        return this;
+
+    }
+
+    private double limit(double qty) {
+        return Math.min(Math.max(0, qty), 1);
     }
 }

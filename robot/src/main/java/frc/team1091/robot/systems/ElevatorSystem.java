@@ -68,7 +68,7 @@ public class ElevatorSystem {
         return !(currentHeight <= upperSwitchRange && currentHeight >= lowerSwitchRange);
     }
 
-    public boolean isAtDropPosistion() {
+    public boolean isAtDropPosition() {
         if (currentPosition == ElevatorPositions.ScaleHeight && isAtScale()) {
             return true;
         }

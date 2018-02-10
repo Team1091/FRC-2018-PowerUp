@@ -9,17 +9,32 @@ import frc.team1091.robot.systems.DriveSystem;
 public class Turn implements Command {
     private final RobotComponents components;
     private final DriveSystem driveSystem;
+    private final double turnRightInDegrees;
+
+    private final static double ticksPerDegree = 1.0;
 
     public Turn(double turnRightInDegrees, RobotComponents components, DriveSystem driveSystem) {
         this.components = components;
         this.driveSystem = driveSystem;
+        this.turnRightInDegrees = turnRightInDegrees;
     }
 
     @Override
     public Command execute() {
-        //TODO: make the turn code so that the robot doesn't just run turn once
-        driveSystem.drive(0, 1);
 
-        return null;
+        int ltix = components.leftEncoder.get();
+        int rtix = components.rightEncoder.get();
+
+        double difference = Math.abs(rtix - ltix) * ticksPerDegree; // ticks per degree
+
+        if (difference > Math.abs(turnRightInDegrees)) {
+            // We have turned far enough, we are done
+            driveSystem.drive(0, 0);
+            return null;
+
+        } else {
+            driveSystem.drive(0, (turnRightInDegrees > 0) ? 1 : -1);
+            return this;
+        }
     }
 }

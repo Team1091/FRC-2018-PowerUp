@@ -96,7 +96,7 @@ public class VisionStandalone {
 
         // We host a small webserver so that the robot can ask us where the centerYellow is and how far it is.
         port(5805);
-        get("/", (req, res) -> "{y:" + centerYellow + ",r:" + centerRed + ",b:" + centerBlue + "}");
+        get("/", (req, res) -> "{'yellow':" + centerYellow + ",'red':" + centerRed + ",'blue':" + centerBlue + "}");
     }
 
 //    public static float getDistance(int widthInPixels) {

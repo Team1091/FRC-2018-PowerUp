@@ -29,7 +29,7 @@ public class VisionSystem {
                     this.imageInfo = gson.fromJson(inputLine, ImageInfo.class);
 
                     in.close();
-                    Thread.sleep(100);
+                    Thread.sleep(100); // wait a 10th of a second before we ask again
                 } catch (ConnectException e) {
                     // System.out.println("No connection");
                 } catch (Exception e) {
