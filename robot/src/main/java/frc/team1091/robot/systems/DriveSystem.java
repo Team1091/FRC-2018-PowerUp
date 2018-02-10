@@ -46,14 +46,15 @@ public class DriveSystem {
         forwardSpeed = getSpeedToSet(desiredSpeed, forwardSpeed, forwardAccelPerSecond, dt);
         turnSpeed = getSpeedToSet(desiredTurn, turnSpeed, turnAccelPerSecond, dt);
         differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed);
-        SmartDashboard.putNumber("ForwardSpeed", forwardSpeed);
-        SmartDashboard.putNumber("TurnSpeed", turnSpeed);
+
+//        SmartDashboard.putNumber("ForwardSpeed", forwardSpeed);
+//        SmartDashboard.putNumber("TurnSpeed", turnSpeed);
+//        SmartDashboard.putNumber("Time to Process Frame", dt);
     }
 
 
     public double getSpeedToSet(double desiredSpeed, double currentSpeed, double accel, double dt) {
 
-        SmartDashboard.putNumber("Time to Process Frame", dt);
         if (desiredSpeed == currentSpeed) {
             return desiredSpeed;
         }
