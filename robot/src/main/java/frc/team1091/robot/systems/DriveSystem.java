@@ -36,6 +36,6 @@ public class DriveSystem {
     }
 
     public void drive(double forwardSpeed, double turnSpeed) {
-        differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed);
+        differentialDrive.arcadeDrive(forwardSpeed, turnSpeed);
     }
 }

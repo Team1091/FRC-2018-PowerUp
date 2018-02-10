@@ -9,6 +9,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         teamRobot = Team1091Robot.getDefaultInstance();
+        teamRobot.robotInit();
     }
 
     @Override

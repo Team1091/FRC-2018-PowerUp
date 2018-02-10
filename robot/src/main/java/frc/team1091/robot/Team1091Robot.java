@@ -83,6 +83,7 @@ public class Team1091Robot {
     }
 
     public void autonomousPeriodic() {
+        printEncoders();
         autonomousSystem.drive();
     }
 
@@ -95,16 +96,20 @@ public class Team1091Robot {
         //Handle Driving the Robot
         driveSystem.drive();
 
-        SmartDashboard.putNumber("left", components.leftEncoder.get());
-        SmartDashboard.putNumber("right", components.rightEncoder.get());
-        SmartDashboard.putNumber("elevator", components.elevatorEncoder.get());
-        SmartDashboard.putNumber("platform", components.platformEncoder.get());
+        printEncoders();
 
         boxSystem.ingestBox();
         elevatorSystem.controlLift();
         climbSystem.climbUp();
         platformSystem.controlGate();
 
+    }
+
+    private void printEncoders() {
+        SmartDashboard.putNumber("left", components.leftEncoder.get());
+        SmartDashboard.putNumber("right", components.rightEncoder.get());
+        SmartDashboard.putNumber("elevator", components.elevatorEncoder.get());
+        SmartDashboard.putNumber("platform", components.platformEncoder.get());
     }
 
     public void disabledInit() {
@@ -125,10 +130,7 @@ public class Team1091Robot {
         components.suckerMotor.set(limit(SmartDashboard.getNumber("suckerMotor - 4",0.0)));
         components.winchMotor.set(limit(SmartDashboard.getNumber("winchMotor - 5", 0.0)));
 
-        SmartDashboard.putNumber("left", components.leftEncoder.get());
-        SmartDashboard.putNumber("right", components.rightEncoder.get());
-        SmartDashboard.putNumber("elevator", components.elevatorEncoder.get());
-        SmartDashboard.putNumber("platform", components.platformEncoder.get());
+        printEncoders();
 
     }
 
