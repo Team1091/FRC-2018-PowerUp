@@ -17,6 +17,7 @@ public class AutonomousSystem {
     public void drive() {
 
         if (command == null) {
+
             log("Completed");
             return; // Done with autonomous
         }
