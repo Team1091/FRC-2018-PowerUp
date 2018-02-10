@@ -42,8 +42,8 @@ fun findPath3d(field: Matrix2d<Double>, start: Vec3, end: Vec3): List<Vec3>? {
         val facing = Facing.values()[cheapestNode.z]
         val facings = Facing.values().size
         val neighbors = listOf(
-                Vec3[cheapestNode.x + facing.offset.x, cheapestNode.y + facing.offset.y, cheapestNode.z],
-                Vec3[cheapestNode.x - facing.offset.x, cheapestNode.y - facing.offset.y, cheapestNode.z],
+                Vec3[cheapestNode.x + facing.offset.x, cheapestNode.y + facing.offset.y, cheapestNode.z], // forwards
+//                Vec3[cheapestNode.x - facing.offset.x, cheapestNode.y - facing.offset.y, cheapestNode.z], // backwards
 
                 // turn to loop
                 Vec3[cheapestNode.x, cheapestNode.y, (cheapestNode.z + 1) % facings],

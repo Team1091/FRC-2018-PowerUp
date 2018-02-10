@@ -17,44 +17,43 @@ public class DriveForwardsTest {
     @Test
     public void testThatWeDriveForwards() {
         DriveSystem drive = mock(DriveSystem.class);
-        EncoderWrapper encoder = mock(EncoderWrapper.class);
 
-        RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, encoder, null, null, null, null, null);
+        EncoderWrapper rEncoder = mock(EncoderWrapper.class);
+        EncoderWrapper lEncoder = mock(EncoderWrapper.class);
 
-        when(encoder.get()).thenReturn(10);
+        RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, lEncoder, rEncoder, null, null, null, null);
+
+        when(rEncoder.get()).thenReturn(10);
+        when(lEncoder.get()).thenReturn(10);
 
         AutonomousSystem autonomousSystem = new AutonomousSystem();
         testNum = 0;
         autonomousSystem.init(
                 new CommandList(
                         new DriveForwards(100, rc, drive),
-                        () -> {
-                            testNum++;
-                            System.out.println("We can use functional programming here too.");
-                            return null;
-                        },
                         new Turn(90, rc, drive)
                 )
         );
 
         autonomousSystem.drive();
 
-        verify(encoder).get();
+        verify(lEncoder).get();
+        verify(rEncoder).get();
         verify(drive).drive(1, 0);
 
-
         // Next we want to test that when the encoder is past the threshold, that it stops and goes to the next command
-
-        when(encoder.get()).thenReturn(101);
+        when(lEncoder.get()).thenReturn(101);
+        when(rEncoder.get()).thenReturn(101);
 
         autonomousSystem.drive();
 
         // We should have stopped.  We don't want to keep driving
         verify(drive).drive(0, 0);
 
-        assert testNum == 0;
-        autonomousSystem.drive();
-        assert testNum == 1;
+        // Got rid of this
+//        assert testNum == 0;
+//        autonomousSystem.drive();
+//        assert testNum == 1;
 
         // Lets try spinning, that's a nice trick
         autonomousSystem.drive();
