@@ -18,7 +18,7 @@ public class DriveForwards implements Command {
     }
 
     @Override
-    public Command execute() {
+    public Command execute(double dt) {
         if (firstRun) {
             // Reset driving encoders so we can drive a set distance
             firstRun = false;
@@ -32,12 +32,12 @@ public class DriveForwards implements Command {
         double distanceTraveled = Math.min(l, r);
 
         if (distanceTraveled > distanceInInches) {
-            controlSystems.drive(0, 0);
+            controlSystems.drive(0, 0, dt);
             return null;  // if I return nothing, I run the next command if im in a command list
         }
 
         double rightBias = (r - l) / 10.0;
-        controlSystems.drive(1, limit(rightBias));
+        controlSystems.drive(1, limit(rightBias), dt);
         return this;
 
     }

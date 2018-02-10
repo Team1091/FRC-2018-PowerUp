@@ -1,6 +1,5 @@
 package frc.team1091.robot.autonomous.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.systems.DriveSystem;
 
@@ -26,7 +25,7 @@ public class Turn implements Command {
     }
 
     @Override
-    public Command execute() {
+    public Command execute(double dt) {
         if (firstRun) {
             // Reset driving encoders so we can measure turn
             firstRun = false;
@@ -42,11 +41,11 @@ public class Turn implements Command {
 
         if (difference > requiredTurnDistance) {
             // We have turned far enough, we are done
-            driveSystem.drive(0, 0);
+            driveSystem.drive(0, 0, dt);
             return null;
 
         } else {
-            driveSystem.drive(0, (isTurnRight) ? 1 : -1);
+            driveSystem.drive(0, (isTurnRight) ? 1 : -1, dt);
             return this;
         }
     }

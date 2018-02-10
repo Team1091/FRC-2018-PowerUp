@@ -17,7 +17,7 @@ public class SetElevatorPosition implements Command {
     }
 
     @Override
-    public Command execute() {
+    public Command execute(double dt) {
         elevatorSystem.setElevatorPosition(elevatorPositions);
         return null;
     }

@@ -13,7 +13,7 @@ public class ClimbSystem {
     private boolean isClimberReleased = false;
 
     //while button held, climb up
-    public void climbUp() {
+    public void climbUp(double dt) {
         boolean climbButtonPressed = robotComponents.xboxController.getRawButton(Xbox.y);
         boolean releaseButtonPressed = robotComponents.xboxController.getRawButton(Xbox.start);
         if (releaseButtonPressed) {

@@ -16,7 +16,7 @@ public class ElevatorSystem {
         this.robotComponents = robotComponents;
     }
 
-    public void controlLift() {
+    public void controlLift(double dt) {
         //Determine which way we need to go
         setStateFromController();
 

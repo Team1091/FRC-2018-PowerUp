@@ -15,7 +15,7 @@ public class BoxSystem {
         this.elevatorSystem = elevatorSystem;
     }
 
-    public void ingestBox() {
+    public void ingestBox(double dt) {
 
         boolean elevatorIsAtBottom = elevatorSystem.isAtBottom();
         boolean xButton = robotComponents.xboxController.getRawButton(Xbox.x);

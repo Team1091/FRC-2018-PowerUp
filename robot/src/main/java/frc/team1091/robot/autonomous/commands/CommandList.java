@@ -16,7 +16,7 @@ public class CommandList implements Command {
     }
 
     @Override
-    public Command execute() {
+    public Command execute(double dt) {
 
         if (commands.size() == 0) {
             return null;
@@ -24,7 +24,7 @@ public class CommandList implements Command {
 
         // do the first one, if it's done remove it
         Command first = commands.get(0);
-        Command next = first.execute();
+        Command next = first.execute(dt);
 
         if (next == null) {
             // Current command is done, go to the next

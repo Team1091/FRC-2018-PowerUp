@@ -16,7 +16,7 @@ public class PlatformSystem {
         robotComponents = components;
     }
 
-    public void controlGate() {
+    public void controlGate(double dt) {
         updatePositionFromControllerInput();
 
         double power = 0;

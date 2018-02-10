@@ -27,7 +27,7 @@ public class DriveUntilClose implements Command {
     }
 
     @Override
-    public Command execute() {
+    public Command execute(double dt) {
 
         double center;
         double distance;
@@ -55,32 +55,32 @@ public class DriveUntilClose implements Command {
 
         if (distance > 100 && hasSeen) {
             // we saw it, but now we dont, which means we are super close.
-            driveSystem.drive(0, 0);
+            driveSystem.drive(0, 0, dt);
             // If we are close enough, break and drop box
             // TODO: return drop action
             return null;
         }
         if (distance > 30) {
             // If we see the color goal we are looking for, drive towards it.
-            driveSystem.drive(0.7, turnpower);
+            driveSystem.drive(0.7, turnpower, dt);
             return this;
         }
 
         if (distance > 20) {
             hasSeen = true;
-            driveSystem.drive(0.65, turnpower);
+            driveSystem.drive(0.65, turnpower, dt);
             return this;
 
         }
         if (distance > 5) {
             hasSeen = true;
-            driveSystem.drive(0.6, turnpower);
+            driveSystem.drive(0.6, turnpower, dt);
             return this;
 
         }
 
         // If we cannot see the goal, break out.  Maybe we are in the wrong spot, and its best not to drop
-        driveSystem.drive(0, 0);
+        driveSystem.drive(0, 0, dt);
         // don't see it, give up.  Probably should not plan to drop
         return null;
 

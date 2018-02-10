@@ -11,7 +11,7 @@ public class Wait implements Command {
     }
 
     @Override
-    public Command execute() {
+    public Command execute(double dt) {
         if (firstTime) {
             startTime = System.currentTimeMillis();
             firstTime = false;

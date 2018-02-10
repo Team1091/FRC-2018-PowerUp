@@ -37,20 +37,21 @@ public class DriveForwardsTest {
                 )
         );
 
-        autonomousSystem.drive();
+        double dt = 0.1;
+        autonomousSystem.drive(dt);
 
         verify(lEncoder).getDistance();
         verify(rEncoder).getDistance();
-        verify(drive).drive(1, 0);
+        verify(drive).drive(1, 0, dt);
 
         // Next we want to test that when the encoder is past the threshold, that it stops and goes to the next command
         when(lEncoder.getDistance()).thenReturn(101.0 * 360.0 / 4.0);
         when(rEncoder.getDistance()).thenReturn(101.0 * 360.0 / 4.0);
 
-        autonomousSystem.drive();
+        autonomousSystem.drive(dt);
 
         // We should have stopped.  We don't want to keep driving
-        verify(drive).drive(0, 0);
+        verify(drive).drive(0, 0, dt);
 
         // Got rid of this
 //        assert testNum == 0;
@@ -58,9 +59,9 @@ public class DriveForwardsTest {
 //        assert testNum == 1;
 
         // Lets try spinning, that's a nice trick
-        autonomousSystem.drive();
+        autonomousSystem.drive(dt);
 
-        verify(drive).drive(0, 1);
+        verify(drive).drive(0, 1, dt);
     }
 
 }

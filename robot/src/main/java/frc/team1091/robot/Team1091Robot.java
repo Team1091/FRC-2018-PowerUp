@@ -84,7 +84,8 @@ public class Team1091Robot {
 
     public void autonomousPeriodic() {
         printEncoders();
-        autonomousSystem.drive();
+        double dt = getTime();
+        autonomousSystem.drive(dt);
     }
 
 
@@ -93,15 +94,15 @@ public class Team1091Robot {
     }
 
     public void teleopPeriodic() {
-        //Handle Driving the Robot
-        driveSystem.drive();
-
         printEncoders();
+        double dt = getTime();
 
-        boxSystem.ingestBox();
-        elevatorSystem.controlLift();
-        climbSystem.climbUp();
-        platformSystem.controlGate();
+        //Handle Driving the Robot
+        driveSystem.manualDrive(dt);
+        boxSystem.ingestBox(dt);
+        elevatorSystem.controlLift(dt);
+        climbSystem.climbUp(dt);
+        platformSystem.controlGate(dt);
 
     }
 
@@ -136,6 +137,15 @@ public class Team1091Robot {
 
     private double limit(double val) {
         return Math.max(-1, Math.min(1, val));
+    }
+
+    private long lastFrameTime = System.nanoTime();
+
+    private double getTime() {
+        long currentTime = System.nanoTime();
+        double dt = ((double) currentTime - (double) lastFrameTime) / 1000000000.0;
+        lastFrameTime = currentTime;
+        return dt;
     }
 }
 

@@ -10,8 +10,12 @@ public class DriveSystem {
 
     private RobotComponents robotComponents;
     private final DifferentialDrive differentialDrive;
-    private final double accelerationPerSecond = .4;
-    private final double turnPerSecond = .5;
+
+    private final double forwardAccelPerSecond = .4;
+    private final double turnAccelPerSecond = .5;
+
+    private double forwardSpeed = 0;
+    private double turnSpeed = 0;
 
     public DriveSystem(RobotComponents robotComponents) {
         this.robotComponents = robotComponents;
@@ -27,40 +31,44 @@ public class DriveSystem {
         // There is not to much that actually needs to get initialized in here,
         // but for things like resetting timers it could be useful
     }
-    double forwardSpeed = 0;
-    double turnSpeed = 0;
 
-    private long speedLastRequested = System.nanoTime();
-
-    public void drive() {
-        long currentTime =  System.nanoTime();
-        double dt = ((double)currentTime - (double)speedLastRequested)/1000000000.0;
-        speedLastRequested = currentTime;
+    public void manualDrive(double dt) {
 
         boolean boostPushed = robotComponents.xboxController.getRawButton(L3);
-        double desiredTurn = robotComponents.xboxController.getRawAxis(leftStickHorizontal);
-        double desiredSpeed = robotComponents.xboxController.getRawAxis(leftStickVertical);
-        forwardSpeed = getSpeedToSet(desiredSpeed, forwardSpeed,accelerationPerSecond,dt); //* (boostPushed ? 1.0 : 0.8);
-        turnSpeed = getSpeedToSet(desiredTurn, turnSpeed,turnPerSecond, dt); //* (boostPushed ? 1.0 : 0.8);
+        double desiredTurn = robotComponents.xboxController.getRawAxis(leftStickHorizontal) * (boostPushed ? 1.0 : 0.8);
+        double desiredSpeed = robotComponents.xboxController.getRawAxis(leftStickVertical) * (boostPushed ? 1.0 : 0.8);
+
+        drive(desiredSpeed, desiredTurn, dt);
+    }
+
+    public void drive(double desiredSpeed, double desiredTurn, double dt) {
+
+        forwardSpeed = getSpeedToSet(desiredSpeed, forwardSpeed, forwardAccelPerSecond, dt);
+        turnSpeed = getSpeedToSet(desiredTurn, turnSpeed, turnAccelPerSecond, dt);
         differentialDrive.arcadeDrive(-forwardSpeed, turnSpeed);
         SmartDashboard.putNumber("ForwardSpeed", forwardSpeed);
         SmartDashboard.putNumber("TurnSpeed", turnSpeed);
     }
 
-    public void drive(double forwardSpeed, double turnSpeed) {
-        differentialDrive.arcadeDrive(forwardSpeed, turnSpeed);
-    }
 
-
-    public double getSpeedToSet (double desiredSpeed, double currentSpeed, double accel, double dt) {
+    public double getSpeedToSet(double desiredSpeed, double currentSpeed, double accel, double dt) {
 
         SmartDashboard.putNumber("Time to Process Frame", dt);
         if (desiredSpeed == currentSpeed) {
             return desiredSpeed;
         }
-        if (desiredSpeed > currentSpeed){
+        if (desiredSpeed > currentSpeed) { // we are going faster
+            // if we are going towards 0, just get there
+            if (currentSpeed < 0)
+                return desiredSpeed;
+
             return Math.min(currentSpeed + Math.min(accel * dt, accel), desiredSpeed);
         }
+        // we are going slower
+        // if we are going towards 0, just get to dest
+        if (currentSpeed > 0)
+            return desiredSpeed;
+
         return Math.max(currentSpeed - Math.min(accel * dt, accel), desiredSpeed);
     }
 }

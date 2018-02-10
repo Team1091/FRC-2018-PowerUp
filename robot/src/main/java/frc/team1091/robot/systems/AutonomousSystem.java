@@ -14,7 +14,7 @@ public class AutonomousSystem {
         this.command = command;
     }
 
-    public void drive() {
+    public void drive(double dt) {
 
         if (command == null) {
 
@@ -23,7 +23,7 @@ public class AutonomousSystem {
         }
 
         log(command.getMessage());
-        command = command.execute();
+        command = command.execute(dt);
     }
 
     public void log(String message){
