@@ -1,6 +1,8 @@
 package com.team1091.planning
 
-import com.team1091.math.measurement.*
+import com.team1091.math.measurement.feet
+import com.team1091.math.measurement.inches
+import com.team1091.math.measurement.max
 
 class FieldMeasurement {
 

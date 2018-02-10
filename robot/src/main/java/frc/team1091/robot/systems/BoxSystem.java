@@ -8,7 +8,8 @@ import frc.team1091.robot.Xbox;
  */
 public class BoxSystem {
     private RobotComponents robotComponents;
-private ElevatorSystem elevatorSystem;
+    private ElevatorSystem elevatorSystem;
+
     public BoxSystem(RobotComponents robotComponents, ElevatorSystem elevatorSystem) {
         this.robotComponents = robotComponents;
         this.elevatorSystem = elevatorSystem;

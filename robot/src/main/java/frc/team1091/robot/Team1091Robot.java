@@ -91,9 +91,6 @@ public class Team1091Robot {
         //Todo: Complete or Stop an Actions still in process for Autonomous
     }
 
-//    private int leftEncoderValue = 0;
-//    private int rightEncoderValue = 0;
-//    private long lastChecked = 0;
     public void teleopPeriodic() {
         //Handle Driving the Robot
         driveSystem.drive();
@@ -107,21 +104,7 @@ public class Team1091Robot {
         elevatorSystem.controlLift();
         climbSystem.climbUp();
         platformSystem.controlGate();
-//        long now = System.currentTimeMillis();
-//        if (now > lastChecked + 100) {
-//            lastChecked = now;
-//            int leftVal = components.leftEncoder.get();
-//            int rightVal = components.rightEncoder.get();
-//            if (leftVal != leftEncoderValue) {
-//                leftEncoderValue = leftVal;
-//                System.out.println("Left encoder ticks: " + leftEncoderValue);
-//            }
-//            if (rightVal != rightEncoderValue) {
-//                rightEncoderValue = rightVal;
-//                System.out.println("Right encoder ticks: " + rightEncoderValue);
-//            }
-//
-//        }
+
     }
 
     public void disabledInit() {

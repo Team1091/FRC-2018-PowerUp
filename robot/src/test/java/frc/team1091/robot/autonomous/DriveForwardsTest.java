@@ -8,6 +8,7 @@ import frc.team1091.robot.systems.AutonomousSystem;
 import frc.team1091.robot.systems.DriveSystem;
 import frc.team1091.robot.wrapper.EncoderWrapper;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
 
@@ -26,8 +27,9 @@ public class DriveForwardsTest {
         when(rEncoder.get()).thenReturn(10);
         when(lEncoder.get()).thenReturn(10);
 
-        AutonomousSystem autonomousSystem = new AutonomousSystem();
-        testNum = 0;
+        AutonomousSystem autonomousSystem = Mockito.spy(new AutonomousSystem());
+        Mockito.doNothing().when(autonomousSystem).log((String) notNull()); // Skip smartdashboard
+
         autonomousSystem.init(
                 new CommandList(
                         new DriveForwards(100, rc, drive),

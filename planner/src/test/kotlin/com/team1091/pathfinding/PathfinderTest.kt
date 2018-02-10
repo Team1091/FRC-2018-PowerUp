@@ -44,7 +44,7 @@ class PathfinderTest {
 
         val path = findPath2d(fieldMap, start, end)
 
-    //    printField(fieldMap /*, path*/)
+        //    printField(fieldMap /*, path*/)
 
         assert(path != null)
         assert(path?.first() == start)
@@ -74,8 +74,8 @@ class PathfinderTest {
                 }
 
                 assert(path != null)
-                assert(path?.first() == Vec3(start.pos.x,start.pos.y,start.facing.ordinal))
-                assert(path?.last() == Vec3(end.pos.x,end.pos.y,end.facing.ordinal))
+                assert(path?.first() == Vec3(start.pos.x, start.pos.y, start.facing.ordinal))
+                assert(path?.last() == Vec3(end.pos.x, end.pos.y, end.facing.ordinal))
 //                println("start ${start} end ${end}")
 //                path?.forEach { println("x: ${it.x} y: ${it.y} ${Facing.values()[it.z]}") }
 

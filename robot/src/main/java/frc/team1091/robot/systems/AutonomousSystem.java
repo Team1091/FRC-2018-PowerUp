@@ -1,5 +1,6 @@
 package frc.team1091.robot.systems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1091.robot.autonomous.commands.Command;
 
 /**
@@ -15,10 +16,16 @@ public class AutonomousSystem {
 
     public void drive() {
 
-        if (command == null)
+        if (command == null) {
+            log("Completed");
             return; // Done with autonomous
+        }
 
+        log(command.getMessage());
         command = command.execute();
+    }
 
+    public void log(String message){
+        SmartDashboard.putString("Autonomous", message);
     }
 }

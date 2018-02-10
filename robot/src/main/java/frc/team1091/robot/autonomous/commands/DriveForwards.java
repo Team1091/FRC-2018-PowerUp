@@ -43,6 +43,11 @@ public class DriveForwards implements Command {
 
     }
 
+    @Override
+    public String getMessage() {
+        return "Driving Forwards " + distanceInInches + " inches";
+    }
+
     private double limit(double qty) {
         return Math.min(Math.max(-0.5, qty), 0.5);
     }

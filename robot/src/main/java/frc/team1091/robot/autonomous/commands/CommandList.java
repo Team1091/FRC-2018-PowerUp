@@ -38,4 +38,10 @@ public class CommandList implements Command {
         }
         return this;
     }
+
+
+    @Override
+    public String getMessage() {
+        return commands.get(0).getMessage();
+    }
 }

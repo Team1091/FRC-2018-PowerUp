@@ -6,9 +6,9 @@ public val Number.radians: Rotation
 public val Number.degrees: Rotation
     get() = Rotation(this.toDouble() / (180 / Math.PI))
 
-public class Rotation(val radians:Double){
+public class Rotation(val radians: Double) {
 
-    fun toDegrees() = radians * (180/Math.PI)
+    fun toDegrees() = radians * (180 / Math.PI)
     fun toRadians() = radians
 
     operator fun plus(other: Rotation) = Rotation(this.radians + other.radians)

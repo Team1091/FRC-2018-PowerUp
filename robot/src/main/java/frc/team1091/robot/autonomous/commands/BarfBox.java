@@ -2,9 +2,9 @@ package frc.team1091.robot.autonomous.commands;
 
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.systems.ElevatorPositions;
+import frc.team1091.robot.systems.ElevatorSystem;
 import frc.team1091.robot.systems.PlatformPosition;
 import frc.team1091.robot.systems.PlatformSystem;
-import frc.team1091.robot.systems.ElevatorSystem;
 
 public class BarfBox implements Command {
     private RobotComponents components;
@@ -12,7 +12,7 @@ public class BarfBox implements Command {
     private ElevatorSystem elevatorSystem;
 
     public BarfBox(RobotComponents components, PlatformSystem platformSystem, ElevatorSystem elevatorSystem) {
-        this.components     = components;
+        this.components = components;
         this.platformSystem = platformSystem;
         this.elevatorSystem = elevatorSystem;
     }
@@ -34,5 +34,10 @@ public class BarfBox implements Command {
         }
         //TODO: check that the box actually dropped.
         return null;
+    }
+
+    @Override
+    public String getMessage() {
+        return "Barfing Box";
     }
 }

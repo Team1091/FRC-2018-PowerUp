@@ -12,4 +12,9 @@ public class EatBox implements Command {
         //If cube received, flip up and turn off suckey wuckey
         return null;
     }
+
+    @Override
+    public String getMessage() {
+        return "Eating a box";
+    }
 }

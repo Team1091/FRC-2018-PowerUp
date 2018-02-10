@@ -46,4 +46,9 @@ public class Turn implements Command {
             return this;
         }
     }
+
+    @Override
+    public String getMessage() {
+        return "Turning " + turnRightInDegrees + " degrees";
+    }
 }

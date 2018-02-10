@@ -86,4 +86,9 @@ public class DriveUntilClose implements Command {
 
 
     }
+
+    @Override
+    public String getMessage() {
+        return "Driving Forwards until we are close to " + alliance.name() + " goal.";
+    }
 }
