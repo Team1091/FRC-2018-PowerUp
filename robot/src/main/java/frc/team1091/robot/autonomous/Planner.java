@@ -4,7 +4,6 @@ import com.team1091.math.Rectangle;
 import com.team1091.math.Vec2;
 import com.team1091.math.Vec3;
 import com.team1091.planning.EndingPos;
-import com.team1091.planning.Facing;
 import com.team1091.planning.FieldMeasurement;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -23,6 +22,7 @@ import static com.team1091.planning.PathMakerKt.makePath;
 
 public class Planner {
 
+    // initialize the autonomous with a list of things to do.
     public static Command plan(StartingPos start,
                                DriverStation.Alliance alliance,
                                String gameGoalData,
@@ -31,22 +31,18 @@ public class Planner {
                                VisionSystem visionSystem,
                                PlatformSystem platformSystem,
                                ElevatorSystem elevatorSystem) {
-        // initialize the autonomous with a list of things to do.
-        // This depends on our starting position and goal we want to go for
 
-        // http://wpilib.screenstepslive.com/s/currentCS/m/getting_started/l/826278-2018-game-data-details
-        // this will be a 3 character string with your goals side marked, index 0 being the closest.
-        // L = left side
-        // R = right side
-        //
-        // Ex: "LRL", "RRR", "LRR"
-        // TODO: Translate gameGoalData into a goal we want to go to
-        EndingPos end = EndingPos.RIGHT_SCALE;
+        EndingPos close = gameGoalData.charAt(0) == 'R' ? EndingPos.RIGHT_SWITCH : EndingPos.LEFT_SWITCH;
+        EndingPos far = gameGoalData.charAt(1) == 'R' ? EndingPos.RIGHT_SCALE : EndingPos.LEFT_SCALE;
+
+        // TODO: select a far or close goal
+        EndingPos end = far;
 
         List<Vec3> path = makePath(start, end, Arrays.asList(
                 // another robot's plan takes this zone.  It would be nice to
                 new Rectangle(Vec2.Companion.get(15, 0), Vec2.Companion.get(15, 10))
         ));
+
         ArrayList<Command> commandList = getCommandList(components, driveSystem, path);
 
         // drive up to the target
@@ -57,9 +53,9 @@ public class Planner {
         commandList.add(new Wait(100));
         commandList.add(new BarfBox(components, platformSystem, elevatorSystem));
 
-        return new DriveForwards(36.0, components, driveSystem);
+//        return new DriveForwards(36.0, components, driveSystem);
 //        return new Turn(960.0, components, driveSystem);
-        //        return new CommandList(commandList);
+        return new CommandList(commandList);
     }
 
     private static ArrayList<Command> getCommandList(RobotComponents components, DriveSystem driveSystem, List<Vec3> path) {
@@ -84,7 +80,7 @@ public class Planner {
                     commandList.add(new DriveForwards(forward, components, driveSystem));
                     forward = 0;
                 }
-                turn += 90.0 * (lastNode.getZ() - nextNode.getZ());
+                turn += 90.0 * ((lastNode.getZ() > nextNode.getZ()) ? -1 : 1);
 
             } else {//we are going forward/backward
 
@@ -93,13 +89,7 @@ public class Planner {
                     commandList.add(new Turn(turn, components, driveSystem));
                     turn = 0;
                 }
-
-                // If we go backwards its * -1
-                Facing facing = Facing.values()[lastNode.getZ()];
-                Vec3 travel = lastNode.minus(nextNode);
-                int dir = (facing.getOffset().getX() == travel.getX() && facing.getOffset().getY() == travel.getY()) ? 1 : -1;
-
-                forward += dir * FieldMeasurement.Companion.getRobotSize().toInches();
+                forward += FieldMeasurement.Companion.getRobotSize().toInches();
 
             }
         }

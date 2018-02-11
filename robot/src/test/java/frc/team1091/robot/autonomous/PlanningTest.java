@@ -28,6 +28,8 @@ public class PlanningTest {
         Command result = Planner.plan(StartingPos.CENTER, DriverStation.Alliance.Blue, "RRR", rc, drive, vs, ps, es);
 
         assert result != null;
+
+//        result.commands
     }
 
 }
