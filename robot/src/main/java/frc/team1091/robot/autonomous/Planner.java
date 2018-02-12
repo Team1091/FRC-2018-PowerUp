@@ -40,17 +40,17 @@ public class Planner {
 
         List<Vec3> path = makePath(start, end, Arrays.asList(
                 // another robot's plan takes this zone.  It would be nice to
-                new Rectangle(Vec2.Companion.get(15, 0), Vec2.Companion.get(15, 10))
+//                new Rectangle(Vec2.Companion.get(15, 0), Vec2.Companion.get(15, 10))
         ));
 
         ArrayList<Command> commandList = getCommandList(components, driveSystem, path);
+
+        commandList.add(new Wait(100));
 
         // drive up to the target
         commandList.add(new DriveUntilClose(alliance, components, driveSystem, visionSystem));
 
         // unload box
-
-        commandList.add(new Wait(100));
         commandList.add(new BarfBox(components, platformSystem, elevatorSystem));
 
 //        return new DriveForwards(36.0, components, driveSystem);
@@ -89,7 +89,7 @@ public class Planner {
                     commandList.add(new Turn(turn, components, driveSystem));
                     turn = 0;
                 }
-                forward += FieldMeasurement.Companion.getRobotSize().toInches();
+                forward += FieldMeasurement.Companion.getBlockSize().toInches();
 
             }
         }

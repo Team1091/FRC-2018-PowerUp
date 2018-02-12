@@ -10,8 +10,8 @@ fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: Li
     val safeDist = FieldMeasurement.safeDistance
 
     val obstacles = mutableListOf<Obstacle>(
-            Rectangle(Vec2[6, 5], Vec2[15, 10]), // switch
-            Rectangle(Vec2[6, 15], Vec2[15, 20]), // scale
+            FieldMeasurement.switch,
+            FieldMeasurement.scale,
             InverseRectangle(Vec2[0, 0], Vec2[xSize, ySize])
     )
     obstacles.addAll(playerObstacles)

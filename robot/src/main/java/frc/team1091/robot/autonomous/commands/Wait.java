@@ -25,6 +25,6 @@ public class Wait implements Command {
 
     @Override
     public String getMessage() {
-        return null;
+        return "Waiting for " + timeToWaitMillis + " milliseconds.";
     }
 }
