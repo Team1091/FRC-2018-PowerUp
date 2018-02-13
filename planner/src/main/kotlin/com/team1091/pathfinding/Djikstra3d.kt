@@ -52,10 +52,18 @@ fun findPath3d(field: Matrix2d<Double>, start: Vec3, end: Vec3): List<Vec3>? {
 
         //  for each point, set the cost, and a pointer back if we set the cost
         neighbors
-                .filter { field.contains(it.x, it.y) } // make sure we are on the field
-                .filter { field[it.x, it.y] < 100000 } // make sure we don't hit switches
+                .filter { inside(it, field) } // make sure we are on the field
+                .filter { valueSmall(it, field) } // make sure we don't hit switches
                 .forEach {
-                    val nextCost = costs[cheapestNode] + field[it.x, it.y] + abs(cheapestNode.z - it.z) * 4
+                    var nextCost = costs[cheapestNode] + abs(cheapestNode.z - it.z) * 4
+
+                    nextCost += maxCost(field, it)
+
+                    for (x in -1..1) {
+                        for (y in -1..1) {
+                            nextCost += field[it.x + x, it.y + y]
+                        }
+                    }
 
                     if (nextCost < costs[it]) {
                         costs[it] = nextCost
@@ -75,4 +83,46 @@ fun findPath3d(field: Matrix2d<Double>, start: Vec3, end: Vec3): List<Vec3>? {
     // could not find a path
     return null
 
+}
+
+fun maxCost(field: Matrix2d<Double>, pos: Vec3): Double {
+    var max = 0.0
+    for (x in -1..1) {
+        for (y in -1..1) {
+            val nx = pos.x + x
+            val ny = pos.y + y
+            max = Math.max(max, field[nx, ny])
+        }
+    }
+    return max
+}
+
+private fun valueSmall(pos: Vec3, field: Matrix2d<Double>): Boolean {
+    for (x in -1..1) {
+        for (y in -1..1) {
+            val nx = pos.x + x
+            val ny = pos.y + y
+            //println("${nx}  ${ny}")
+
+            if (field[nx, ny] > 100000) {
+                return false
+            }
+        }
+    }
+    return true
+}
+
+private fun inside(pos: Vec3, field: Matrix2d<Double>): Boolean {
+    for (x in -1..1) {
+        for (y in -1..1) {
+            val nx = pos.x + x
+            val ny = pos.y + y
+            //println("${nx}  ${ny}")
+
+            if (field.outside(nx, ny)) {
+                return false
+            }
+        }
+    }
+    return true
 }

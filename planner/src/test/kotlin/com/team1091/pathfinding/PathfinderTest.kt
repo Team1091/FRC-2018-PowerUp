@@ -2,6 +2,11 @@ import com.team1091.math.*
 import com.team1091.pathfinding.findPath2d
 import com.team1091.planning.*
 import org.junit.Test
+import java.awt.Color
+import java.awt.image.BufferedImage
+import java.awt.image.BufferedImage.TYPE_INT_RGB
+import java.io.File
+import javax.imageio.ImageIO
 
 class PathfinderTest {
 
@@ -49,6 +54,7 @@ class PathfinderTest {
         assert(path != null)
         assert(path?.first() == start)
         assert(path?.last() == end)
+
 //        assert(path?.size == getManhattanDistance(start, end) + 1)
 
         // path?.forEach { println(it) }
@@ -60,6 +66,27 @@ class PathfinderTest {
 
     }
 
+    @Test
+    fun testEnds() {
+        val map = createMap(listOf())
+        StartingPos.values().forEach { start ->
+            println(start.pos)
+
+            start.pos.mooreNeighborhood().forEach {
+                assert(map.contains(it))
+                assert(map[it] < 10000)
+            }
+
+        }
+        EndingPos.values().forEach { end ->
+            println(end.pos)
+            end.pos.mooreNeighborhood().forEach {
+                assert(map.contains(it))
+                assert(map[it] < 10000)
+            }
+
+        }
+    }
 
     @Test
     fun testPathMakerWithTurns() {
@@ -79,9 +106,39 @@ class PathfinderTest {
 //                println("start ${start} end ${end}")
 //                path?.forEach { println("x: ${it.x} y: ${it.y} ${Facing.values()[it.z]}") }
 
+                drawPathImage(path, "${start.name}-${end.name}.png")
+
             }
         }
 
+    }
+
+    private fun drawPathImage(path: List<Vec3>?, name: String) {
+        val out = BufferedImage(FieldMeasurement.pathfinderBlocksWidth, FieldMeasurement.pathfinderBlocksLength, TYPE_INT_RGB)
+
+        val map = createMap(listOf())
+
+        for(x in 0 until out.width){
+            for(y in 0 until out.height){
+
+                val ammt = map[x,y]
+
+                if(ammt > 1000){
+                    out.setRGB(x,out.height - y -1, Color.BLACK.rgb)
+                }else{
+                    out.setRGB(x,out.height - y -1, Color.WHITE.rgb)
+                }
+
+
+            }
+        }
+
+        path?.forEach {
+            out.setRGB(it.x, out.height - it.y -1, Color.RED.rgb)
+        }
+//        out.graphics.
+
+        ImageIO.write(out, "PNG", File(name))
     }
 
 //

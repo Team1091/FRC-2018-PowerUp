@@ -4,10 +4,10 @@ import com.team1091.math.Vec2
 
 enum class EndingPos(val pos: Vec2, val facing: Facing) {
 
-    LEFT_SWITCH(Vec2[5, 10], Facing.RIGHT),
-    RIGHT_SWITCH(Vec2[20, 10], Facing.LEFT),
+    LEFT_SWITCH(FieldMeasurement.leftSwitchEnd, Facing.RIGHT),
+    RIGHT_SWITCH(FieldMeasurement.rightSwitchEnd, Facing.LEFT),
 
-    LEFT_SCALE(Vec2[5, 20], Facing.RIGHT),
-    RIGHT_SCALE(Vec2[20, 20], Facing.LEFT)
+    LEFT_SCALE(FieldMeasurement.leftScaleEnd, Facing.RIGHT),
+    RIGHT_SCALE(FieldMeasurement.rightScaleEnd, Facing.LEFT)
 
 }
