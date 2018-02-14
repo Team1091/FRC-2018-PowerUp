@@ -114,31 +114,37 @@ class PathfinderTest {
     }
 
     private fun drawPathImage(path: List<Vec3>?, name: String) {
+
         val out = BufferedImage(FieldMeasurement.pathfinderBlocksWidth, FieldMeasurement.pathfinderBlocksLength, TYPE_INT_RGB)
 
         val map = createMap(listOf())
 
-        for(x in 0 until out.width){
-            for(y in 0 until out.height){
+        for (x in 0 until out.width) {
+            for (y in 0 until out.height) {
 
-                val ammt = map[x,y]
+                val ammt = map[x, y].toFloat()
 
-                if(ammt > 1000){
-                    out.setRGB(x,out.height - y -1, Color.BLACK.rgb)
-                }else{
-                    out.setRGB(x,out.height - y -1, Color.WHITE.rgb)
+                if (ammt > 10) {
+                    out.setRGB(x, out.height - y - 1, Color.BLACK.rgb)
+                } else {
+                    out.setRGB(x, out.height - y - 1, Color(1 - ammt / 10f, 1 - ammt / 10f, 1 - ammt / 10f).rgb)
                 }
 
 
             }
         }
 
+        val colors = listOf(Color.RED, Color.GREEN, Color.MAGENTA, Color.CYAN)
         path?.forEach {
-            out.setRGB(it.x, out.height - it.y -1, Color.RED.rgb)
+
+
+            out.setRGB(it.x, out.height - it.y - 1, colors[it.z].rgb)
         }
 //        out.graphics.
 
-        ImageIO.write(out, "PNG", File(name))
+        var plans = File("build/plans")
+        plans.mkdirs()
+        ImageIO.write(out, "PNG", File(plans, name))
     }
 
 //

@@ -29,13 +29,13 @@ class FieldMeasurement {
         val scaleLowerX = 8.feet
         val scaleLowerY = 261.inches
         val scaleUpperX = fieldWidth - scaleLowerX
-        val scaleUpperY = scaleLowerY + 4.5.feet
+        val scaleUpperY = scaleLowerY + 6.feet
         val scaleHeight = 4.feet
 
         // if a block is 3.feet, then we can take the field width and length and divide by 3
 
-        val pathfinderBlocksWidth = 25
-        val pathfinderBlocksLength = 30  // we only go a little beyond half way, other half is off limits
+        val pathfinderBlocksWidth = fieldWidth.toFeet().toInt()
+        val pathfinderBlocksLength = fieldLength.toFeet().toInt()  // we only go a little beyond half way, other half is off limits
 
         val switch = Rectangle(
                 Vec2[switchLowerX.toFeet().toInt(), switchLowerY.toFeet().toInt()],
@@ -54,8 +54,8 @@ class FieldMeasurement {
 
         val leftSwitchEnd = Vec2[4, 13]
         val rightSwitchEnd = Vec2[23, 13]
-        val leftScaleEnd = Vec2[4, 27]
-        val rightScaleEnd = Vec2[23, 27]
+        val leftScaleEnd = Vec2[4, scaleLowerY.toFeet().toInt()+3]
+        val rightScaleEnd = Vec2[23, scaleLowerY.toFeet().toInt()+3]
 
     }
 
