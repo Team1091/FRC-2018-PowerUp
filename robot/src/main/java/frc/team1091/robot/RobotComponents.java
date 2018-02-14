@@ -50,7 +50,7 @@ public class RobotComponents {
                 new Victor(releaseMotorChannel),
                 new EncoderWrapper(new Encoder(leftDriveMotorEncoderChannel1, leftDriveMotorEncoderChannel2), -360.0 / (wheelDiameter * Math.PI)),
                 new EncoderWrapper(new Encoder(rightDriveMotorEncoderChannel1, rightDriveMotorEncoderChannel2), 110.0 / (wheelDiameter * Math.PI)),
-                new EncoderWrapper(new Encoder(boxElevatorEncoderChannel1, boxElevatorEncoderChannel2), 1),
+                new EncoderWrapper(new Encoder(boxElevatorEncoderChannel1, boxElevatorEncoderChannel2), 141.5),
                 new EncoderWrapper(new Encoder(boxPlatformEncoderChannel1, boxPlatformEncoderChannel2), 1),
                 new DigitalInputWrapper(new DigitalInput(boxPlatformLimitSwitchChannel)),
                 new DigitalInputWrapper(new DigitalInput(boxElevatorLimitSwitchChannel))//,
