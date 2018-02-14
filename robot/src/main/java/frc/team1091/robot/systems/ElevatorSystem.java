@@ -1,15 +1,18 @@
 package frc.team1091.robot.systems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
 
 public class ElevatorSystem {
     private RobotComponents robotComponents;
-
+//12723 = 90 inches
+//141.5 counts per inch
     private final double stepDownStartAt = .25;
-    private final int scaleHeight = 1000;
-    private final int switchHeight = 300;
-    private final int switchRange = 50;
+    private final int scaleHeight = 720;
+    private final int switchHeight = 360;
+    private final int switchRange = 12;
+    private final double throttledMotorSpeed = 1.0;
     private ElevatorPositions currentPosition = ElevatorPositions.GroundHeight;
 
     public ElevatorSystem(RobotComponents robotComponents) {
@@ -19,7 +22,6 @@ public class ElevatorSystem {
     public void controlLift(double dt) {
         //Determine which way we need to go
         setStateFromController();
-
         switch (currentPosition) {
             case GroundHeight:
                 goToGround();
@@ -109,18 +111,22 @@ public class ElevatorSystem {
 
         double percentOfDistanceRenaming = ((double) distanceRemaining / (double) desiredPosition);
         if (percentOfDistanceRenaming > stepDownStartAt) {
-            return 1;
+            return Math.min(1,throttledMotorSpeed);
         }
 
         int excludedTravel = (int) Math.floor(desiredPosition * ((double) 1 - stepDownStartAt));
         double motorSpeed = (((double) distanceRemaining) / (double) (desiredPosition - excludedTravel));
-        return motorSpeed;
+        return  Math.min(motorSpeed,throttledMotorSpeed);
     }
 
     public void setStateFromController() {
+        SmartDashboard.putString("Getting There", "HERE");
         Boolean goToSwitch = robotComponents.xboxController.getRawButton(Xbox.rb);
         Boolean goToScale = robotComponents.xboxController.getRawButton(Xbox.lb);
         Boolean goToGround = robotComponents.xboxController.getRawButton(Xbox.x);
+        SmartDashboard.putBoolean("Pushing RB", goToSwitch);
+        SmartDashboard.putBoolean("Pushing LB", goToScale);
+        SmartDashboard.putBoolean("Pushing X", goToGround);
         if (goToSwitch) {
             setElevatorPosition(ElevatorPositions.SwitchHeight);
             return;

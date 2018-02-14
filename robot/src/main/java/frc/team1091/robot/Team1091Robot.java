@@ -23,12 +23,12 @@ public class Team1091Robot {
     // Communications with laptop
     private VisionSystem visionSystem;
     private SendableChooser<StartingPos> startingPositionChooser;
-
-
+    // Int for checking if auto is over
+    private int autoEnd = 0;
     public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();
-        ElevatorSystem es = new ElevatorSystem(rc);
 
+        ElevatorSystem es = new ElevatorSystem(rc);
         return new Team1091Robot(
                 rc,
                 new AutonomousSystem(),
@@ -83,34 +83,39 @@ public class Team1091Robot {
     }
 
     public void autonomousPeriodic() {
-        printEncoders();
-        double dt = getTime();
-        autonomousSystem.drive(dt);
+        printTelemetry();
+        //double dt = getTime();
+        //autonomousSystem.drive(dt);
     }
 
 
     public void teleopInit() {
+
         //Todo: Complete or Stop an Actions still in process for Autonomous
+
     }
 
     public void teleopPeriodic() {
-        printEncoders();
+        printTelemetry();
         double dt = getTime();
 
         //Handle Driving the Robot
-        driveSystem.manualDrive(dt);
-        boxSystem.ingestBox(dt);
+     //   driveSystem.manualDrive(dt);
+     //   boxSystem.ingestBox(dt);
         elevatorSystem.controlLift(dt);
-        climbSystem.climbUp(dt);
-        platformSystem.controlGate(dt);
+     //   climbSystem.climbUp(dt);
+     //   platformSystem.controlGate(dt);
 
     }
 
-    private void printEncoders() {
+    private void printTelemetry() {
         SmartDashboard.putNumber("left", components.leftEncoder.getDistance());
         SmartDashboard.putNumber("right", components.rightEncoder.getDistance());
         SmartDashboard.putNumber("elevator", components.elevatorEncoder.getDistance());
         SmartDashboard.putNumber("platform", components.platformEncoder.getDistance());
+        SmartDashboard.putNumber("elevator encoder ",components.elevatorEncoder.get());
+        SmartDashboard.putString("Elevator posistion",elevatorSystem.getCurrentPosition().toString());
+        SmartDashboard.putBoolean("Elevator At Ground", components.elevatorLimitSwitch.get());
     }
 
     public void disabledInit() {
@@ -131,7 +136,7 @@ public class Team1091Robot {
         components.winchMotor.set(limit(SmartDashboard.getNumber("winchMotor - 5", 0.0)));
         components.releaseMotor.set(limit(SmartDashboard.getNumber("releaseMotor - 6", 0.0)));
 
-        printEncoders();
+        printTelemetry();
 
     }
 
