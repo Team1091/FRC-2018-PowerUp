@@ -39,11 +39,11 @@ class FieldMeasurement {
 
         val switch = Rectangle(
                 Vec2[switchLowerX.toFeet().toInt(), switchLowerY.toFeet().toInt()],
-                Vec2[switchUpperX.toFeet().toInt() + 1, switchUpperY.toFeet().toInt() + 1])
+                Vec2[switchUpperX.toFeet().toInt(), switchUpperY.toFeet().toInt()])
 
         val scale = Rectangle(
                 Vec2[scaleLowerX.toFeet().toInt(), scaleLowerY.toFeet().toInt()],
-                Vec2[scaleUpperX.toFeet().toInt() + 1, scaleUpperY.toFeet().toInt() + 1])
+                Vec2[scaleUpperX.toFeet().toInt(), scaleUpperY.toFeet().toInt()])
 
         val safeDistance = 3 // blocks away from obstacles that we should avoid
 

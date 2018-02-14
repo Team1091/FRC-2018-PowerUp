@@ -1,7 +1,5 @@
 package frc.team1091.robot.autonomous;
 
-import com.team1091.math.Rectangle;
-import com.team1091.math.Vec2;
 import com.team1091.math.Vec3;
 import com.team1091.planning.EndingPos;
 import com.team1091.planning.FieldMeasurement;

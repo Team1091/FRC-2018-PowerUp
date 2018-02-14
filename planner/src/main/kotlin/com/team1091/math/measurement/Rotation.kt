@@ -1,12 +1,12 @@
 package com.team1091.math.measurement
 
-public val Number.radians: Rotation
+val Number.radians: Rotation
     get() = Rotation(this.toDouble())
 
-public val Number.degrees: Rotation
+val Number.degrees: Rotation
     get() = Rotation(this.toDouble() / (180 / Math.PI))
 
-public class Rotation(val radians: Double) {
+class Rotation(private val radians: Double) {
 
     fun toDegrees() = radians * (180 / Math.PI)
     fun toRadians() = radians

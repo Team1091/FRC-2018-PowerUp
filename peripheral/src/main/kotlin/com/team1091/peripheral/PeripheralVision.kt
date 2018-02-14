@@ -67,8 +67,8 @@ fun main(args: Array<String>) {
             var ySum = 0
             var yellowPixelCount = 0
             frames++
-            for (x in 0..image.width - 1) {
-                for (y in 0..image.height - 1) {
+            for (x in 0 until image.width) {
+                for (y in 0 until image.height) {
                     val rgb = image.getRGB(x, y)
 
                     val red: Double = (rgb shr 16 and 0xFF).toDouble() / 255.0

@@ -94,7 +94,7 @@ class PathfinderTest {
         StartingPos.values().forEach { start ->
             EndingPos.values().forEach { end ->
 
-                var path = makePath(start, end, listOf())
+                val path = makePath(start, end, listOf())
 
                 if (path == null) {
                     println("No possible path, do a default action instead")
@@ -142,7 +142,7 @@ class PathfinderTest {
         }
 //        out.graphics.
 
-        var plans = File("build/plans")
+        val plans = File("build/plans")
         plans.mkdirs()
         ImageIO.write(out, "PNG", File(plans, name))
     }
@@ -181,7 +181,7 @@ class PathfinderTest {
     private fun printField(fieldMap: Matrix2d<Double>, path: List<Vec2>? = null) {
         for (ym in 1..fieldMap.ySize) {
             val y = fieldMap.ySize - ym
-            for (x in 0..fieldMap.xSize - 1) {
+            for (x in 0 until fieldMap.xSize) {
                 val value = Math.min(Math.round(fieldMap[x, y]), 9)
 
                 if (path?.contains(Vec2[x, y]) == true) {

@@ -109,13 +109,13 @@ public class ElevatorSystem {
     public double determineMotorSpeed(double currentPosition, double desiredPosition) {
         double distanceRemaining = Math.abs(currentPosition - desiredPosition);
 
-        double percentOfDistanceRenaming = ((double) distanceRemaining / (double) desiredPosition);
+        double percentOfDistanceRenaming = ( distanceRemaining / desiredPosition);
         if (percentOfDistanceRenaming > stepDownStartAt) {
             return Math.min(1,throttledMotorSpeed);
         }
 
         int excludedTravel = (int) Math.floor(desiredPosition * ((double) 1 - stepDownStartAt));
-        double motorSpeed = (((double) distanceRemaining) / (double) (desiredPosition - excludedTravel));
+        double motorSpeed =  distanceRemaining / (desiredPosition - excludedTravel);
         return  Math.min(motorSpeed,throttledMotorSpeed);
     }
 

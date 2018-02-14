@@ -2,22 +2,22 @@ package com.team1091.math.measurement
 
 
 // Measurements
-public val Number.americanFootballFields: Length
+val Number.americanFootballFields: Length
     get() = Length(this.toDouble() * (120.0 * 12.0 * 3.0))
 
-public val Number.yards: Length
+val Number.yards: Length
     get() = Length(this.toDouble() * (12.0 * 3))
 
-public val Number.feet: Length
+val Number.feet: Length
     get() = Length(this.toDouble() * 12.0)
 
-public val Number.inches: Length
+val Number.inches: Length
     get() = Length(this.toDouble())
 
-public val Number.robots: Length
+val Number.robots: Length
     get() = Length(this.toDouble() * 38.0)
 
-public class Length(val distance: Double) {
+class Length(val distance: Double) {
     fun toAmericanFootballFields() = distance / (120.0 * 12.0 * 3.0)
     fun toRobots() = distance / 38.0
     fun toYards() = distance / (12.0 * 3.0)

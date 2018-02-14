@@ -19,17 +19,17 @@ open class Rectangle(val lower: Vec2, val upper: Vec2) : Obstacle {
 
         } else if (point.x >= lower.x && point.x <= upper.x) {
             // X is centered
-            if (point.y > upper.y) {
-                return abs(point.y.toDouble() - upper.y.toDouble())
+            return if (point.y > upper.y) {
+                abs(point.y.toDouble() - upper.y.toDouble())
             } else {
-                return abs(point.y.toDouble() - lower.y.toDouble())
+                abs(point.y.toDouble() - lower.y.toDouble())
             }
         } else if (point.y >= lower.y && point.y <= upper.y) {
             // Y is centered
-            if (point.x > lower.x) {
-                return abs(point.x.toDouble() - upper.x.toDouble())
+            return if (point.x > lower.x) {
+                abs(point.x.toDouble() - upper.x.toDouble())
             } else {
-                return abs(point.x.toDouble() - lower.x.toDouble())
+                abs(point.x.toDouble() - lower.x.toDouble())
             }
         } else if (point.x < lower.x && point.y > upper.y) { // upper left
             return getEuclideanDistance(point, Vec2[lower.x, upper.y])
@@ -52,10 +52,10 @@ open class Rectangle(val lower: Vec2, val upper: Vec2) : Obstacle {
 class InverseRectangle(lower: Vec2, upper: Vec2) : Rectangle(lower, upper) {
     override fun minDist(point: Vec2): Double {
 
-        if (outside(point)) {
-            return 0.0
+        return if (outside(point)) {
+            0.0
         } else {
-            return Math.min(
+            Math.min(
                     Math.min(point.x.toDouble() - lower.x + 1, point.y.toDouble() - lower.y + 1),
                     Math.min(upper.x - point.x.toDouble(), upper.y - point.y.toDouble())
             )
