@@ -64,17 +64,14 @@ public class Planner {
         // unload box
         commandList.add(new BarfBox(components, platformSystem, elevatorSystem));
 
-//        return new DriveForwards(36.0, components, driveSystem);
-//        return new Turn(960.0, components, driveSystem);
         return new CommandList(commandList);
     }
 
+    // At this point we have a list of positions we want to be at, we need to translate that into a list of commands to get the robot there
     private static ArrayList<Command> getCommandList(RobotComponents components, DriveSystem driveSystem, List<Vec3> path) {
+
         // Convert list of points into driving instructions - need to parse out turns.
         ArrayList<Command> commandList = new ArrayList<>();
-
-        // At this point we have a list of positions we want to be at, we need to translate that into a list of commands to get the robot there
-        // we can start at 1, since we are are already in our current position.
 
         double turn = 0;
         double forward = 0;
@@ -82,7 +79,6 @@ public class Planner {
         for (int i = 0; i < path.size() - 1; i++) {
             Vec3 lastNode = path.get(i);
             Vec3 nextNode = path.get(i + 1);
-//            Command command = commandList.get(commandList.size()-1);
 
             if (lastNode.getZ() != nextNode.getZ()) { // we turned
 
