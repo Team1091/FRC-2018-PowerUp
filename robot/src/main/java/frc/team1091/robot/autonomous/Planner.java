@@ -3,6 +3,7 @@ package frc.team1091.robot.autonomous;
 import com.team1091.math.Vec3;
 import com.team1091.planning.EndingPos;
 import com.team1091.planning.FieldMeasurement;
+import com.team1091.planning.Obstacle;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
@@ -34,14 +35,26 @@ public class Planner {
         EndingPos far = gameGoalData.charAt(1) == 'R' ? EndingPos.RIGHT_SCALE : EndingPos.LEFT_SCALE;
 
         // TODO: select a far or close goal
-        EndingPos end = far;
-
-        List<Vec3> path = makePath(start, end, Arrays.asList(
+        List<Obstacle> obstacles = Arrays.asList(
                 // another robot's plan takes this zone.  It would be nice to
 //                new Rectangle(Vec2.Companion.get(15, 0), Vec2.Companion.get(15, 10))
-        ));
+        );
 
-        ArrayList<Command> commandList = getCommandList(components, driveSystem, path);
+        List<Vec3> farPath = makePath(start, far, obstacles);
+        List<Vec3> closePath = makePath(start, close, obstacles);
+        List<Vec3> actualPath;
+        if (farPath != null) {
+            // be ambitious
+            actualPath = farPath;
+        } else if (closePath != null) {
+            // be less ambitious
+            actualPath = closePath;
+        } else {
+            // Well, at least we can drag ourselves forward
+            return new DriveForwards(72, components, driveSystem);
+        }
+
+        ArrayList<Command> commandList = getCommandList(components, driveSystem, actualPath);
 
         commandList.add(new Wait(100));
 

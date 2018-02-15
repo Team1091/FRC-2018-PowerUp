@@ -55,15 +55,7 @@ fun findPath3d(field: Matrix2d<Double>, start: Vec3, end: Vec3): List<Vec3>? {
                 .filter { inside(it, field) } // make sure we are on the field
                 .filter { valueSmall(it, field) } // make sure we don't hit switches
                 .forEach {
-                    var nextCost = costs[cheapestNode] + abs(cheapestNode.z - it.z) * 4
-
-                    nextCost += maxCost(field, it)
-
-                    for (x in -1..1) {
-                        for (y in -1..1) {
-                            nextCost += field[it.x + x, it.y + y]
-                        }
-                    }
+                    var nextCost = costs[cheapestNode] + maxCost(field, it) + abs(cheapestNode.z - it.z) * 4
 
                     if (nextCost < costs[it]) {
                         costs[it] = nextCost

@@ -3,7 +3,7 @@ package com.team1091.planning
 import com.team1091.math.*
 import com.team1091.pathfinding.findPath3d
 
-fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: List<Rectangle>): List<Vec3>? {
+fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: List<Obstacle>): List<Vec3>? {
 
     val fieldMap = createMap(playerObstacles)
 
@@ -27,13 +27,10 @@ fun createMap(playerObstacles: List<Obstacle>): Matrix2d<Double> {
     val fieldMap = Matrix2d<Double>(xSize, ySize, { x, y ->
 
         val d: Double = obstacles.map { it.minDist(Vec2[x, y]) }.min()!!
-        if (d <= 0) {
-            Double.MAX_VALUE
-        } else if (d > safeDist) {
-            1.0
-        } else {
-            // weight spaces near obstacles higher.
-            2 * (1 - (d / safeDist)) + 1
+        when {
+            d <= 0 -> Double.MAX_VALUE
+            d > safeDist -> 1.0
+            else -> 2 * (1 - (d / safeDist)) + 1
         }
     })
     return fieldMap
