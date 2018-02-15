@@ -12,7 +12,7 @@ fun makePath(startingPos: StartingPos, endingPos: EndingPos, playerObstacles: Li
             Vec3[endingPos.pos.x, endingPos.pos.y, endingPos.facing.ordinal])
 }
 
- fun createMap(playerObstacles: List<Rectangle>): Matrix2d<Double> {
+fun createMap(playerObstacles: List<Obstacle>): Matrix2d<Double> {
     val xSize = FieldMeasurement.pathfinderBlocksWidth
     val ySize = FieldMeasurement.pathfinderBlocksLength
     val safeDist = FieldMeasurement.safeDistance

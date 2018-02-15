@@ -91,35 +91,41 @@ class PathfinderTest {
     @Test
     fun testPathMakerWithTurns() {
 
+        val leftBlock = Rectangle(Vec2[0, 11], Vec2[11, 15])
+        val rightBlock = Rectangle(Vec2[20, 11], Vec2[27, 15])
+
         StartingPos.values().forEach { start ->
             EndingPos.values().forEach { end ->
 
-                val path = makePath(start, end, listOf(
-            //            Rectangle(Vec2[20,11],Vec2[27,15])
-                ))
+                val obstacles = listOf(rightBlock)
+
+                val path = makePath(start, end, obstacles)
 
                 if (path == null) {
                     println("No possible path, do a default action instead")
                 }
 
-                assert(path != null)
-                assert(path?.first() == Vec3(start.pos.x, start.pos.y, start.facing.ordinal))
-                assert(path?.last() == Vec3(end.pos.x, end.pos.y, end.facing.ordinal))
+                if (end == EndingPos.RIGHT_SWITCH) {
+                    assert(path == null)
+                } else {
+                    assert(path != null)
+                    assert(path?.first() == Vec3(start.pos.x, start.pos.y, start.facing.ordinal))
+                    assert(path?.last() == Vec3(end.pos.x, end.pos.y, end.facing.ordinal))
+                }
 //                println("start ${start} end ${end}")
 //                path?.forEach { println("x: ${it.x} y: ${it.y} ${Facing.values()[it.z]}") }
 
-                drawPathImage(path, "${start.name}-${end.name}.png")
+                drawPathImage(path, obstacles, "${start.name}-${end.name}.png")
 
             }
         }
-
     }
 
-    private fun drawPathImage(path: List<Vec3>?, name: String) {
+    private fun drawPathImage(path: List<Vec3>?, obstacles: List<Obstacle>, name: String) {
 
         val out = BufferedImage(FieldMeasurement.pathfinderBlocksWidth, FieldMeasurement.pathfinderBlocksLength, TYPE_INT_RGB)
 
-        val map = createMap(listOf())
+        val map = createMap(obstacles)
 
         for (x in 0 until out.width) {
             for (y in 0 until out.height) {
@@ -138,8 +144,6 @@ class PathfinderTest {
 
         val colors = listOf(Color.RED, Color.GREEN, Color.MAGENTA, Color.CYAN)
         path?.forEach {
-
-
             out.setRGB(it.x, out.height - it.y - 1, colors[it.z].rgb)
         }
 //        out.graphics.
