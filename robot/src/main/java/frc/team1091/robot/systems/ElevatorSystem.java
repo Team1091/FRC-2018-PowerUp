@@ -8,7 +8,7 @@ public class ElevatorSystem {
     private RobotComponents robotComponents;
 //12723 = 90 inches
 //141.5 counts per inch
-    private final double stepDownStartAt = .25;
+    private final double stepDownStartAt = .5;
     private final int scaleHeight = 720;
     private final int switchHeight = 360;
     private final int switchRange = 12;
@@ -109,7 +109,7 @@ public class ElevatorSystem {
     public double determineMotorSpeed(double currentPosition, double desiredPosition) {
         double distanceRemaining = Math.abs(currentPosition - desiredPosition);
 
-        double percentOfDistanceRenaming = ( distanceRemaining / desiredPosition);
+        double percentOfDistanceRenaming = (distanceRemaining / desiredPosition);
         if (percentOfDistanceRenaming > stepDownStartAt) {
             return Math.min(1,throttledMotorSpeed);
         }

@@ -49,7 +49,7 @@ class FieldMeasurement {
 
         val leftStart = Vec2[4.feet.toFeet().toInt(), 1]
         val centerStart = Vec2[12.feet.toFeet().toInt(), 1]
-        val rightStart = Vec2[21.feet.toFeet().toInt(), 1]
+        val rightStart = Vec2[23.feet.toFeet().toInt(), 1]
 
 
         val leftSwitchEnd = Vec2[4, 13]

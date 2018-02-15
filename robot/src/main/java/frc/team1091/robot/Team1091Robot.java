@@ -67,12 +67,13 @@ public class Team1091Robot {
     public void autonomousInit() {
         StartingPos start = startingPositionChooser.getSelected();
         DriverStation driverStation = DriverStation.getInstance();
+        String fieldConfig = driverStation.getGameSpecificMessage();
 
         // Create a plan
         Command plan = Planner.plan(
                 start,
                 driverStation.getAlliance(),
-                driverStation.getGameSpecificMessage(),
+                fieldConfig == null ? "RRR" : fieldConfig,
                 components,
                 driveSystem,
                 visionSystem,
@@ -100,11 +101,11 @@ public class Team1091Robot {
         double dt = getTime();
 
         //Handle Driving the Robot
-     //   driveSystem.manualDrive(dt);
-     //   boxSystem.ingestBox(dt);
+        driveSystem.manualDrive(dt);
+        boxSystem.ingestBox(dt);
         elevatorSystem.controlLift(dt);
-     //   climbSystem.climbUp(dt);
-     //   platformSystem.controlGate(dt);
+        climbSystem.climbUp(dt);
+        platformSystem.controlGate(dt);
 
     }
 

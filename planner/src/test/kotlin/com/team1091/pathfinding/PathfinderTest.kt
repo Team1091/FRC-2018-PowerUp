@@ -94,7 +94,9 @@ class PathfinderTest {
         StartingPos.values().forEach { start ->
             EndingPos.values().forEach { end ->
 
-                val path = makePath(start, end, listOf())
+                val path = makePath(start, end, listOf(
+            //            Rectangle(Vec2[20,11],Vec2[27,15])
+                ))
 
                 if (path == null) {
                     println("No possible path, do a default action instead")
