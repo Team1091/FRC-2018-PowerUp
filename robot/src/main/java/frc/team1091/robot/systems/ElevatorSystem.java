@@ -12,7 +12,7 @@ public class ElevatorSystem {
     private final int scaleHeight = 720;
     private final int switchHeight = 360;
     private final int switchRange = 12;
-    private final double throttledMotorSpeed = 1.0;
+    private final double throttledMotorSpeed = 0.7;
     private ElevatorPositions currentPosition = ElevatorPositions.GroundHeight;
 
     public ElevatorSystem(RobotComponents robotComponents) {
