@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class ElevatorSystemTest {
 
@@ -41,6 +43,17 @@ public class ElevatorSystemTest {
                 null
         );
         elevatorSystem = new ElevatorSystem(robotComponents);
+    }
+
+    @Test
+    public void control_liftGoDown(){
+        elevatorSystem.setElevatorPosition(ElevatorPositions.GROUND_HEIGHT);
+        elevatorSystem.setHoldPosition(24);
+        for(int i = 0; i < 30; i++){
+            when(mockElevatorEncoder.getDistance()).thenReturn(24.0-i);
+            elevatorSystem.controlLift(i*.02);
+            //verify(mockElevatorMotor).set(1);
+        }
     }
 
     @Test

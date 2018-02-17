@@ -22,6 +22,10 @@ public class ElevatorSystem {
         this.robotComponents = robotComponents;
     }
 
+    public void setHoldPosition(double pos){
+        holdPosition = pos;
+    }
+
     public void controlLift(double dt) {
         //Determine which way we need to go
         setStateFromController();
@@ -33,8 +37,8 @@ public class ElevatorSystem {
             holdPosition -= maxSpeed * dt;
         }
 
-        SmartDashboard.putNumber("Elevator Hold Positions", holdPosition);
-        SmartDashboard.putNumber("Target Position", targetPosition.inches);
+        //SmartDashboard.putNumber("Elevator Hold Positions", holdPosition);
+        //SmartDashboard.putNumber("Target Position", targetPosition.inches);
         double actionMeasured = robotComponents.elevatorEncoder.getDistance();
 
         double speed =  determineMotorSpeed(actionMeasured, holdPosition);
