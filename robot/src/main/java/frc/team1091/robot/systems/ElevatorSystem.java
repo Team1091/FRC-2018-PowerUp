@@ -131,15 +131,17 @@ public class ElevatorSystem {
         Boolean goUp = robotComponents.xboxController.getRawButton(Xbox.rb);
         Boolean goDown = robotComponents.xboxController.getRawButton(Xbox.lb);
 
-        if(goUp) {
+        if(goUp && !isAtPosition(ElevatorPositions.SCALE_HEIGHT)) {
             robotComponents.elevatorMotor.set(Math.min(1, throttledMotorSpeed));
             return;
         }
 
-        if(goDown) {
+        if(goDown && !isAtPosition(ElevatorPositions.GROUND_HEIGHT)) {
             robotComponents.elevatorMotor.set(-1*Math.min(1, throttledMotorSpeed));
             return;
         }
+
+        robotComponents.elevatorMotor.set(0);
     }
 }
 
