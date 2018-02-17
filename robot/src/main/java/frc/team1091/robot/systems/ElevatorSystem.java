@@ -12,8 +12,8 @@ public class ElevatorSystem {
     private final int scaleHeight = 720;
     private final int switchHeight = 360;
     private final int switchRange = 12;
-    private final double throttledMotorSpeed = 0.7;
-    private ElevatorPositions currentPosition = ElevatorPositions.GroundHeight;
+    final double throttledMotorSpeed = 0.7;
+    private ElevatorPositions targetPosition = ElevatorPositions.GROUND_HEIGHT;
 
     public ElevatorSystem(RobotComponents robotComponents) {
         this.robotComponents = robotComponents;
@@ -22,21 +22,21 @@ public class ElevatorSystem {
     public void controlLift(double dt) {
         //Determine which way we need to go
         setStateFromController();
-        switch (currentPosition) {
-            case GroundHeight:
+        switch (targetPosition) {
+            case GROUND_HEIGHT:
                 goToGround();
                 break;
-            case SwitchHeight:
+            case SWITCH_HEIGHT:
                 goToSwitch();
                 break;
-            case ScaleHeight:
+            case SCALE_HEIGHT:
                 goToScale();
                 break;
         }
     }
 
-    public ElevatorPositions getCurrentPosition() {
-        return currentPosition;
+    public ElevatorPositions getTargetPosition() {
+        return targetPosition;
     }
 
     public boolean isAtBottom() {
@@ -44,12 +44,11 @@ public class ElevatorSystem {
     }
 
     public void setElevatorPosition(ElevatorPositions desiredPosition) {
-        currentPosition = desiredPosition;
+        targetPosition = desiredPosition;
     }
 
-    public void goToGround() {
-        boolean isPlatformOnGround = robotComponents.elevatorLimitSwitch.get();
-        if (isPlatformOnGround) {
+    private void goToGround() {
+        if (isAtBottom()) {
             robotComponents.elevatorEncoder.reset();
             robotComponents.elevatorMotor.set(0);
             return;
@@ -58,12 +57,12 @@ public class ElevatorSystem {
         robotComponents.elevatorMotor.set(-1);
     }
 
-    public boolean isAtScale() {
+    private boolean isAtScale() {
         double currentHeight = robotComponents.elevatorEncoder.getDistance();
         return currentHeight >= scaleHeight;
     }
 
-    public boolean isAtSwitch() {
+    private boolean isAtSwitch() {
         double currentHeight = robotComponents.elevatorEncoder.getDistance();
         double upperSwitchRange = switchHeight + switchRange;
         double lowerSwitchRange = switchHeight - switchRange;
@@ -71,10 +70,10 @@ public class ElevatorSystem {
     }
 
     public boolean isAtDropPosition() {
-        if (currentPosition == ElevatorPositions.ScaleHeight && isAtScale()) {
+        if (targetPosition == ElevatorPositions.SCALE_HEIGHT && isAtScale()) {
             return true;
         }
-        if (currentPosition == ElevatorPositions.SwitchHeight && isAtSwitch()) {
+        if (targetPosition == ElevatorPositions.SWITCH_HEIGHT && isAtSwitch()) {
             return true;
         }
         return false;
@@ -128,15 +127,15 @@ public class ElevatorSystem {
         SmartDashboard.putBoolean("Pushing LB", goToScale);
         SmartDashboard.putBoolean("Pushing X", goToGround);
         if (goToSwitch) {
-            setElevatorPosition(ElevatorPositions.SwitchHeight);
+            setElevatorPosition(ElevatorPositions.SWITCH_HEIGHT);
             return;
         }
         if (goToScale) {
-            setElevatorPosition(ElevatorPositions.ScaleHeight);
+            setElevatorPosition(ElevatorPositions.SCALE_HEIGHT);
             return;
         }
         if (goToGround) {
-            setElevatorPosition(ElevatorPositions.GroundHeight);
+            setElevatorPosition(ElevatorPositions.GROUND_HEIGHT);
             return;
         }
     }

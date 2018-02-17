@@ -1,7 +1,7 @@
 package frc.team1091.robot.systems;
 
 public enum ElevatorPositions {
-    GroundHeight,
-    SwitchHeight,
-    ScaleHeight,
+    GROUND_HEIGHT,
+    SWITCH_HEIGHT,
+    SCALE_HEIGHT,
 }

@@ -46,7 +46,7 @@ public class ElevatorSystemTest {
     @Test
     public void determineMotorSpeed_ShouldReturnOne() {
         double speed = elevatorSystem.determineMotorSpeed(0, 1000);
-        Assert.assertEquals(1, speed, .00001);
+        Assert.assertEquals(elevatorSystem.throttledMotorSpeed, speed, .00001);
     }
 
     @Test

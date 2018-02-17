@@ -115,7 +115,7 @@ public class Team1091Robot {
         SmartDashboard.putNumber("elevator", components.elevatorEncoder.getDistance());
         SmartDashboard.putNumber("platform", components.platformEncoder.getDistance());
         SmartDashboard.putNumber("elevator encoder ",components.elevatorEncoder.get());
-        SmartDashboard.putString("Elevator posistion",elevatorSystem.getCurrentPosition().toString());
+        SmartDashboard.putString("Elevator posistion",elevatorSystem.getTargetPosition().toString());
         SmartDashboard.putBoolean("Elevator At Ground", components.elevatorLimitSwitch.get());
     }
 

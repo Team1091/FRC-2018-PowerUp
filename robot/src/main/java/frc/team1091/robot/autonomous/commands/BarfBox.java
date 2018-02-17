@@ -20,7 +20,7 @@ public class BarfBox implements Command {
     @Override
     public Command execute(double dt) {
         //If elevator at ground height we cannot drop
-        if (elevatorSystem.getCurrentPosition() == ElevatorPositions.GroundHeight) {
+        if (elevatorSystem.getTargetPosition() == ElevatorPositions.GROUND_HEIGHT) {
             return null;
         }
         //Wait for elevator to be at drop position if still moving
