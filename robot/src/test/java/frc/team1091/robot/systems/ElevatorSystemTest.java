@@ -74,4 +74,21 @@ public class ElevatorSystemTest {
         Assert.assertTrue(result3 ==0);
         Assert.assertTrue(result4 < 0);
     }
+
+    @Test
+    public void testDetermineMotorSpeed(){
+        ElevatorSystem elevatorSystem = new ElevatorSystem(null);
+
+        assert elevatorSystem.determineMotorSpeed(10,20)==1;
+        assert elevatorSystem.determineMotorSpeed(30,20)==-1;
+
+        assert elevatorSystem.determineMotorSpeed(9.5,10)==0.25;
+        assert elevatorSystem.determineMotorSpeed(9.0,10)==0.5;
+
+        assert elevatorSystem.determineMotorSpeed(10.5,10)==-0.25;
+        assert elevatorSystem.determineMotorSpeed(11,10)==-0.5;
+
+        assert elevatorSystem.determineMotorSpeed(10,10)==0;
+
+    }
 }
