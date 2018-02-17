@@ -8,9 +8,9 @@ public class PlatformSystem {
 
     private PlatformPosition targetState = PlatformPosition.UP;
 
-    public final double gateTravelSpeed = .25;
+    public final double gateTravelSpeed = 0.8;
     public final double xboxTriggerPressedTolerance = .2;
-    public final double ticksTolerance = 10;
+    public final double ticksTolerance = 3;
 
     public PlatformSystem(RobotComponents components) {
         robotComponents = components;
