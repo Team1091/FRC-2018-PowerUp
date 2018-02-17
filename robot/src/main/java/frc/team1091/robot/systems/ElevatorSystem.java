@@ -7,8 +7,8 @@ import org.opencv.core.Mat;
 public class ElevatorSystem {
     private RobotComponents robotComponents;
     //12723 = 90 inches
-//141.5 counts per inch
-//    private final double stepDownStartAt = .5;
+    //141.5 counts per inch
+
     private final double rampWidth = 2.0;
 
     final double throttledMotorSpeed = 0.7;
@@ -58,15 +58,7 @@ public class ElevatorSystem {
         double power = determineMotorSpeed(actualMeasured, holdPosition);
         power = power > 0 ? Math.min(power, throttledMotorSpeed) : Math.max(power, throttledMotorSpeed);
 
-//        SmartDashboard.putNumber("Elevator Motor Power", power);
-       // power =0;
         robotComponents.elevatorMotor.set(power);
-
-//        if (holdPosition > actionMeasured) {// go up
-//            robotComponents.elevatorMotor.set(-speed);
-//        } else {//go down
-//            robotComponents.elevatorMotor.set(speed);
-//        }
 
     }
 
@@ -125,23 +117,6 @@ public class ElevatorSystem {
             setElevatorPosition(ElevatorPositions.GROUND_HEIGHT);
             return;
         }
-    }
-
-    private void manualControl(){
-        Boolean goUp = robotComponents.xboxController.getRawButton(Xbox.rb);
-        Boolean goDown = robotComponents.xboxController.getRawButton(Xbox.lb);
-
-        if(goUp && !isAtPosition(ElevatorPositions.SCALE_HEIGHT)) {
-            robotComponents.elevatorMotor.set(Math.min(1, throttledMotorSpeed));
-            return;
-        }
-
-        if(goDown && !isAtPosition(ElevatorPositions.GROUND_HEIGHT)) {
-            robotComponents.elevatorMotor.set(-1*Math.min(1, throttledMotorSpeed));
-            return;
-        }
-
-        robotComponents.elevatorMotor.set(0);
     }
 }
 
