@@ -2,6 +2,7 @@ package frc.team1091.robot.systems;
 
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
+import org.opencv.core.Mat;
 
 public class ElevatorSystem {
     private RobotComponents robotComponents;
@@ -122,6 +123,21 @@ public class ElevatorSystem {
         }
         if (goToGround) {
             setElevatorPosition(ElevatorPositions.GROUND_HEIGHT);
+            return;
+        }
+    }
+
+    private void manualControl(){
+        Boolean goUp = robotComponents.xboxController.getRawButton(Xbox.rb);
+        Boolean goDown = robotComponents.xboxController.getRawButton(Xbox.lb);
+
+        if(goUp) {
+            robotComponents.elevatorMotor.set(Math.min(1, throttledMotorSpeed));
+            return;
+        }
+
+        if(goDown) {
+            robotComponents.elevatorMotor.set(-1*Math.min(1, throttledMotorSpeed));
             return;
         }
     }
