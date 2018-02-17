@@ -17,7 +17,7 @@ public class BoxSystem {
 
     public void ingestBox(double dt) {
 
-        boolean elevatorIsAtBottom = elevatorSystem.isAtBottom();
+        boolean elevatorIsAtBottom = elevatorSystem.isAtPosition(ElevatorPositions.GROUND_HEIGHT);
         boolean xButton = robotComponents.xboxController.getRawButton(Xbox.x);
         if (xButton && elevatorIsAtBottom) {
             robotComponents.suckerMotor.set(-1);
