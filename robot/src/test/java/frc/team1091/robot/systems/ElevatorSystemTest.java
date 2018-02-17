@@ -47,10 +47,10 @@ public class ElevatorSystemTest {
 
     @Test
     public void control_liftGoDown(){
-        elevatorSystem.setElevatorPosition(ElevatorPositions.GROUND_HEIGHT);
-        elevatorSystem.setHoldPosition(24);
-        for(int i = 0; i < 30; i++){
-            when(mockElevatorEncoder.getDistance()).thenReturn(24.0-i);
+        elevatorSystem.setElevatorPosition(ElevatorPositions.SWITCH_HEIGHT);
+        elevatorSystem.setHoldPosition(0);
+        for(int i = 0; i < 400; i++){
+            when(mockElevatorEncoder.getDistance()).thenReturn(0.0+(i * .1));
             elevatorSystem.controlLift(i*.02);
             //verify(mockElevatorMotor).set(1);
         }

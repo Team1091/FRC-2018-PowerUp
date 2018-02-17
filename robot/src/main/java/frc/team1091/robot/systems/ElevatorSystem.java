@@ -1,6 +1,5 @@
 package frc.team1091.robot.systems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
 
@@ -8,10 +7,10 @@ public class ElevatorSystem {
     private RobotComponents robotComponents;
     //12723 = 90 inches
 //141.5 counts per inch
-    private final double stepDownStartAt = .5;
-    private final int switchRange = 2;
+//    private final double stepDownStartAt = .5;
+    private final double rampWidth = 2.0;
 
-    final double throttledMotorSpeed = 0.5;
+    final double throttledMotorSpeed = 0.7;
 
     private ElevatorPositions targetPosition = ElevatorPositions.GROUND_HEIGHT;
 
@@ -22,7 +21,7 @@ public class ElevatorSystem {
         this.robotComponents = robotComponents;
     }
 
-    public void setHoldPosition(double pos){
+    public void setHoldPosition(double pos) {
         holdPosition = pos;
     }
 
@@ -33,22 +32,31 @@ public class ElevatorSystem {
         // Update target
         if (targetPosition.inches > holdPosition) {
             holdPosition += maxSpeed * dt;
-        } else {
+        }
+        if (targetPosition.inches < holdPosition) {
             holdPosition -= maxSpeed * dt;
         }
+        if (Math.abs(targetPosition.inches - holdPosition) < 0.5) {
+            holdPosition = targetPosition.inches;
+        }
+
+        if (holdPosition < 0)
+            holdPosition = 0;
 
         //SmartDashboard.putNumber("Elevator Hold Positions", holdPosition);
         //SmartDashboard.putNumber("Target Position", targetPosition.inches);
-        double actionMeasured = robotComponents.elevatorEncoder.getDistance();
+        double actualMeasured = robotComponents.elevatorEncoder.getDistance();
 
         if (isAtPosition(ElevatorPositions.GROUND_HEIGHT) && targetPosition == ElevatorPositions.GROUND_HEIGHT) {
             robotComponents.elevatorEncoder.reset();
             robotComponents.elevatorMotor.set(0);
+            holdPosition = 0;
             return;
         }
 
-        double power = determineMotorSpeed(actionMeasured, targetPosition.inches) * throttledMotorSpeed;
+        double power = determineMotorSpeed(actualMeasured, holdPosition) * throttledMotorSpeed;
 //        SmartDashboard.putNumber("Elevator Motor Power", power);
+       // power =0;
         robotComponents.elevatorMotor.set(power);
 
 //        if (holdPosition > actionMeasured) {// go up
@@ -74,8 +82,8 @@ public class ElevatorSystem {
                 return currentHeight <= 0;
             case SWITCH_HEIGHT:
             case SCALE_HEIGHT:
-                double upperSwitchRange = position.inches + switchRange;
-                double lowerSwitchRange = position.inches - switchRange;
+                double upperSwitchRange = position.inches + rampWidth;
+                double lowerSwitchRange = position.inches - rampWidth;
                 return !(currentHeight <= upperSwitchRange && currentHeight >= lowerSwitchRange);
         }
         return false;
@@ -88,13 +96,14 @@ public class ElevatorSystem {
     public double determineMotorSpeed(double currentPosition, double desiredPosition) {
         double d = desiredPosition - currentPosition;
 
-        if (d < -switchRange) {
-            return -1;
+        if (d < -rampWidth) {
+            return -1.0 ;
         }
-        if (d > switchRange)
-            return 1;
-
-        return d / switchRange;
+        if (d > rampWidth) {
+            return 1.0;
+        }
+        double power = d / rampWidth;
+        return power;
     }
 
     private void setStateFromController() {
