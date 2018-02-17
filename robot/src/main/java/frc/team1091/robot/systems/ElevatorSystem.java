@@ -41,19 +41,21 @@ public class ElevatorSystem {
         //SmartDashboard.putNumber("Target Position", targetPosition.inches);
         double actionMeasured = robotComponents.elevatorEncoder.getDistance();
 
-        double speed =  determineMotorSpeed(actionMeasured, holdPosition);
-
         if (isAtPosition(ElevatorPositions.GROUND_HEIGHT) && targetPosition == ElevatorPositions.GROUND_HEIGHT) {
             robotComponents.elevatorEncoder.reset();
             robotComponents.elevatorMotor.set(0);
             return;
         }
 
-        if (holdPosition > actionMeasured) {// go up
-            robotComponents.elevatorMotor.set(-speed);
-        } else {//go down
-            robotComponents.elevatorMotor.set(speed);
-        }
+        double power = determineMotorSpeed(actionMeasured, targetPosition.inches) * throttledMotorSpeed;
+//        SmartDashboard.putNumber("Elevator Motor Power", power);
+        robotComponents.elevatorMotor.set(power);
+
+//        if (holdPosition > actionMeasured) {// go up
+//            robotComponents.elevatorMotor.set(-speed);
+//        } else {//go down
+//            robotComponents.elevatorMotor.set(speed);
+//        }
 
     }
 
@@ -84,16 +86,15 @@ public class ElevatorSystem {
     }
 
     public double determineMotorSpeed(double currentPosition, double desiredPosition) {
-        double distanceRemaining = Math.abs(currentPosition - desiredPosition);
+        double d = desiredPosition - currentPosition;
 
-        double percentOfDistanceRenaming = (distanceRemaining / desiredPosition);
-        if (percentOfDistanceRenaming > stepDownStartAt) {
-            return Math.min(1, throttledMotorSpeed);
+        if (d < -switchRange) {
+            return -1;
         }
+        if (d > switchRange)
+            return 1;
 
-        int excludedTravel = (int) Math.floor(desiredPosition * ((double) 1 - stepDownStartAt));
-        double motorSpeed = distanceRemaining / (desiredPosition - excludedTravel);
-        return Math.min(motorSpeed, throttledMotorSpeed);
+        return d / switchRange;
     }
 
     private void setStateFromController() {

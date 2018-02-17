@@ -59,19 +59,19 @@ public class ElevatorSystemTest {
     @Test
     public void determineMotorSpeed_ShouldReturnOne() {
         double speed = elevatorSystem.determineMotorSpeed(0, 1000);
-        Assert.assertEquals(elevatorSystem.throttledMotorSpeed, speed, .00001);
+        Assert.assertEquals(1, speed, .00001);
     }
 
     @Test
     public void determineMotorSpeed_ShouldStepDown() {
-        double result1 = elevatorSystem.determineMotorSpeed(751, 1000);
-        double result2 = elevatorSystem.determineMotorSpeed(800, 1000);
-        double result3 = elevatorSystem.determineMotorSpeed(950, 1000);
-        double result4 = elevatorSystem.determineMotorSpeed(1000, 1000);
+        double result1 = elevatorSystem.determineMotorSpeed(15, 20.0);
+        double result2 = elevatorSystem.determineMotorSpeed(19, 20.0);
+        double result3 = elevatorSystem.determineMotorSpeed(20, 20.0);
+        double result4 = elevatorSystem.determineMotorSpeed(100, 20.0);
 
-        Assert.assertTrue(result1 < 1);
+        Assert.assertTrue(result1 == 1);
         Assert.assertTrue(result2 < result1);
-        Assert.assertTrue(result3 < result2);
-        Assert.assertTrue(result4 == 0);
+        Assert.assertTrue(result3 ==0);
+        Assert.assertTrue(result4 < 0);
     }
 }
