@@ -10,8 +10,8 @@ public class DriveSystem {
     private RobotComponents robotComponents;
     private final DifferentialDrive differentialDrive;
 
-    private final double forwardAccelPerSecond = .4;
-    private final double turnAccelPerSecond = .5;
+    private final double forwardAccelPerSecond = 2.0;
+    private final double turnAccelPerSecond = 2.0;
 
     private double forwardSpeed = 0;
     private double turnSpeed = 0;

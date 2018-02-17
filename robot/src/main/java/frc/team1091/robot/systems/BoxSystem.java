@@ -4,7 +4,7 @@ import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
 
 /**
- * Thia ia for sucking a box in.
+ * This is for sucking a box in.
  */
 public class BoxSystem {
     private RobotComponents robotComponents;
@@ -20,7 +20,7 @@ public class BoxSystem {
         boolean elevatorIsAtBottom = elevatorSystem.isAtBottom();
         boolean xButton = robotComponents.xboxController.getRawButton(Xbox.x);
         if (xButton && elevatorIsAtBottom) {
-            robotComponents.suckerMotor.set(1);
+            robotComponents.suckerMotor.set(-1);
         } else
             robotComponents.suckerMotor.set(0);
     }
