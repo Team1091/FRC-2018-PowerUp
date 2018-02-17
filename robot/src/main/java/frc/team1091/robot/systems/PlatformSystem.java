@@ -32,23 +32,35 @@ public class PlatformSystem {
         targetState = moveTo;
     }
 
+    private boolean lastPressed = false;
+
     public void updatePositionFromControllerInput() {
-        boolean goToClosed = robotComponents.xboxController.getRawAxis(Xbox.rt) > xboxTriggerPressedTolerance;
-        boolean goToPickup = robotComponents.xboxController.getRawAxis(Xbox.lt) > xboxTriggerPressedTolerance;
-        boolean goToDrop = goToClosed && goToPickup;
+        boolean goUp = robotComponents.xboxController.getRawAxis(Xbox.rt) > xboxTriggerPressedTolerance;
+        boolean goDown = robotComponents.xboxController.getRawAxis(Xbox.lt) > xboxTriggerPressedTolerance;
 
-        if (goToDrop) {
-            setGatePosition(PlatformPosition.DOWN);
+        if (goUp && goDown)
+            return; // invalid key combo
+
+        if (lastPressed) {
+            if (!goUp && !goDown) {
+                lastPressed = false; // we are no longer pressing
+            }
             return;
         }
 
-        if (goToClosed) {
-            setGatePosition(PlatformPosition.UP);
+        if (goUp) {
+            if (targetState == PlatformPosition.DOWN)
+                setGatePosition(PlatformPosition.CENTER);
+            if (targetState == PlatformPosition.CENTER)
+                setGatePosition(PlatformPosition.UP);
             return;
         }
 
-        if (goToPickup) {
-            setGatePosition(PlatformPosition.CENTER);
+        if (goDown) {
+            if (targetState == PlatformPosition.UP)
+                setGatePosition(PlatformPosition.CENTER);
+            if (targetState == PlatformPosition.CENTER)
+                setGatePosition(PlatformPosition.DOWN);
             return;
         }
     }
