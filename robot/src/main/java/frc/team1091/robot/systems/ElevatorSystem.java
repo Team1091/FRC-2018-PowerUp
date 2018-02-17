@@ -1,5 +1,6 @@
 package frc.team1091.robot.systems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
 
@@ -10,12 +11,12 @@ public class ElevatorSystem {
     private final double stepDownStartAt = .5;
     private final int switchRange = 2;
 
-    final double throttledMotorSpeed = 0.7;
+    final double throttledMotorSpeed = 0.5;
 
     private ElevatorPositions targetPosition = ElevatorPositions.GROUND_HEIGHT;
 
-    private double holdPosition = 0; // current desired height
-    private final double maxSpeed = 1; // max change in desired speed
+    private double holdPosition = 0.0; // current desired height
+    private final double maxSpeed = 0.25; // max change in desired speed
 
     public ElevatorSystem(RobotComponents robotComponents) {
         this.robotComponents = robotComponents;
@@ -32,20 +33,22 @@ public class ElevatorSystem {
             holdPosition -= maxSpeed * dt;
         }
 
+        SmartDashboard.putNumber("Elevator Hold Positions", holdPosition);
+        SmartDashboard.putNumber("Target Position", targetPosition.inches);
         double actionMeasured = robotComponents.elevatorEncoder.getDistance();
 
-        double speed = determineMotorSpeed(actionMeasured, holdPosition);
+        double speed =  determineMotorSpeed(actionMeasured, holdPosition);
 
-        if (isAtPosition(ElevatorPositions.GROUND_HEIGHT)) {
+        if (isAtPosition(ElevatorPositions.GROUND_HEIGHT) && targetPosition == ElevatorPositions.GROUND_HEIGHT) {
             robotComponents.elevatorEncoder.reset();
             robotComponents.elevatorMotor.set(0);
             return;
         }
 
         if (holdPosition > actionMeasured) {// go up
-            robotComponents.elevatorMotor.set(speed);
-        } else {//go down
             robotComponents.elevatorMotor.set(-speed);
+        } else {//go down
+            robotComponents.elevatorMotor.set(speed);
         }
 
     }

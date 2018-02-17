@@ -112,9 +112,9 @@ public class Team1091Robot {
     private void printTelemetry() {
         SmartDashboard.putNumber("left", components.leftEncoder.getDistance());
         SmartDashboard.putNumber("right", components.rightEncoder.getDistance());
-        SmartDashboard.putNumber("elevator", components.elevatorEncoder.getDistance());
+        SmartDashboard.putNumber("Elevator Motor Power", components.elevatorMotor.get());
         SmartDashboard.putNumber("platform", components.platformEncoder.getDistance());
-        SmartDashboard.putNumber("elevator encoder ",components.elevatorEncoder.get());
+        SmartDashboard.putNumber("elevator encoder ",components.elevatorEncoder.getDistance());
         SmartDashboard.putString("Elevator posistion",elevatorSystem.getTargetPosition().toString());
         SmartDashboard.putBoolean("Elevator At Ground", components.elevatorLimitSwitch.get());
     }
