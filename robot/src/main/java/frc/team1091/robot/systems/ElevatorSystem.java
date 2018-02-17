@@ -54,7 +54,9 @@ public class ElevatorSystem {
             return;
         }
 
-        double power = determineMotorSpeed(actualMeasured, holdPosition) * throttledMotorSpeed;
+        double power = determineMotorSpeed(actualMeasured, holdPosition);
+        power = power > 0 ? Math.min(power, throttledMotorSpeed) : Math.max(power, throttledMotorSpeed);
+
 //        SmartDashboard.putNumber("Elevator Motor Power", power);
        // power =0;
         robotComponents.elevatorMotor.set(power);
