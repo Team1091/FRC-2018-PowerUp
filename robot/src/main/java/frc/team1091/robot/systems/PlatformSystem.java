@@ -32,6 +32,10 @@ public class PlatformSystem {
         targetState = moveTo;
     }
 
+    PlatformPosition getGatePosition(){
+        return targetState;
+    }
+
     private boolean lastPressed = false;
 
     public void updatePositionFromControllerInput() {
@@ -49,17 +53,19 @@ public class PlatformSystem {
         }
 
         if (goUp) {
+            lastPressed = true;
             if (targetState == PlatformPosition.DOWN)
                 setGatePosition(PlatformPosition.CENTER);
-            if (targetState == PlatformPosition.CENTER)
+            else if (targetState == PlatformPosition.CENTER)
                 setGatePosition(PlatformPosition.UP);
             return;
         }
 
         if (goDown) {
+            lastPressed = true;
             if (targetState == PlatformPosition.UP)
                 setGatePosition(PlatformPosition.CENTER);
-            if (targetState == PlatformPosition.CENTER)
+            else if (targetState == PlatformPosition.CENTER)
                 setGatePosition(PlatformPosition.DOWN);
             return;
         }
