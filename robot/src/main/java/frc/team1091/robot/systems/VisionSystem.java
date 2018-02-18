@@ -20,7 +20,7 @@ public class VisionSystem {
 
     private ImageInfo imageInfo = new ImageInfo();
     private Gson gson = new Gson();
-    private ArrayList<Integer> pathMap;
+    private ArrayList<Integer> pathMap = new ArrayList<>();
 
 
     public void init() {

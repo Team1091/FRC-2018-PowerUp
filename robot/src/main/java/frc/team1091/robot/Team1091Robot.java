@@ -27,6 +27,7 @@ public class Team1091Robot {
     private SendableChooser<StartingPos> startingPositionChooser;
     // Int for checking if auto is over
     private int autoEnd = 0;
+
     public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();
 
@@ -96,8 +97,8 @@ public class Team1091Robot {
 
     public void autonomousPeriodic() {
         printTelemetry();
-        //double dt = getTime();
-        //autonomousSystem.drive(dt);
+        double dt = getTime();
+        autonomousSystem.drive(dt);
     }
 
 
@@ -125,10 +126,12 @@ public class Team1091Robot {
         SmartDashboard.putNumber("right", components.rightEncoder.getDistance());
         SmartDashboard.putNumber("Elevator Motor Power", components.elevatorMotor.get());
         SmartDashboard.putNumber("platform", components.platformEncoder.getDistance());
-        SmartDashboard.putNumber("elevator encoder ",components.elevatorEncoder.getDistance());
+        SmartDashboard.putNumber("elevator encoder ", components.elevatorEncoder.getDistance());
         SmartDashboard.putNumber("elevator Target Position", elevatorSystem.getTargetPosition().inches);
-        SmartDashboard.putString("Elevator posistion",elevatorSystem.getTargetPosition().toString());
-        SmartDashboard.putBoolean("Elevator At Ground", components.elevatorLimitSwitch.get());
+        SmartDashboard.putString("Elevator posistion", elevatorSystem.getTargetPosition().toString());
+
+        SmartDashboard.putNumber("Platform Power", components.platformMotor.get());
+        SmartDashboard.putString("Platform Position", platformSystem.getGatePosition().toString());
     }
 
     public void disabledInit() {

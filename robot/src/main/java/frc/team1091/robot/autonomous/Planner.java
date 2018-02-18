@@ -61,7 +61,8 @@ public class Planner {
         // unload box
         commandList.add(new BarfBox(components, platformSystem, elevatorSystem));
 
-        return new CommandList(commandList);
+        return new DriveForwards(24,components,driveSystem);
+//        return new CommandList(commandList);
     }
 
     // At this point we have a list of positions we want to be at, we need to translate that into a list of commands to get the robot there

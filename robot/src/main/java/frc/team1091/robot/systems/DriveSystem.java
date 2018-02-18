@@ -10,8 +10,8 @@ public class DriveSystem {
     private RobotComponents robotComponents;
     private final DifferentialDrive differentialDrive;
 
-    private final double forwardAccelPerSecond = 2.0;
-    private final double turnAccelPerSecond = 2.0;
+    private final double forwardAccelPerSecond = 3.0;
+    private final double turnAccelPerSecond = 4.0;
 
     private double forwardSpeed = 0;
     private double turnSpeed = 0;
@@ -41,7 +41,7 @@ public class DriveSystem {
     public void manualDrive(double dt) {
 
         boolean boostPushed = robotComponents.xboxController.getRawButton(L3);
-        double desiredTurn = robotComponents.xboxController.getRawAxis(leftStickHorizontal) * (boostPushed ? 1.0 : 0.8);
+        double desiredTurn = robotComponents.xboxController.getRawAxis(leftStickHorizontal) * (1.0);
         double desiredSpeed = robotComponents.xboxController.getRawAxis(leftStickVertical) * (boostPushed ? 1.0 : 0.8);
 
         drive(desiredSpeed, desiredTurn, dt);
