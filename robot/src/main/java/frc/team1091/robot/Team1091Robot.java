@@ -1,6 +1,8 @@
 package frc.team1091.robot;
 
 import com.team1091.planning.StartingPos;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -53,6 +55,15 @@ public class Team1091Robot {
     }
 
     public void robotInit() {
+
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        // camera.setResolution(640, 480);
+        camera.setBrightness(50);
+
+        camera.setExposureAuto();
+//        camera.setExposureManual(20);
+//        camera.setWhiteBalanceManual(50);
+//        camera.enumerateProperties();
 
         visionSystem.init();
 

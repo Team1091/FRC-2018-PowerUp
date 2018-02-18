@@ -1,12 +1,17 @@
 package frc.team1091.robot.systems;
 
 import com.google.gson.Gson;
+import com.team1091.math.Rectangle;
+import com.team1091.math.Vec2;
+import com.team1091.planning.Obstacle;
 import frc.team1091.robot.ImageInfo;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.ConnectException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This communicates with the camera server
@@ -15,6 +20,7 @@ public class VisionSystem {
 
     private ImageInfo imageInfo = new ImageInfo();
     private Gson gson = new Gson();
+    private ArrayList<Integer> pathMap;
 
 
     public void init() {
@@ -42,6 +48,21 @@ public class VisionSystem {
             }
         };
         new Thread(visionUpdater).start();
+        Runnable pathFinder = () -> {
+            while (true) {
+                try {
+                    URL rgbURL = new URL("http://10.10.91.20:5805/pathing");
+                    BufferedReader brightness = new BufferedReader(new InputStreamReader(rgbURL.openStream()));
+                    String inputValue = brightness.readLine();
+                    this.pathMap = gson.fromJson(inputValue, ArrayList.class);
+                    brightness.close();
+                    Thread.sleep(100);
+                } catch (Exception e) {
+
+                }
+            }
+        };
+        new Thread(pathFinder).start();
     }
 
     public double getRedCenter() {
@@ -66,5 +87,20 @@ public class VisionSystem {
 
     public double getYellowDistance() {
         return imageInfo.yellowDistance;
+    }
+
+    public List<Obstacle> getObstacles(){
+        ArrayList<Obstacle> result = new ArrayList<Obstacle>();
+
+        for (int i = 0; i < pathMap.size(); i++){
+            int val = pathMap.get(i);
+            int x= i % 27;
+            int y= i / 30;
+            if (val < 10) {
+                result.add(
+                        new Rectangle(Vec2.Companion.get(x, y), Vec2.Companion.get(x, y)));
+            }
+        }
+        return result;
     }
 }

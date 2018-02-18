@@ -11,12 +11,12 @@ public class ElevatorSystem {
 
     private final double rampWidth = 2.0;
 
-    final double throttledMotorSpeed = 0.7;
+    final double throttledMotorSpeed = 1.0;
 
     private ElevatorPositions targetPosition = ElevatorPositions.GROUND_HEIGHT;
 
     private double holdPosition = 0.0; // current desired height
-    private final double maxSpeed = 0.25; // max change in desired speed
+    private final double maxSpeed = 10.0; // max change in desired speed
 
     public ElevatorSystem(RobotComponents robotComponents) {
         this.robotComponents = robotComponents;
@@ -58,7 +58,7 @@ public class ElevatorSystem {
         double power = determineMotorSpeed(actualMeasured, holdPosition);
         power = power > 0 ? Math.min(power, throttledMotorSpeed) : Math.max(power, throttledMotorSpeed);
 
-        robotComponents.elevatorMotor.set(power);
+        robotComponents.elevatorMotor.set(-power);
 
     }
 

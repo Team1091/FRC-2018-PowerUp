@@ -7,10 +7,13 @@ import com.github.sarxos.webcam.ds.ipcam.IpCamDriver;
 import com.github.sarxos.webcam.ds.ipcam.IpCamMode;
 import com.google.gson.Gson;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static spark.Spark.get;
@@ -100,9 +103,36 @@ public class VisionStandalone {
         window.pack();
         window.setVisible(true);
 
+        PathingButtons pb = new PathingButtons();
+//        pb.makeButtons();
+
         // We host a small webserver so that the robot can ask us where the centerYellow is and how far it is.
         port(5805);
         get("/", (req, res) -> gson.toJson(imageInfo));
+        get("/pathing", (req, res) -> {
+
+            try {
+                String home = System.getProperty("user.home");
+
+                BufferedImage editedPathing = ImageIO.read(new File(home + "\\Desktop\\pathing\\editMap.png"));
+                ArrayList<Integer> pixelValues = new ArrayList<>();
+
+                for (int x = 0; x < 27; x++) {
+                    for (int y = 0; y < 30; y++) {
+                        int rgb = editedPathing.getRGB(x, y);
+                        Color color = new Color(rgb);
+                        int brightness = color.getRed();
+                        pixelValues.add(brightness);
+                    }
+                }
+
+                return gson.toJson(pixelValues);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return e.getMessage();
+            }
+        });
+
     }
 
 //    public static float getDistance(int widthInPixels) {

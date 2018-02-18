@@ -35,10 +35,7 @@ public class Planner {
         EndingPos far = gameGoalData.charAt(1) == 'R' ? EndingPos.RIGHT_SCALE : EndingPos.LEFT_SCALE;
 
         // TODO: select a far or close goal
-        List<Obstacle> obstacles = Arrays.asList(
-                // another robot's plan takes this zone.  It would be nice to
-//                new Rectangle(Vec2.Companion.get(15, 0), Vec2.Companion.get(15, 10))
-        );
+        List<Obstacle> obstacles = visionSystem.getObstacles();
 
         List<Vec3> farPath = makePath(start, far, obstacles);
         List<Vec3> closePath = makePath(start, close, obstacles);
