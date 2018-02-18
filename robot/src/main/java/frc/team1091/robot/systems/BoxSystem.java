@@ -24,6 +24,4 @@ public class BoxSystem {
         } else
             robotComponents.suckerMotor.set(0);
     }
-
-
 }

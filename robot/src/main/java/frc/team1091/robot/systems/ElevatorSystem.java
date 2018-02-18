@@ -40,14 +40,11 @@ public class ElevatorSystem {
         if (Math.abs(targetPosition.inches - holdPosition) < 0.5) {
             holdPosition = targetPosition.inches;
         }
-
-        if (holdPosition < 0)
+        if (holdPosition < 0) {
             holdPosition = 0;
+        }
 
-        //SmartDashboard.putNumber("Elevator Hold Positions", holdPosition);
-        //SmartDashboard.putNumber("Target Position", targetPosition.inches);
         double actualMeasured = robotComponents.elevatorEncoder.getDistance();
-
         if (isAtPosition(ElevatorPositions.GROUND_HEIGHT) && targetPosition == ElevatorPositions.GROUND_HEIGHT) {
             robotComponents.elevatorEncoder.reset();
             robotComponents.elevatorMotor.set(0);
@@ -59,7 +56,6 @@ public class ElevatorSystem {
         power = power > 0 ? Math.min(power, throttledMotorSpeed) : Math.max(power, throttledMotorSpeed);
 
         robotComponents.elevatorMotor.set(-power);
-
     }
 
     public ElevatorPositions getTargetPosition() {
@@ -74,7 +70,8 @@ public class ElevatorSystem {
         double currentHeight = robotComponents.elevatorEncoder.getDistance();
         switch (position) {
             case GROUND_HEIGHT:
-                return currentHeight <= 0;
+                return robotComponents.elevatorLimitSwitch.get() ||
+                       currentHeight <= 0;
             case SWITCH_HEIGHT:
             case SCALE_HEIGHT:
                 double upperSwitchRange = position.inches + rampWidth;

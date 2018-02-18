@@ -73,7 +73,7 @@ public class Team1091Robot {
         for (StartingPos p : StartingPos.values()) {
             startingPositionChooser.addObject(p.name(), p);
         }
-
+        SmartDashboard.putData(startingPositionChooser);
     }
 
     public void autonomousInit() {
@@ -129,7 +129,7 @@ public class Team1091Robot {
         SmartDashboard.putNumber("elevator encoder ", components.elevatorEncoder.getDistance());
         SmartDashboard.putNumber("elevator Target Position", elevatorSystem.getTargetPosition().inches);
         SmartDashboard.putString("Elevator posistion", elevatorSystem.getTargetPosition().toString());
-
+        SmartDashboard.putBoolean("Elevator Limit Switch", components.elevatorLimitSwitch.get());
         SmartDashboard.putNumber("Platform Power", components.platformMotor.get());
         SmartDashboard.putString("Platform Position", platformSystem.getGatePosition().toString());
     }
