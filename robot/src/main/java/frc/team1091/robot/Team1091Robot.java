@@ -69,10 +69,10 @@ public class Team1091Robot {
         visionSystem.init();
 
         startingPositionChooser = new SendableChooser<>();
-        startingPositionChooser.addDefault(StartingPos.CENTER.name(), StartingPos.CENTER);
         for (StartingPos p : StartingPos.values()) {
             startingPositionChooser.addObject(p.name(), p);
         }
+        startingPositionChooser.addDefault(StartingPos.CENTER.name(), StartingPos.CENTER);
         SmartDashboard.putData(startingPositionChooser);
     }
 

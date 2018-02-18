@@ -26,15 +26,23 @@ public class ElevatorSystem {
         holdPosition = pos;
     }
 
+    public double getHoldPosition(){
+        return holdPosition;
+    }
+
     public void controlLift(double dt) {
+        if(robotComponents.xboxController.getRawButton(Xbox.b)) {
+            manualControl();
+            return;
+        }
+
         //Determine which way we need to go
         setStateFromController();
 
         // Update target
         if (targetPosition.inches > holdPosition) {
             holdPosition += maxSpeed * dt;
-        }
-        if (targetPosition.inches < holdPosition) {
+        } else if (targetPosition.inches < holdPosition) {
             holdPosition -= maxSpeed * dt;
         }
         if (Math.abs(targetPosition.inches - holdPosition) < 0.5) {
@@ -53,7 +61,7 @@ public class ElevatorSystem {
         }
 
         double power = determineMotorSpeed(actualMeasured, holdPosition);
-        power = power > 0 ? Math.min(power, throttledMotorSpeed) : Math.max(power, throttledMotorSpeed);
+        power = power >= 0 ? Math.min(power, throttledMotorSpeed) : Math.max(power, -throttledMotorSpeed);
 
         robotComponents.elevatorMotor.set(-power);
     }
@@ -114,6 +122,20 @@ public class ElevatorSystem {
             setElevatorPosition(ElevatorPositions.GROUND_HEIGHT);
             return;
         }
+    }
+
+    private void manualControl(){
+        Boolean goUp = robotComponents.xboxController.getRawButton(Xbox.rb);
+        Boolean goDown = robotComponents.xboxController.getRawButton(Xbox.lb);
+        if(goUp) {
+            robotComponents.elevatorMotor.set(-1);
+            return;
+        }
+        if(goDown){
+            robotComponents.elevatorMotor.set(1);
+            return;
+        }
+        robotComponents.elevatorMotor.set(0);
     }
 }
 
