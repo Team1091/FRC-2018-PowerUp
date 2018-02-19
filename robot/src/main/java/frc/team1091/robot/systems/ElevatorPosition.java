@@ -1,6 +1,6 @@
 package frc.team1091.robot.systems;
 
-public enum ElevatorPositions {
+public enum ElevatorPosition {
 
     GROUND_HEIGHT(0.0),
     SWITCH_HEIGHT(36.0),
@@ -8,7 +8,7 @@ public enum ElevatorPositions {
 
     public final double inches;
 
-    ElevatorPositions(double inches) {
+    ElevatorPosition(double inches) {
         this.inches = inches;
     }
 }

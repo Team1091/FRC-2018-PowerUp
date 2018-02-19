@@ -53,7 +53,7 @@ public class Planner {
         commandList.addAll( Arrays.asList(
                 new CrushBox(components, clawSystem),
                 new Wait(100),
-                new SetElevatorPosition(ElevatorPositions.SWITCH_HEIGHT, elevatorSystem)
+                new SetElevatorPosition(ElevatorPosition.SWITCH_HEIGHT, elevatorSystem)
         ));
         commandList.addAll(getCommandList(components, driveSystem, actualPath));
 

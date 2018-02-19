@@ -1,6 +1,6 @@
 package frc.team1091.robot.autonomous.commands;
 
-import frc.team1091.robot.systems.ElevatorPositions;
+import frc.team1091.robot.systems.ElevatorPosition;
 import frc.team1091.robot.systems.ElevatorSystem;
 
 /**
@@ -9,9 +9,9 @@ import frc.team1091.robot.systems.ElevatorSystem;
 
 public class SetElevatorPosition implements Command {
     private final ElevatorSystem elevatorSystem;
-    private ElevatorPositions elevatorPositions;
+    private ElevatorPosition elevatorPositions;
 
-    public SetElevatorPosition(ElevatorPositions elevatorPositions, ElevatorSystem elevatorSystem) {
+    public SetElevatorPosition(ElevatorPosition elevatorPositions, ElevatorSystem elevatorSystem) {
         this.elevatorPositions = elevatorPositions;
         this.elevatorSystem = elevatorSystem;
     }

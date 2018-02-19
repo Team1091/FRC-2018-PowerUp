@@ -32,7 +32,7 @@ public class RobotComponents {
     public static final double wheelDiameter = 6.0;
 
     //Anolog Inputs
-//    public static final int boxConsumtionUltraSonicSensor = 1;
+    //public static final int boxConsumtionUltraSonicSensor = 1;
 
     public static RobotComponents getDefaultInstance() {
         return new RobotComponents(

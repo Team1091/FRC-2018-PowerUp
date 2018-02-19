@@ -48,6 +48,7 @@ public class ClawSystem {
 
         if (open) {
             setGatePosition(ClawPosition.OPEN);
+            timePushedMs = System.currentTimeMillis();
             return;
         }
 
