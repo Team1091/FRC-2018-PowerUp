@@ -49,8 +49,8 @@ public class ClawSystemTest {
 
     @Test
     public void testWeGoDown() {
-        when(joystick.getRawAxis(Xbox.rt)).thenReturn(0.0);
         when(joystick.getRawAxis(Xbox.lt)).thenReturn(1.0);
+        when(joystick.getRawAxis(Xbox.rt)).thenReturn(0.0);
 
         clawSystem.updatePositionFromControllerInput();
         clawSystem.updatePositionFromControllerInput();
@@ -59,8 +59,8 @@ public class ClawSystemTest {
         assert (clawSystem.getGatePosition() == ClawPosition.OPEN);
 
         // Let go of button
-        when(joystick.getRawAxis(Xbox.rt)).thenReturn(0.0);
         when(joystick.getRawAxis(Xbox.lt)).thenReturn(0.0);
+        when(joystick.getRawAxis(Xbox.rt)).thenReturn(0.0);
         clawSystem.updatePositionFromControllerInput();
         clawSystem.updatePositionFromControllerInput();
 
@@ -68,8 +68,8 @@ public class ClawSystemTest {
         assert (clawSystem.getGatePosition() == ClawPosition.OPEN);
 
         // press again to get to the bottom
-        when(joystick.getRawAxis(Xbox.rt)).thenReturn(0.0);
         when(joystick.getRawAxis(Xbox.lt)).thenReturn(1.0);
+        when(joystick.getRawAxis(Xbox.rt)).thenReturn(0.0);
         clawSystem.updatePositionFromControllerInput();
         clawSystem.updatePositionFromControllerInput();
 
@@ -82,8 +82,8 @@ public class ClawSystemTest {
     @Test
     public void testWeGoUp() {
         clawSystem.setGatePosition(ClawPosition.CRUSH);
-        when(joystick.getRawAxis(Xbox.rt)).thenReturn(1.0);
         when(joystick.getRawAxis(Xbox.lt)).thenReturn(0.0);
+        when(joystick.getRawAxis(Xbox.rt)).thenReturn(1.0);
 
         clawSystem.updatePositionFromControllerInput();
         clawSystem.updatePositionFromControllerInput();

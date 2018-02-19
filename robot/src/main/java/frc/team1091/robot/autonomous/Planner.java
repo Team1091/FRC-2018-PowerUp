@@ -48,12 +48,13 @@ public class Planner {
             return new DriveForwards(72, components, driveSystem);
         }
 
+        ArrayList<Command> commandList = new ArrayList<>();
 
-        List<Command> commandList = Arrays.asList(
+        commandList.addAll( Arrays.asList(
                 new CrushBox(components, clawSystem),
                 new Wait(100),
                 new SetElevatorPosition(ElevatorPositions.SWITCH_HEIGHT, elevatorSystem)
-        );
+        ));
         commandList.addAll(getCommandList(components, driveSystem, actualPath));
 
         // drive up to the target

@@ -22,7 +22,7 @@ public class DriveForwardsTest {
         EncoderWrapper rEncoder = mock(EncoderWrapper.class);
         EncoderWrapper lEncoder = mock(EncoderWrapper.class);
 
-        RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, lEncoder, rEncoder, null);
+        RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null,  lEncoder, rEncoder,null, null);
 
         when(rEncoder.getDistance()).thenReturn(10.0);
         when(lEncoder.getDistance()).thenReturn(10.0);
