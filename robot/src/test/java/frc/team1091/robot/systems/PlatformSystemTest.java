@@ -8,7 +8,8 @@ import frc.team1091.robot.wrapper.DigitalInputWrapper;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class PlatformSystemTest {
 
@@ -42,7 +43,7 @@ public class PlatformSystemTest {
     }
 
     @Test
-    public void testNothingHappensIfBothButtonsArePressed(){
+    public void testNothingHappensIfBothButtonsArePressed() {
         when(joystick.getRawAxis(Xbox.rt)).thenReturn(1.0);
         when(joystick.getRawAxis(Xbox.lt)).thenReturn(1.0);
         platformSystem.updatePositionFromControllerInput();
@@ -52,7 +53,7 @@ public class PlatformSystemTest {
 
 
     @Test
-    public void testWeGoDown(){
+    public void testWeGoDown() {
         when(joystick.getRawAxis(Xbox.rt)).thenReturn(0.0);
         when(joystick.getRawAxis(Xbox.lt)).thenReturn(1.0);
 
@@ -60,7 +61,7 @@ public class PlatformSystemTest {
         platformSystem.updatePositionFromControllerInput();
 
         System.out.println(platformSystem.getGatePosition());
-        assert(platformSystem.getGatePosition() == PlatformPosition.CENTER);
+        assert (platformSystem.getGatePosition() == PlatformPosition.CENTER);
 
         // Let go of button
         when(joystick.getRawAxis(Xbox.rt)).thenReturn(0.0);
@@ -69,7 +70,7 @@ public class PlatformSystemTest {
         platformSystem.updatePositionFromControllerInput();
 
         System.out.println(platformSystem.getGatePosition());
-        assert(platformSystem.getGatePosition() == PlatformPosition.CENTER);
+        assert (platformSystem.getGatePosition() == PlatformPosition.CENTER);
 
         // press again to get to the bottom
         when(joystick.getRawAxis(Xbox.rt)).thenReturn(0.0);
@@ -79,12 +80,12 @@ public class PlatformSystemTest {
 
         System.out.println(platformSystem.getGatePosition());
 
-        assert(platformSystem.getGatePosition() == PlatformPosition.DOWN);
+        assert (platformSystem.getGatePosition() == PlatformPosition.DOWN);
     }
 
 
     @Test
-    public void testWeGoUp(){
+    public void testWeGoUp() {
         platformSystem.setGatePosition(PlatformPosition.DOWN);
         when(joystick.getRawAxis(Xbox.rt)).thenReturn(1.0);
         when(joystick.getRawAxis(Xbox.lt)).thenReturn(0.0);
@@ -94,7 +95,7 @@ public class PlatformSystemTest {
         platformSystem.updatePositionFromControllerInput();
 
         System.out.println(platformSystem.getGatePosition());
-        assert(platformSystem.getGatePosition() == PlatformPosition.CENTER);
+        assert (platformSystem.getGatePosition() == PlatformPosition.CENTER);
     }
 
 }

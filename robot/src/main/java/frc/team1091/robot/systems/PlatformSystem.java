@@ -1,8 +1,9 @@
 package frc.team1091.robot.systems;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
+
+import static frc.team1091.robot.Utils.determineMotorSpeed;
 
 public class PlatformSystem {
     private RobotComponents robotComponents;
@@ -20,28 +21,15 @@ public class PlatformSystem {
     public void controlGate(double dt) {
         updatePositionFromControllerInput();
 
-        double power = determineMotorSpeed(robotComponents.platformEncoder.getDistance(), targetState.rotation);
+        double power = determineMotorSpeed(robotComponents.platformEncoder.getDistance(), targetState.rotation, ticksTolerance);
         robotComponents.platformMotor.set(power);
-    }
-
-    public double determineMotorSpeed(double currentPosition, double desiredPosition) {
-        double d = desiredPosition - currentPosition;
-
-        if (d < -ticksTolerance) {
-            return -1.0 ;
-        }
-        if (d > ticksTolerance) {
-            return 1.0;
-        }
-        double power = d / ticksTolerance;
-        return power;
     }
 
     public void setGatePosition(PlatformPosition moveTo) {
         targetState = moveTo;
     }
 
-    public PlatformPosition getGatePosition(){
+    public PlatformPosition getGatePosition() {
         return targetState;
     }
 

@@ -10,6 +10,8 @@ import frc.team1091.robot.autonomous.Planner;
 import frc.team1091.robot.autonomous.commands.Command;
 import frc.team1091.robot.systems.*;
 
+import static frc.team1091.robot.Utils.clamp;
+
 public class Team1091Robot {
     // Robot components
     private RobotComponents components;
@@ -144,20 +146,16 @@ public class Team1091Robot {
     }
 
     public void testPeriodic() {
-        components.rightMotor.set(limit(SmartDashboard.getNumber("rightMotor - 0", 0.0)));
-        components.leftMotor.set(limit(SmartDashboard.getNumber("leftMotor - 1", 0.0)));
-        components.elevatorMotor.set(limit(SmartDashboard.getNumber("elevatorMotor - 2", 0.0)));
-        components.platformMotor.set(limit(SmartDashboard.getNumber("platformMotor 3", 0.0)));
-        components.suckerMotor.set(limit(SmartDashboard.getNumber("suckerMotor - 4", 0.0)));
-        components.winchMotor.set(limit(SmartDashboard.getNumber("winchMotor - 5", 0.0)));
-        components.releaseMotor.set(limit(SmartDashboard.getNumber("releaseMotor - 6", 0.0)));
+        components.rightMotor.set(clamp(SmartDashboard.getNumber("rightMotor - 0", 0.0)));
+        components.leftMotor.set(clamp(SmartDashboard.getNumber("leftMotor - 1", 0.0)));
+        components.elevatorMotor.set(clamp(SmartDashboard.getNumber("elevatorMotor - 2", 0.0)));
+        components.platformMotor.set(clamp(SmartDashboard.getNumber("platformMotor 3", 0.0)));
+        components.suckerMotor.set(clamp(SmartDashboard.getNumber("suckerMotor - 4", 0.0)));
+        components.winchMotor.set(clamp(SmartDashboard.getNumber("winchMotor - 5", 0.0)));
+        components.releaseMotor.set(clamp(SmartDashboard.getNumber("releaseMotor - 6", 0.0)));
 
         printTelemetry();
 
-    }
-
-    private double limit(double val) {
-        return Math.max(-1, Math.min(1, val));
     }
 
     private long lastFrameTime = System.nanoTime();

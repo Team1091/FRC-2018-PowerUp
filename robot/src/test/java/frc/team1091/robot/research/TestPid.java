@@ -7,6 +7,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
+import static frc.team1091.robot.Utils.clamp;
+
 class PidParams {
     double kp;
     double ki;
@@ -54,7 +56,7 @@ public class TestPid {
 
                 double power = pid.step(0.1, pos);
 
-                double acceleration = limit(power, -1, 1);
+                double acceleration = clamp(power, -1, 1);
 
                 vel += acceleration * 0.1;
                 pos += vel * 0.1;
@@ -76,16 +78,11 @@ public class TestPid {
     }
 
 
-    public double limit(double value, double min, double max) {
-        return Math.min(Math.max(value, min), max);
-    }
-
-
     @Test
-    public void testLimit() {
+    public void testClamp() {
 
-        assert limit(-2, -1, 1) == -1;
-        assert limit(2, -1, 1) == 1;
-        assert limit(0.5, -1, 1) == 0.5;
+        assert clamp(-2, -1, 1) == -1;
+        assert clamp(2, -1, 1) == 1;
+        assert clamp(0.5, -1, 1) == 0.5;
     }
 }

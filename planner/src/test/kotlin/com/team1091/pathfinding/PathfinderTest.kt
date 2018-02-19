@@ -91,7 +91,7 @@ class PathfinderTest {
     @Test
     fun testPathMakerWithTurns() {
 
-        val bi = ImageIO.read(File("${System.getProperty("user.home")}\\Desktop\\pathing\\editMap.png"))
+        val bi = ImageIO.read(File("${System.getProperty("user.home")}${File.separator}Desktop${File.separator}pathing${File.separator}editMap.png"))
         val obstacles = mutableListOf<Obstacle>()
 
         for (x in 0 until bi.getWidth()) {
@@ -104,8 +104,6 @@ class PathfinderTest {
 
         StartingPos.values().forEach { start ->
             EndingPos.values().forEach { end ->
-
-                //                val obstacles = listOf<Obstacle>()//listOf(rightBlock)
 
                 val path = makePath(start, end, obstacles)
 

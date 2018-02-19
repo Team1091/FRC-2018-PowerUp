@@ -14,7 +14,6 @@ import frc.team1091.robot.systems.PlatformSystem;
 import frc.team1091.robot.systems.VisionSystem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.team1091.planning.PathMakerKt.makePath;
@@ -61,7 +60,7 @@ public class Planner {
         // unload box
         commandList.add(new BarfBox(components, platformSystem, elevatorSystem));
 
-        return new DriveForwards(24,components,driveSystem);
+        return new DriveForwards(24, components, driveSystem);
 //        return new CommandList(commandList);
     }
 

@@ -1,8 +1,10 @@
 package frc.team1091.robot.systems;
 
 import frc.team1091.robot.RobotComponents;
+import frc.team1091.robot.Utils;
 import frc.team1091.robot.Xbox;
-import org.opencv.core.Mat;
+
+import static frc.team1091.robot.Utils.determineMotorSpeed;
 
 public class ElevatorSystem {
     private RobotComponents robotComponents;
@@ -26,12 +28,12 @@ public class ElevatorSystem {
         holdPosition = pos;
     }
 
-    public double getHoldPosition(){
+    public double getHoldPosition() {
         return holdPosition;
     }
 
     public void controlLift(double dt) {
-        if(robotComponents.xboxController.getRawButton(Xbox.b)) {
+        if (robotComponents.xboxController.getRawButton(Xbox.b)) {
             manualControl();
             return;
         }
@@ -60,8 +62,8 @@ public class ElevatorSystem {
             return;
         }
 
-        double power = determineMotorSpeed(actualMeasured, holdPosition);
-        power = power >= 0 ? Math.min(power, throttledMotorSpeed) : Math.max(power, -throttledMotorSpeed);
+        double power = determineMotorSpeed(actualMeasured, holdPosition, rampWidth);
+        power = Utils.clamp(power, -throttledMotorSpeed, throttledMotorSpeed);
 
         robotComponents.elevatorMotor.set(-power);
     }
@@ -79,7 +81,7 @@ public class ElevatorSystem {
         switch (position) {
             case GROUND_HEIGHT:
                 return robotComponents.elevatorLimitSwitch.get() ||
-                       currentHeight <= 0;
+                        currentHeight <= 0;
             case SWITCH_HEIGHT:
             case SCALE_HEIGHT:
                 double upperSwitchRange = position.inches + rampWidth;
@@ -93,18 +95,6 @@ public class ElevatorSystem {
         return isAtPosition(targetPosition) && targetPosition != ElevatorPositions.GROUND_HEIGHT;
     }
 
-    public double determineMotorSpeed(double currentPosition, double desiredPosition) {
-        double d = desiredPosition - currentPosition;
-
-        if (d < -rampWidth) {
-            return -1.0 ;
-        }
-        if (d > rampWidth) {
-            return 1.0;
-        }
-        double power = d / rampWidth;
-        return power;
-    }
 
     private void setStateFromController() {
         Boolean goToSwitch = robotComponents.xboxController.getRawButton(Xbox.rb);
@@ -124,14 +114,14 @@ public class ElevatorSystem {
         }
     }
 
-    private void manualControl(){
+    private void manualControl() {
         Boolean goUp = robotComponents.xboxController.getRawButton(Xbox.rb);
         Boolean goDown = robotComponents.xboxController.getRawButton(Xbox.lb);
-        if(goUp) {
+        if (goUp) {
             robotComponents.elevatorMotor.set(-1);
             return;
         }
-        if(goDown){
+        if (goDown) {
             robotComponents.elevatorMotor.set(1);
             return;
         }

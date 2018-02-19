@@ -45,7 +45,7 @@ public class BoxSuckerTest {
 
 
     @Test
-    public void testNeither(){
+    public void testNeither() {
         when(joystick.getRawButton(Xbox.x)).thenReturn(false);
         when(elevatorSwitch.get()).thenReturn(false);
         boxSystem.ingestBox(0.1);
@@ -53,7 +53,7 @@ public class BoxSuckerTest {
     }
 
     @Test
-    public void testElevatorNotDown(){
+    public void testElevatorNotDown() {
         when(joystick.getRawButton(Xbox.x)).thenReturn(true);
         when(elevatorSwitch.get()).thenReturn(false);
         boxSystem.ingestBox(0.1);
@@ -61,7 +61,7 @@ public class BoxSuckerTest {
     }
 
     @Test
-    public void testButtonNotDown(){
+    public void testButtonNotDown() {
         when(joystick.getRawButton(Xbox.x)).thenReturn(false);
         when(elevatorSwitch.get()).thenReturn(true);
         boxSystem.ingestBox(0.1);

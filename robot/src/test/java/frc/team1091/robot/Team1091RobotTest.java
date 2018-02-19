@@ -1,15 +1,11 @@
 package frc.team1091.robot;
 
-import com.team1091.planning.Facing;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 import frc.team1091.robot.systems.*;
 import frc.team1091.robot.wrapper.DigitalInputWrapper;
 import frc.team1091.robot.wrapper.EncoderWrapper;
 import org.junit.Before;
-import org.junit.Test;
-
-import java.lang.reflect.Array;
 
 import static org.mockito.Mockito.mock;
 
@@ -48,21 +44,30 @@ public class Team1091RobotTest {
     Team1091Robot testBot;
 
     @Before
-    public void SetUp(){
+    public void SetUp() {
         xboxController = mock(Joystick.class);
 
         leftMotor = mock(SpeedController.class);
-        rightMotor = mock(SpeedController.class);;
-        elevatorMotor = mock(SpeedController.class);;
-        platformMotor = mock(SpeedController.class);;
-        suckerMotor = mock(SpeedController.class);;
-        winchMotor = mock(SpeedController.class);;
-        releaseMotor = mock(SpeedController.class);;
+        rightMotor = mock(SpeedController.class);
+        ;
+        elevatorMotor = mock(SpeedController.class);
+        ;
+        platformMotor = mock(SpeedController.class);
+        ;
+        suckerMotor = mock(SpeedController.class);
+        ;
+        winchMotor = mock(SpeedController.class);
+        ;
+        releaseMotor = mock(SpeedController.class);
+        ;
 
         leftEncoder = mock(EncoderWrapper.class);
-        rightEncoder = mock(EncoderWrapper.class);;
-        elevatorEncoder = mock(EncoderWrapper.class);;
-        platformEncoder = mock(EncoderWrapper.class);;
+        rightEncoder = mock(EncoderWrapper.class);
+        ;
+        elevatorEncoder = mock(EncoderWrapper.class);
+        ;
+        platformEncoder = mock(EncoderWrapper.class);
+        ;
 
         platformLimitSwitch = mock(DigitalInputWrapper.class);
         elevatorLimitSwitch = mock(DigitalInputWrapper.class);

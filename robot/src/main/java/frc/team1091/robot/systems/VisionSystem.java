@@ -89,13 +89,13 @@ public class VisionSystem {
         return imageInfo.yellowDistance;
     }
 
-    public List<Obstacle> getObstacles(){
+    public List<Obstacle> getObstacles() {
         ArrayList<Obstacle> result = new ArrayList<Obstacle>();
 
-        for (int i = 0; i < pathMap.size(); i++){
+        for (int i = 0; i < pathMap.size(); i++) {
             int val = pathMap.get(i);
-            int x= i % 27;
-            int y= i / 30;
+            int x = i % 27;
+            int y = i / 30;
             if (val < 10) {
                 result.add(
                         new Rectangle(Vec2.Companion.get(x, y), Vec2.Companion.get(x, y)));

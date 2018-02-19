@@ -24,17 +24,17 @@ public class EncoderWrapper implements PIDSource {
     }
 
     @Override
-    public double pidGet(){
+    public double pidGet() {
         return encoder.pidGet();
     }
 
     @Override
-    public PIDSourceType getPIDSourceType(){
+    public PIDSourceType getPIDSourceType() {
         return encoder.getPIDSourceType();
     }
 
     @Override
-    public void setPIDSourceType(PIDSourceType pidSource){
+    public void setPIDSourceType(PIDSourceType pidSource) {
         encoder.setPIDSourceType(pidSource);
     }
 

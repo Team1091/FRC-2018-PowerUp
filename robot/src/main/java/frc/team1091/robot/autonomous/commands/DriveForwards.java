@@ -3,6 +3,8 @@ package frc.team1091.robot.autonomous.commands;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.systems.DriveSystem;
 
+import static frc.team1091.robot.Utils.clamp;
+
 public class DriveForwards implements Command {
 
     private final double distanceInInches;
@@ -37,7 +39,7 @@ public class DriveForwards implements Command {
         }
 
         double rightBias = (r - l) / 10.0;
-        controlSystems.drive(1, limit(rightBias), dt);
+        controlSystems.drive(1, clamp(rightBias, -0.5, 0.5), dt);
         return this;
 
     }
@@ -47,7 +49,4 @@ public class DriveForwards implements Command {
         return "Driving Forwards " + distanceInInches + " inches";
     }
 
-    private double limit(double qty) {
-        return Math.min(Math.max(-0.5, qty), 0.5);
-    }
 }
