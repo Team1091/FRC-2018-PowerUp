@@ -8,12 +8,10 @@ import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.autonomous.commands.*;
-import frc.team1091.robot.systems.DriveSystem;
-import frc.team1091.robot.systems.ElevatorSystem;
-import frc.team1091.robot.systems.PlatformSystem;
-import frc.team1091.robot.systems.VisionSystem;
+import frc.team1091.robot.systems.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.team1091.planning.PathMakerKt.makePath;
@@ -27,7 +25,7 @@ public class Planner {
                                RobotComponents components,
                                DriveSystem driveSystem,
                                VisionSystem visionSystem,
-                               PlatformSystem platformSystem,
+                               ClawSystem clawSystem,
                                ElevatorSystem elevatorSystem) {
 
         EndingPos close = gameGoalData.charAt(0) == 'R' ? EndingPos.RIGHT_SWITCH : EndingPos.LEFT_SWITCH;
@@ -50,16 +48,21 @@ public class Planner {
             return new DriveForwards(72, components, driveSystem);
         }
 
-        ArrayList<Command> commandList = getCommandList(components, driveSystem, actualPath);
 
-        commandList.add(new Wait(100));
+        List<Command> commandList = Arrays.asList(
+                new CrushBox(components, clawSystem),
+                new Wait(100),
+                new SetElevatorPosition(ElevatorPositions.SWITCH_HEIGHT, elevatorSystem)
+        );
+        commandList.addAll(getCommandList(components, driveSystem, actualPath));
 
         // drive up to the target
         commandList.add(new DriveUntilClose(alliance, components, driveSystem, visionSystem));
 
         // unload box
-        commandList.add(new BarfBox(components, platformSystem, elevatorSystem));
+        commandList.add(new ReleaseBox(components, clawSystem));
 
+        // TODO: we dont want to just drive forwards 24 inches
         return new DriveForwards(24, components, driveSystem);
 //        return new CommandList(commandList);
     }

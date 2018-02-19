@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.SpeedController;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.wrapper.DigitalInputWrapper;
 import frc.team1091.robot.wrapper.EncoderWrapper;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,10 +36,7 @@ public class ElevatorSystemTest {
                 null,
                 null,
                 null,
-                null,
                 mockElevatorEncoder,
-                null,
-                null,
                 mockElevatorLimitSwitch
         );
         elevatorSystem = new ElevatorSystem(robotComponents);

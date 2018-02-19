@@ -19,10 +19,10 @@ public class Team1091Robot {
     // Control Systems
     private AutonomousSystem autonomousSystem;
     private DriveSystem driveSystem;
-    private BoxSystem boxSystem;
+    //    private BoxSystem boxSystem;
     private ElevatorSystem elevatorSystem;
     private ClimbSystem climbSystem;
-    private PlatformSystem platformSystem;
+    private ClawSystem clawSystem;
 
     // Communications with laptop
     private VisionSystem visionSystem;
@@ -41,19 +41,19 @@ public class Team1091Robot {
                 new BoxSystem(rc, es),
                 es,
                 new ClimbSystem(rc),
-                new PlatformSystem(rc),
+                new ClawSystem(rc),
                 new VisionSystem()
         );
     }
 
-    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem, BoxSystem boxsystem, ElevatorSystem elevatorSystem, ClimbSystem climbSystem, PlatformSystem platformSystem, VisionSystem visionSystem) {
+    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem, BoxSystem boxsystem, ElevatorSystem elevatorSystem, ClimbSystem climbSystem, ClawSystem clawSystem, VisionSystem visionSystem) {
         this.components = components;
         this.autonomousSystem = autonomousSystem;
         this.driveSystem = driveSystem;
-        this.boxSystem = boxsystem;
+        //       this.boxSystem = boxsystem;
         this.elevatorSystem = elevatorSystem;
         this.climbSystem = climbSystem;
-        this.platformSystem = platformSystem;
+        this.clawSystem = clawSystem;
         this.visionSystem = visionSystem;
     }
 
@@ -91,7 +91,7 @@ public class Team1091Robot {
                 components,
                 driveSystem,
                 visionSystem,
-                platformSystem,
+                clawSystem,
                 elevatorSystem);
 
         autonomousSystem.init(plan);
@@ -116,24 +116,25 @@ public class Team1091Robot {
 
         //Handle Driving the Robot
         driveSystem.manualDrive(dt);
-        boxSystem.ingestBox(dt);
+        //      boxSystem.ingestBox(dt);
         elevatorSystem.controlLift(dt);
         climbSystem.climbUp(dt);
-        platformSystem.controlGate(dt);
+        clawSystem.controlGate(dt);
 
     }
 
     private void printTelemetry() {
         SmartDashboard.putNumber("left", components.leftEncoder.getDistance());
         SmartDashboard.putNumber("right", components.rightEncoder.getDistance());
+
         SmartDashboard.putNumber("Elevator Motor Power", components.elevatorMotor.get());
-        SmartDashboard.putNumber("platform", components.platformEncoder.getDistance());
-        SmartDashboard.putNumber("elevator encoder ", components.elevatorEncoder.getDistance());
+        SmartDashboard.putNumber("elevator Encoder ", components.elevatorEncoder.getDistance());
         SmartDashboard.putNumber("elevator Target Position", elevatorSystem.getTargetPosition().inches);
-        SmartDashboard.putString("Elevator posistion", elevatorSystem.getTargetPosition().toString());
+        SmartDashboard.putString("Elevator Position", elevatorSystem.getTargetPosition().toString());
         SmartDashboard.putBoolean("Elevator Limit Switch", components.elevatorLimitSwitch.get());
-        SmartDashboard.putNumber("Platform Power", components.platformMotor.get());
-        SmartDashboard.putString("Platform Position", platformSystem.getGatePosition().toString());
+
+        SmartDashboard.putNumber("Claw Power", components.clawMotor.get());
+        SmartDashboard.putString("Claw Position", clawSystem.getGatePosition().toString());
     }
 
     public void disabledInit() {
@@ -149,8 +150,8 @@ public class Team1091Robot {
         components.rightMotor.set(clamp(SmartDashboard.getNumber("rightMotor - 0", 0.0)));
         components.leftMotor.set(clamp(SmartDashboard.getNumber("leftMotor - 1", 0.0)));
         components.elevatorMotor.set(clamp(SmartDashboard.getNumber("elevatorMotor - 2", 0.0)));
-        components.platformMotor.set(clamp(SmartDashboard.getNumber("platformMotor 3", 0.0)));
-        components.suckerMotor.set(clamp(SmartDashboard.getNumber("suckerMotor - 4", 0.0)));
+        components.clawMotor.set(clamp(SmartDashboard.getNumber("clawMotor 3", 0.0)));
+//        components.suckerMotor.set(clamp(SmartDashboard.getNumber("suckerMotor - 4", 0.0)));
         components.winchMotor.set(clamp(SmartDashboard.getNumber("winchMotor - 5", 0.0)));
         components.releaseMotor.set(clamp(SmartDashboard.getNumber("releaseMotor - 6", 0.0)));
 

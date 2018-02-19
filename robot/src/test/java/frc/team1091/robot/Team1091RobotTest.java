@@ -17,7 +17,7 @@ public class Team1091RobotTest {
     public SpeedController leftMotor;
     public SpeedController rightMotor;
     public SpeedController elevatorMotor;
-    public SpeedController platformMotor;
+    public SpeedController clawMotor;
     public SpeedController suckerMotor;
     public SpeedController winchMotor;
     public SpeedController releaseMotor;
@@ -25,9 +25,7 @@ public class Team1091RobotTest {
     public EncoderWrapper leftEncoder;
     public EncoderWrapper rightEncoder;
     public EncoderWrapper elevatorEncoder;
-    public EncoderWrapper platformEncoder;
 
-    public DigitalInputWrapper platformLimitSwitch;
     public DigitalInputWrapper elevatorLimitSwitch;
 
     // Control Systems
@@ -36,7 +34,7 @@ public class Team1091RobotTest {
     private BoxSystem boxSystem;
     private ElevatorSystem elevatorSystem;
     private ClimbSystem climbSystem;
-    private PlatformSystem platformSystem;
+    private ClawSystem clawSystem;
 
     // Communications with laptop
     private VisionSystem visionSystem;
@@ -49,40 +47,35 @@ public class Team1091RobotTest {
 
         leftMotor = mock(SpeedController.class);
         rightMotor = mock(SpeedController.class);
-        ;
+
         elevatorMotor = mock(SpeedController.class);
-        ;
-        platformMotor = mock(SpeedController.class);
-        ;
-        suckerMotor = mock(SpeedController.class);
-        ;
+
+        clawMotor = mock(SpeedController.class);
+
+
         winchMotor = mock(SpeedController.class);
-        ;
+
         releaseMotor = mock(SpeedController.class);
-        ;
+
 
         leftEncoder = mock(EncoderWrapper.class);
         rightEncoder = mock(EncoderWrapper.class);
-        ;
-        elevatorEncoder = mock(EncoderWrapper.class);
-        ;
-        platformEncoder = mock(EncoderWrapper.class);
-        ;
 
-        platformLimitSwitch = mock(DigitalInputWrapper.class);
+        elevatorEncoder = mock(EncoderWrapper.class);
+
         elevatorLimitSwitch = mock(DigitalInputWrapper.class);
 
-        components = new RobotComponents(xboxController, leftMotor, rightMotor, elevatorMotor, platformMotor, suckerMotor, winchMotor, releaseMotor, leftEncoder, rightEncoder, elevatorEncoder, platformEncoder, platformLimitSwitch, elevatorLimitSwitch);
+        components = new RobotComponents(xboxController, leftMotor, rightMotor, elevatorMotor, clawMotor, winchMotor, releaseMotor, leftEncoder, rightEncoder, elevatorEncoder, elevatorLimitSwitch);
 
         autonomousSystem = new AutonomousSystem();
         driveSystem = new DriveSystem(components);
         elevatorSystem = new ElevatorSystem(components);
         boxSystem = new BoxSystem(components, elevatorSystem);
         climbSystem = new ClimbSystem(components);
-        platformSystem = new PlatformSystem(components);
+        clawSystem = new ClawSystem(components);
 
         visionSystem = mock(VisionSystem.class);
 
-        testBot = new Team1091Robot(components, autonomousSystem, driveSystem, boxSystem, elevatorSystem, climbSystem, platformSystem, visionSystem);
+        testBot = new Team1091Robot(components, autonomousSystem, driveSystem, boxSystem, elevatorSystem, climbSystem, clawSystem, visionSystem);
     }
 }
