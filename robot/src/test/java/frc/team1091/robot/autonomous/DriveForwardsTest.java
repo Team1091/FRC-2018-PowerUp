@@ -13,7 +13,6 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 
 public class DriveForwardsTest {
-    private int testNum;
 
     @Test
     public void testThatWeDriveForwards() {
