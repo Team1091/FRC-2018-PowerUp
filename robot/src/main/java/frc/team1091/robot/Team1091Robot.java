@@ -22,7 +22,7 @@ public class Team1091Robot {
     //    private BoxSystem boxSystem;
     private ElevatorSystem elevatorSystem;
     private ClimbSystem climbSystem;
-    private ClawSystem clawSystem;
+    private SuckerSystem suckerSystem;
 
     // Communications with laptop
     private VisionSystem visionSystem;
@@ -41,19 +41,19 @@ public class Team1091Robot {
                 new BoxSystem(rc, es),
                 es,
                 new ClimbSystem(rc),
-                new ClawSystem(rc),
+                new SuckerSystem(rc),
                 new VisionSystem()
         );
     }
 
-    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem, BoxSystem boxsystem, ElevatorSystem elevatorSystem, ClimbSystem climbSystem, ClawSystem clawSystem, VisionSystem visionSystem) {
+    public Team1091Robot(RobotComponents components, AutonomousSystem autonomousSystem, DriveSystem driveSystem, BoxSystem boxsystem, ElevatorSystem elevatorSystem, ClimbSystem climbSystem, SuckerSystem suckerSystem, VisionSystem visionSystem) {
         this.components = components;
         this.autonomousSystem = autonomousSystem;
         this.driveSystem = driveSystem;
         //       this.boxSystem = boxsystem;
         this.elevatorSystem = elevatorSystem;
         this.climbSystem = climbSystem;
-        this.clawSystem = clawSystem;
+        this.suckerSystem = suckerSystem;
         this.visionSystem = visionSystem;
     }
 
@@ -91,7 +91,7 @@ public class Team1091Robot {
                 components,
                 driveSystem,
                 visionSystem,
-                clawSystem,
+                suckerSystem,
                 elevatorSystem);
 
         autonomousSystem.init(plan);
@@ -119,7 +119,7 @@ public class Team1091Robot {
         //      boxSystem.ingestBox(dt);
         elevatorSystem.controlLift(dt);
         climbSystem.climbUp(dt);
-        clawSystem.controlGate(dt);
+        suckerSystem.controlGate(dt);
 
     }
 
@@ -140,8 +140,8 @@ public class Team1091Robot {
         SmartDashboard.putString("Elevator Position", elevatorSystem.getTargetPosition().toString());
         SmartDashboard.putBoolean("Elevator Limit Switch", components.elevatorLimitSwitch.get());
 
-        SmartDashboard.putNumber("Claw Power", components.clawMotor.get());
-        SmartDashboard.putString("Claw Position", clawSystem.getGatePosition().toString());
+        SmartDashboard.putNumber("Sucker Power", components.suckerMotor.get());
+//        SmartDashboard.putString("Sucker Position", suckerSystem.getGatePosition().toString());
     }
 
     public void disabledInit() {
@@ -157,7 +157,7 @@ public class Team1091Robot {
         components.rightMotor.set(clamp(SmartDashboard.getNumber("rightMotor - 0", 0.0)));
         components.leftMotor.set(clamp(SmartDashboard.getNumber("leftMotor - 1", 0.0)));
         components.elevatorMotor.set(clamp(SmartDashboard.getNumber("elevatorMotor - 2", 0.0)));
-        components.clawMotor.set(clamp(SmartDashboard.getNumber("clawMotor 3", 0.0)));
+        components.suckerMotor.set(clamp(SmartDashboard.getNumber("suckerMotor 3", 0.0)));
 //        components.suckerMotor.set(clamp(SmartDashboard.getNumber("suckerMotor - 4", 0.0)));
         components.winchMotor.set(clamp(SmartDashboard.getNumber("winchMotor - 5", 0.0)));
         components.releaseMotor.set(clamp(SmartDashboard.getNumber("releaseMotor - 6", 0.0)));

@@ -4,7 +4,7 @@ import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.autonomous.commands.Command;
-import frc.team1091.robot.systems.ClawSystem;
+import frc.team1091.robot.systems.SuckerSystem;
 import frc.team1091.robot.systems.DriveSystem;
 import frc.team1091.robot.systems.ElevatorSystem;
 import frc.team1091.robot.systems.VisionSystem;
@@ -20,7 +20,7 @@ public class PlanningTest {
         DriveSystem drive = mock(DriveSystem.class);
         EncoderWrapper encoder = mock(EncoderWrapper.class);
         VisionSystem vs = mock(VisionSystem.class);
-        ClawSystem ps = mock(ClawSystem.class);
+        SuckerSystem ps = mock(SuckerSystem.class);
         ElevatorSystem es = mock(ElevatorSystem.class);
 
         RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, encoder, null, null);

@@ -17,7 +17,6 @@ public class Team1091RobotTest {
     public SpeedController leftMotor;
     public SpeedController rightMotor;
     public SpeedController elevatorMotor;
-    public SpeedController clawMotor;
     public SpeedController suckerMotor;
     public SpeedController winchMotor;
     public SpeedController releaseMotor;
@@ -34,7 +33,7 @@ public class Team1091RobotTest {
     private BoxSystem boxSystem;
     private ElevatorSystem elevatorSystem;
     private ClimbSystem climbSystem;
-    private ClawSystem clawSystem;
+    private SuckerSystem suckerSystem;
 
     // Communications with laptop
     private VisionSystem visionSystem;
@@ -50,7 +49,7 @@ public class Team1091RobotTest {
 
         elevatorMotor = mock(SpeedController.class);
 
-        clawMotor = mock(SpeedController.class);
+        suckerMotor = mock(SpeedController.class);
 
 
         winchMotor = mock(SpeedController.class);
@@ -65,17 +64,17 @@ public class Team1091RobotTest {
 
         elevatorLimitSwitch = mock(DigitalInputWrapper.class);
 
-        components = new RobotComponents(xboxController, leftMotor, rightMotor, elevatorMotor, clawMotor, winchMotor, releaseMotor, leftEncoder, rightEncoder, elevatorEncoder, elevatorLimitSwitch);
+        components = new RobotComponents(xboxController, leftMotor, rightMotor, elevatorMotor, suckerMotor, winchMotor, releaseMotor, leftEncoder, rightEncoder, elevatorEncoder, elevatorLimitSwitch);
 
         autonomousSystem = new AutonomousSystem();
         driveSystem = new DriveSystem(components);
         elevatorSystem = new ElevatorSystem(components);
         boxSystem = new BoxSystem(components, elevatorSystem);
         climbSystem = new ClimbSystem(components);
-        clawSystem = new ClawSystem(components);
+        suckerSystem = new SuckerSystem(components);
 
         visionSystem = mock(VisionSystem.class);
 
-        testBot = new Team1091Robot(components, autonomousSystem, driveSystem, boxSystem, elevatorSystem, climbSystem, clawSystem, visionSystem);
+        testBot = new Team1091Robot(components, autonomousSystem, driveSystem, boxSystem, elevatorSystem, climbSystem, suckerSystem, visionSystem);
     }
 }

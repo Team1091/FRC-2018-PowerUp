@@ -13,7 +13,7 @@ public class RobotComponents {
     public static final int rightDriveMotorChannel = 0;
     public static final int leftDriveMotorChannel = 1;
     public static final int boxElevatorMotorChannel = 2;
-    public static final int clawMotorChannel = 3;
+    public static final int suckerMotorChannel = 3;
     public static final int robotClimbMotorChannel = 5;
     public static final int releaseMotorChannel = 6;
 
@@ -40,7 +40,7 @@ public class RobotComponents {
                 new Victor(leftDriveMotorChannel),
                 new Victor(rightDriveMotorChannel),
                 new Victor(boxElevatorMotorChannel),
-                new Victor(clawMotorChannel),
+                new Victor(suckerMotorChannel),
                 new Victor(robotClimbMotorChannel),
                 new Victor(releaseMotorChannel),
                 new EncoderWrapper(new Encoder(leftDriveMotorEncoderChannel1, leftDriveMotorEncoderChannel2), -360.0 / (wheelDiameter * Math.PI)),
@@ -55,7 +55,7 @@ public class RobotComponents {
                            SpeedController frontLeftMotor,
                            SpeedController frontRightMotor,
                            SpeedController elevatorMotor,
-                           SpeedController clawMotor,
+                           SpeedController suckerMotor,
                            SpeedController winchMotor,
                            SpeedController releaseMotor,
                            EncoderWrapper frontLeftEncoder,
@@ -68,7 +68,7 @@ public class RobotComponents {
         this.leftMotor = frontLeftMotor;
         this.rightMotor = frontRightMotor;
         this.elevatorMotor = elevatorMotor;
-        this.clawMotor = clawMotor;
+        this.suckerMotor = suckerMotor;
         this.winchMotor = winchMotor;
         this.releaseMotor = releaseMotor;
         this.leftEncoder = frontLeftEncoder;
@@ -82,7 +82,7 @@ public class RobotComponents {
     public final SpeedController leftMotor;
     public final SpeedController rightMotor;
     public final SpeedController elevatorMotor;
-    public final SpeedController clawMotor; //for box cam
+    public final SpeedController suckerMotor; //for box cam
     //   public final SpeedController suckerMotor;
     public final SpeedController winchMotor;
     public final SpeedController releaseMotor;

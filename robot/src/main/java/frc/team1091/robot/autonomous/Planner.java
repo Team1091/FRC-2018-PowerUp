@@ -11,7 +11,6 @@ import frc.team1091.robot.autonomous.commands.*;
 import frc.team1091.robot.systems.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.team1091.planning.PathMakerKt.makePath;
@@ -25,7 +24,7 @@ public class Planner {
                                RobotComponents components,
                                DriveSystem driveSystem,
                                VisionSystem visionSystem,
-                               ClawSystem clawSystem,
+                               SuckerSystem suckerSystem,
                                ElevatorSystem elevatorSystem) {
 
         EndingPos close = gameGoalData.charAt(0) == 'R' ? EndingPos.RIGHT_SWITCH : EndingPos.LEFT_SWITCH;
@@ -51,7 +50,7 @@ public class Planner {
         ArrayList<Command> commandList = new ArrayList<>();
 
 //        commandList.addAll(Arrays.asList(
-//                new CrushBox(components, clawSystem),
+//                new SuckBox(components, suckerSystem),
 //                new Wait(100),
 //                new SetElevatorPosition(ElevatorPosition.SWITCH_HEIGHT, elevatorSystem)
 //        ));
@@ -61,7 +60,7 @@ public class Planner {
 //        commandList.add(new DriveUntilClose(alliance, components, driveSystem, visionSystem));
 
         // unload box
-//        commandList.add(new ReleaseBox(components, clawSystem, elevatorSystem));
+//        commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
 
         // TODO: we dont want to just drive forwards 24 inches
         return new DriveForwards(6 * 12, components, driveSystem);
