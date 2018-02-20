@@ -11,11 +11,13 @@ public class SuckerSystem {
         robotComponents = components;
     }
 
-    public void controlGate(double dt) {
+    public void manualControl(double dt) {
         if(robotComponents.xboxController.getRawAxis(Xbox.rt) > xboxTriggerPressedTolerance){
             robotComponents.suckerMotor.set(1);
         }else if(robotComponents.xboxController.getRawAxis(Xbox.lt) > xboxTriggerPressedTolerance){
             robotComponents.suckerMotor.set(-1);
+        }else{
+            robotComponents.suckerMotor.set(0);
         }
     }
 

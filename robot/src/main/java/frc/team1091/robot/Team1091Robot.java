@@ -119,7 +119,7 @@ public class Team1091Robot {
         //      boxSystem.ingestBox(dt);
         elevatorSystem.controlLift(dt);
         climbSystem.climbUp(dt);
-        suckerSystem.controlGate(dt);
+        suckerSystem.manualControl(dt);
 
     }
 

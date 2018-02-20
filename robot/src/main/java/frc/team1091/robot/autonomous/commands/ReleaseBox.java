@@ -28,7 +28,7 @@ public class ReleaseBox implements Command {
         }
 
         if (timePushedMs < System.currentTimeMillis() + 1000) {
-            components.suckerMotor.set(1);
+            components.suckerMotor.set(-1);
             return this;
         } else {
             components.suckerMotor.set(0);
