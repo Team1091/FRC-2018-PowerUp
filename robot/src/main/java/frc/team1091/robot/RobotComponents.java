@@ -13,7 +13,7 @@ public class RobotComponents {
     public static final int rightDriveMotorChannel = 0;
     public static final int leftDriveMotorChannel = 1;
     public static final int boxElevatorMotorChannel = 2;
-    public static final int suckerMotorChannel = 3;
+    public static final int suckerMotorChannel = 4;
     public static final int robotClimbMotorChannel = 5;
     public static final int releaseMotorChannel = 6;
 
