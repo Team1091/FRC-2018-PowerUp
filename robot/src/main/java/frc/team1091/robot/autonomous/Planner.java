@@ -50,21 +50,32 @@ public class Planner {
 
         ArrayList<Command> commandList = new ArrayList<>();
 
-        commandList.addAll( Arrays.asList(
-                new CrushBox(components, clawSystem),
-                new Wait(100),
-                new SetElevatorPosition(ElevatorPosition.SWITCH_HEIGHT, elevatorSystem)
-        ));
+//        commandList.addAll(Arrays.asList(
+//                new CrushBox(components, clawSystem),
+//                new Wait(100),
+//                new SetElevatorPosition(ElevatorPosition.SWITCH_HEIGHT, elevatorSystem)
+//        ));
         commandList.addAll(getCommandList(components, driveSystem, actualPath));
 
         // drive up to the target
-        commandList.add(new DriveUntilClose(alliance, components, driveSystem, visionSystem));
+//        commandList.add(new DriveUntilClose(alliance, components, driveSystem, visionSystem));
 
         // unload box
-        commandList.add(new ReleaseBox(components, clawSystem));
+//        commandList.add(new ReleaseBox(components, clawSystem, elevatorSystem));
 
         // TODO: we dont want to just drive forwards 24 inches
-        return new DriveForwards(24, components, driveSystem);
+        return new DriveForwards(6 * 12, components, driveSystem);
+//        return new CommandList(
+//                new DriveForwards(24, components, driveSystem),
+//                new Turn(90, components, driveSystem),
+//                new Wait(1000),
+//                new DriveForwards(24, components, driveSystem),
+//                new Turn(-90, components, driveSystem)
+//                new DriveForwards(24, components, driveSystem),
+//                new Turn(-90, components, driveSystem),
+//                new DriveForwards(24, components, driveSystem),
+//                new Turn(-90, components, driveSystem)
+//        );
 //        return new CommandList(commandList);
     }
 

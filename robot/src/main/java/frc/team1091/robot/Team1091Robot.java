@@ -124,8 +124,15 @@ public class Team1091Robot {
     }
 
     private void printTelemetry() {
-        SmartDashboard.putNumber("left", components.leftEncoder.getDistance());
-        SmartDashboard.putNumber("right", components.rightEncoder.getDistance());
+        SmartDashboard.putNumber("L-D", components.leftEncoder.getDistance());
+        SmartDashboard.putNumber("L-TX", components.leftEncoder.get());
+
+        SmartDashboard.putNumber("R-D", components.rightEncoder.getDistance());
+        SmartDashboard.putNumber("R-TX", components.rightEncoder.get());
+
+       // components.leftEncoder.printDistanceTo();
+       // components.rightEncoder.printDistanceTo();
+//        System.out.println(components.leftEncoder.get() + " " + components.rightEncoder.get());
 
         SmartDashboard.putNumber("Elevator Motor Power", components.elevatorMotor.get());
         SmartDashboard.putNumber("elevator Encoder ", components.elevatorEncoder.getDistance());
