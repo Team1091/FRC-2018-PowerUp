@@ -1,5 +1,5 @@
 plugins {
-    id "jaci.openrio.gradle.GradleRIO" version "2018.01.22"
+    id "jaci.openrio.gradle.GradleRIO" version "2018.02.17"
 }
 
 def TEAM = 1091
