@@ -32,9 +32,6 @@ public class BoxSuckerTest {
                 null,
                 null,
                 null,
-                null,
-                null,
-                null,
                 elevatorSwitch
         );
 

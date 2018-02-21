@@ -15,7 +15,7 @@ public class ElevatorSystem {
 
     final double throttledMotorSpeed = 1.0;
 
-    private ElevatorPositions targetPosition = ElevatorPositions.GROUND_HEIGHT;
+    private ElevatorPosition targetPosition = ElevatorPosition.GROUND_HEIGHT;
 
     private double holdPosition = 0.0; // current desired height
     private final double maxSpeed = 10.0; // max change in desired speed
@@ -55,7 +55,7 @@ public class ElevatorSystem {
         }
 
         double actualMeasured = robotComponents.elevatorEncoder.getDistance();
-        if (isAtPosition(ElevatorPositions.GROUND_HEIGHT) && targetPosition == ElevatorPositions.GROUND_HEIGHT) {
+        if (isAtPosition(ElevatorPosition.GROUND_HEIGHT) && targetPosition == ElevatorPosition.GROUND_HEIGHT) {
             robotComponents.elevatorEncoder.reset();
             robotComponents.elevatorMotor.set(0);
             holdPosition = 0;
@@ -68,15 +68,15 @@ public class ElevatorSystem {
         robotComponents.elevatorMotor.set(-power);
     }
 
-    public ElevatorPositions getTargetPosition() {
+    public ElevatorPosition getTargetPosition() {
         return targetPosition;
     }
 
-    public void setElevatorPosition(ElevatorPositions desiredPosition) {
+    public void setElevatorPosition(ElevatorPosition desiredPosition) {
         targetPosition = desiredPosition;
     }
 
-    public boolean isAtPosition(ElevatorPositions position) {
+    public boolean isAtPosition(ElevatorPosition position) {
         double currentHeight = robotComponents.elevatorEncoder.getDistance();
         switch (position) {
             case GROUND_HEIGHT:
@@ -92,24 +92,23 @@ public class ElevatorSystem {
     }
 
     public boolean isAtDropPosition() {
-        return isAtPosition(targetPosition) && targetPosition != ElevatorPositions.GROUND_HEIGHT;
+        return isAtPosition(targetPosition) && targetPosition != ElevatorPosition.GROUND_HEIGHT;
     }
-
 
     private void setStateFromController() {
         Boolean goToSwitch = robotComponents.xboxController.getRawButton(Xbox.rb);
         Boolean goToScale = robotComponents.xboxController.getRawButton(Xbox.lb);
         Boolean goToGround = robotComponents.xboxController.getRawButton(Xbox.x);
         if (goToSwitch) {
-            setElevatorPosition(ElevatorPositions.SWITCH_HEIGHT);
+            setElevatorPosition(ElevatorPosition.SWITCH_HEIGHT);
             return;
         }
         if (goToScale) {
-            setElevatorPosition(ElevatorPositions.SCALE_HEIGHT);
+            setElevatorPosition(ElevatorPosition.SCALE_HEIGHT);
             return;
         }
         if (goToGround) {
-            setElevatorPosition(ElevatorPositions.GROUND_HEIGHT);
+            setElevatorPosition(ElevatorPosition.GROUND_HEIGHT);
             return;
         }
     }

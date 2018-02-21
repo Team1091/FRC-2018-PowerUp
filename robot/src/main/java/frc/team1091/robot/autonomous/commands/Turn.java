@@ -45,7 +45,7 @@ public class Turn implements Command {
             return null;
 
         } else {
-            driveSystem.drive(0, (isTurnRight) ? 1 : -1, dt);
+            driveSystem.drive(0, (isTurnRight) ? 0.35 : -0.4, dt);
             return this;
         }
     }

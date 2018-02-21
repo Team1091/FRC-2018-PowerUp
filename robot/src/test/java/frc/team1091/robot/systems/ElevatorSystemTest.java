@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.SpeedController;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.wrapper.DigitalInputWrapper;
 import frc.team1091.robot.wrapper.EncoderWrapper;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,10 +36,7 @@ public class ElevatorSystemTest {
                 null,
                 null,
                 null,
-                null,
                 mockElevatorEncoder,
-                null,
-                null,
                 mockElevatorLimitSwitch
         );
         elevatorSystem = new ElevatorSystem(robotComponents);
@@ -48,8 +44,8 @@ public class ElevatorSystemTest {
 
     @Test
     public void control_liftGoDown() {
-        elevatorSystem.setElevatorPosition(ElevatorPositions.GROUND_HEIGHT);
-        elevatorSystem.setHoldPosition(ElevatorPositions.SCALE_HEIGHT.inches);
+        elevatorSystem.setElevatorPosition(ElevatorPosition.GROUND_HEIGHT);
+        elevatorSystem.setHoldPosition(ElevatorPosition.SCALE_HEIGHT.inches);
         when(mockElevatorLimitSwitch.get()).thenReturn(false);
         for (int i = 0; i < 100; i++) {
             double dummieReadHeight = elevatorSystem.getHoldPosition() + .2;
@@ -61,7 +57,7 @@ public class ElevatorSystemTest {
 
     @Test
     public void control_liftGoUp() {
-        elevatorSystem.setElevatorPosition(ElevatorPositions.SWITCH_HEIGHT);
+        elevatorSystem.setElevatorPosition(ElevatorPosition.SWITCH_HEIGHT);
         elevatorSystem.setHoldPosition(0);
         when(mockElevatorLimitSwitch.get()).thenReturn(false);
         for (int i = 0; i < 100; i++) {

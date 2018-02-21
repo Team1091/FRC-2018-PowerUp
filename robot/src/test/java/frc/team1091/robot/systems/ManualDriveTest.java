@@ -15,7 +15,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null);
         when(joystick.getRawAxis(0)).thenReturn(0.0);
         when(joystick.getRawAxis(1)).thenReturn(0.5);
 
@@ -34,7 +34,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null);
 
         when(joystick.getRawAxis(0)).thenReturn(0.0);
         when(joystick.getRawAxis(1)).thenReturn(-0.5);
@@ -54,7 +54,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null);
 
         when(joystick.getRawAxis(0)).thenReturn(-1.0);
         when(joystick.getRawAxis(1)).thenReturn(0.5);
@@ -65,7 +65,7 @@ public class ManualDriveTest {
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
-        verify(drive).arcadeDrive(-0.4, -0.8, false);
+        verify(drive).arcadeDrive(-0.4, -1.0, false);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ManualDriveTest {
         Joystick joystick = mock(Joystick.class);
         DifferentialDrive drive = mock(DifferentialDrive.class);
 
-        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null, null, null, null);
+        RobotComponents rc = new RobotComponents(joystick, null, null, null, null, null, null, null, null, null, null);
 
         when(joystick.getRawAxis(0)).thenReturn(1.0);
         when(joystick.getRawAxis(1)).thenReturn(0.5);
@@ -85,6 +85,6 @@ public class ManualDriveTest {
 
         verify(joystick).getRawAxis(0);
         verify(joystick).getRawAxis(1);
-        verify(drive).arcadeDrive(-0.4, 0.8, false);
+        verify(drive).arcadeDrive(-0.4, 1.0, false);
     }
 }

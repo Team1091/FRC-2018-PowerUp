@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 
 // Encoders cannot be created without a real robot,
 // so we are using this to fake it out
-public class EncoderWrapper implements PIDSource {
+public class EncoderWrapper {
     private Encoder encoder;
     private double ticksPerDistanceUnit;
 
@@ -15,30 +15,19 @@ public class EncoderWrapper implements PIDSource {
         this.ticksPerDistanceUnit = ticksPerDistanceUnit;
     }
 
-    public int get() {
+    public double get() {
         return encoder.get();
     }
 
     public double getDistance() {
-        return encoder.get() / ticksPerDistanceUnit;
-    }
-
-    @Override
-    public double pidGet() {
-        return encoder.pidGet();
-    }
-
-    @Override
-    public PIDSourceType getPIDSourceType() {
-        return encoder.getPIDSourceType();
-    }
-
-    @Override
-    public void setPIDSourceType(PIDSourceType pidSource) {
-        encoder.setPIDSourceType(pidSource);
+        return (double)encoder.get() / ticksPerDistanceUnit;
     }
 
     public void reset() {
         encoder.reset();
+    }
+
+    public void printDistanceTo(){
+        System.out.println(ticksPerDistanceUnit);
     }
 }

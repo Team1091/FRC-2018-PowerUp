@@ -14,18 +14,16 @@ public class ClimbSystem {
 
     //while button held, climb up
     public void climbUp(double dt) {
-        boolean climbButtonPressed = robotComponents.xboxController.getRawButton(Xbox.y);
-        boolean releaseButtonPressed = robotComponents.xboxController.getRawButton(Xbox.start);
-        if (releaseButtonPressed) {
-            robotComponents.releaseMotor.set(1);
-            isClimberReleased = true;
-        } else {
-            robotComponents.releaseMotor.set(0);
+        Boolean goUp = robotComponents.xboxController.getRawButton(Xbox.start);
+        Boolean goDown = robotComponents.xboxController.getRawButton(Xbox.select);
+        if (goUp) {
+            robotComponents.winchMotor.set(-1);
+            return;
         }
-        if (climbButtonPressed && isClimberReleased) {
-            robotComponents.winchMotor.set(0.75);
-        } else {
-            robotComponents.winchMotor.set(0);
+        if (goDown) {
+            robotComponents.winchMotor.set(1);
+            return;
         }
+        robotComponents.winchMotor.set(0);
     }
 }
