@@ -39,8 +39,8 @@ public class DriveForwards implements Command {
         }
 
         double rightBias = (r - l) / 10.0;
-//        controlSystems.drive(-0.3, clamp(rightBias, -0.5, 0.5), dt);
-        controlSystems.drive(-0.3, 0, dt);
+        controlSystems.drive(-0.3, clamp(rightBias, -0.5, 0.5), dt);
+//        controlSystems.drive(-0.3, 0, dt);
         return this;
 
     }

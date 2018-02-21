@@ -58,6 +58,7 @@ public class Team1091Robot {
     }
 
     public void robotInit() {
+//        SmartDashboard.putString("TestString", test);
 
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         // camera.setResolution(640, 480);
@@ -123,7 +124,11 @@ public class Team1091Robot {
 
     }
 
+    private String test = "";
     private void printTelemetry() {
+        String input = SmartDashboard.getString("TestString","test");
+//        if()
+
         SmartDashboard.putNumber("L-D", components.leftEncoder.getDistance());
         SmartDashboard.putNumber("L-TX", components.leftEncoder.get());
 

@@ -11,6 +11,7 @@ import frc.team1091.robot.autonomous.commands.*;
 import frc.team1091.robot.systems.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.team1091.planning.PathMakerKt.makePath;
@@ -49,11 +50,11 @@ public class Planner {
 
         ArrayList<Command> commandList = new ArrayList<>();
 
-//        commandList.addAll(Arrays.asList(
-//                new SuckBox(components, suckerSystem),
-//                new Wait(100),
-//                new SetElevatorPosition(ElevatorPosition.SWITCH_HEIGHT, elevatorSystem)
-//        ));
+        commandList.addAll(Arrays.asList(
+                new SuckBox(components, suckerSystem),
+                new Wait(100),
+                new SetElevatorPosition(ElevatorPosition.SWITCH_HEIGHT, elevatorSystem)
+        ));
         commandList.addAll(getCommandList(components, driveSystem, actualPath));
 
         // drive up to the target
@@ -63,19 +64,19 @@ public class Planner {
 //        commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
 
         // TODO: we dont want to just drive forwards 24 inches
-        return new DriveForwards(6 * 12, components, driveSystem);
+        //return new DriveForwards(6 * 12, components, driveSystem);
+        //return new Turn(-90, components, driveSystem);
 //        return new CommandList(
 //                new DriveForwards(24, components, driveSystem),
-//                new Turn(90, components, driveSystem),
-//                new Wait(1000),
+//                new Turn(-90, components, driveSystem),
 //                new DriveForwards(24, components, driveSystem),
-//                new Turn(-90, components, driveSystem)
+//                new Turn(-90, components, driveSystem),
 //                new DriveForwards(24, components, driveSystem),
 //                new Turn(-90, components, driveSystem),
 //                new DriveForwards(24, components, driveSystem),
 //                new Turn(-90, components, driveSystem)
 //        );
-//        return new CommandList(commandList);
+        return new CommandList(commandList);
     }
 
     // At this point we have a list of positions we want to be at, we need to translate that into a list of commands to get the robot there
