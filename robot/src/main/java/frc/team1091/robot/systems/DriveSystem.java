@@ -2,8 +2,10 @@ package frc.team1091.robot.systems;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team1091.robot.RobotComponents;
+import frc.team1091.robot.Xbox;
 
-import static frc.team1091.robot.Xbox.*;
+import static frc.team1091.robot.Xbox.leftStickHorizontal;
+import static frc.team1091.robot.Xbox.leftStickVertical;
 
 public class DriveSystem {
 
@@ -40,7 +42,7 @@ public class DriveSystem {
      */
     public void manualDrive(double dt) {
 
-        boolean boostPushed = true;//robotComponents.xboxController.getRawButton(L3);
+        boolean boostPushed = !robotComponents.xboxController.getRawButton(Xbox.a);
         double desiredTurn = robotComponents.xboxController.getRawAxis(leftStickHorizontal) * (boostPushed ? 1.0 : 0.6);
         double desiredSpeed = robotComponents.xboxController.getRawAxis(leftStickVertical) * (boostPushed ? 1.0 : 0.6);
 
