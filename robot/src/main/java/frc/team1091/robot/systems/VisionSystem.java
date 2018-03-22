@@ -29,7 +29,7 @@ public class VisionSystem {
                 try {
 
                     // URL visionURL = new URL("http://sif.local:5605"); // We should try to get mDNS working
-                    URL visionURL = new URL("http://10.10.91.20:5805/"); // competition we hard code ip
+                    URL visionURL = new URL("http://10.10.91.5:5805/"); // competition we hard code ip
                     // URL visionURL = new URL("http://169.254.71.106:5805/"); // For Testing
 
                     BufferedReader in = new BufferedReader(new InputStreamReader(visionURL.openStream()));
@@ -51,7 +51,7 @@ public class VisionSystem {
         Runnable pathFinder = () -> {
             while (true) {
                 try {
-                    URL rgbURL = new URL("http://10.10.91.20:5805/pathing");
+                    URL rgbURL = new URL("http://10.10.91.5:5805/pathing");
                     BufferedReader brightness = new BufferedReader(new InputStreamReader(rgbURL.openStream()));
                     String inputValue = brightness.readLine();
                     this.pathMap = gson.fromJson(inputValue, ArrayList.class);
