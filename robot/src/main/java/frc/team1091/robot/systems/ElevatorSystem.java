@@ -33,7 +33,7 @@ public class ElevatorSystem {
     }
 
     public void controlLift(double dt) {
-        if (robotComponents.xboxController.getRawButton(Xbox.b)) {
+        if (!robotComponents.xboxController.getRawButton(Xbox.b)) {
             manualControl();
             return;
         }
@@ -121,7 +121,7 @@ public class ElevatorSystem {
             return;
         }
         if (goDown) {
-            robotComponents.elevatorMotor.set(1);
+            robotComponents.elevatorMotor.set(0.5);
             return;
         }
         robotComponents.elevatorMotor.set(0);

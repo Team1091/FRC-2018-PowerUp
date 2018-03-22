@@ -51,8 +51,8 @@ public class Planner {
         ArrayList<Command> commandList = new ArrayList<>();
 
         commandList.addAll(Arrays.asList(
-                new SuckBox(components, suckerSystem),
-                new Wait(100),
+//                new SuckBox(components, suckerSystem),
+//                new Wait(100),
                 new SetElevatorPosition(ElevatorPosition.SWITCH_HEIGHT, elevatorSystem)
         ));
         commandList.addAll(getCommandList(components, driveSystem, actualPath));
