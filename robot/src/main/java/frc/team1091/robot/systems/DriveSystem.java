@@ -40,7 +40,7 @@ public class DriveSystem {
      */
     public void manualDrive(double dt) {
 
-        boolean boostPushed = robotComponents.xboxController.getRawButton(L3);
+        boolean boostPushed = true;//robotComponents.xboxController.getRawButton(L3);
         double desiredTurn = robotComponents.xboxController.getRawAxis(leftStickHorizontal) * (boostPushed ? 1.0 : 0.6);
         double desiredSpeed = robotComponents.xboxController.getRawAxis(leftStickVertical) * (boostPushed ? 1.0 : 0.6);
 
