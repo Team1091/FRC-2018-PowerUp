@@ -32,7 +32,7 @@ public class Planner {
         EndingPos far = gameGoalData.charAt(1) == 'R' ? EndingPos.RIGHT_SCALE : EndingPos.LEFT_SCALE;
 
         // TODO: select a far or close goal
-        List<Obstacle> obstacles = visionSystem.getObstacles();
+        List<Obstacle> obstacles = Arrays.asList();//visionSystem.getObstacles();
 
         List<Vec3> farPath = makePath(start, far, obstacles);
         List<Vec3> closePath = makePath(start, close, obstacles);

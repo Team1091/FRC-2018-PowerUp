@@ -4,6 +4,7 @@ import com.team1091.planning.StartingPos;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1091.robot.autonomous.Planner;
 import frc.team1091.robot.autonomous.commands.Command;
@@ -30,6 +31,8 @@ public class Team1091Robot {
 
     // Communications with laptop
     private VisionSystem visionSystem;
+    private SendableChooser<StartingPos> startingPositionChooser;
+    // Int for checking if auto is over
 
     public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();
@@ -71,32 +74,16 @@ public class Team1091Robot {
 
         visionSystem.init();
 
-        SmartDashboard.getString(startPosText, "C");
-
+        startingPositionChooser = new SendableChooser<>();
+        for (StartingPos p : StartingPos.values()) {
+            startingPositionChooser.addObject(p.name(), p);
+        }
+        startingPositionChooser.addDefault(StartingPos.CENTER.name(), StartingPos.CENTER);
+        SmartDashboard.putData(startingPositionChooser);
     }
 
-    private final String startPosText = "Starting Position (L,C,R)";
-
     public void autonomousInit() {
-
-        String startingInput = SmartDashboard.getString(startPosText, "C");
-        StartingPos start;
-
-        if (startingInput != null)
-            startingInput = startPosText.toUpperCase();
-
-        switch (startingInput) {
-            case "L":
-                start = StartingPos.LEFT;
-                break;
-            case "R":
-                start = StartingPos.RIGHT;
-                break;
-            default:
-                start = StartingPos.CENTER;
-                break;
-        }
-
+        StartingPos start = startingPositionChooser.getSelected();
         DriverStation driverStation = DriverStation.getInstance();
         String fieldConfig = driverStation.getGameSpecificMessage();
 
