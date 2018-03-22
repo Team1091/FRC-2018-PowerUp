@@ -4,11 +4,16 @@ import com.team1091.planning.StartingPos;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team1091.robot.autonomous.Planner;
 import frc.team1091.robot.autonomous.commands.Command;
-import frc.team1091.robot.systems.*;
+import frc.team1091.robot.systems.AutonomousSystem;
+import frc.team1091.robot.systems.BoxSystem;
+import frc.team1091.robot.systems.ClimbSystem;
+import frc.team1091.robot.systems.DriveSystem;
+import frc.team1091.robot.systems.ElevatorSystem;
+import frc.team1091.robot.systems.SuckerSystem;
+import frc.team1091.robot.systems.VisionSystem;
 
 import static frc.team1091.robot.Utils.clamp;
 
@@ -19,16 +24,12 @@ public class Team1091Robot {
     // Control Systems
     private AutonomousSystem autonomousSystem;
     private DriveSystem driveSystem;
-    //    private BoxSystem boxSystem;
     private ElevatorSystem elevatorSystem;
     private ClimbSystem climbSystem;
     private SuckerSystem suckerSystem;
 
     // Communications with laptop
     private VisionSystem visionSystem;
-    private SendableChooser<StartingPos> startingPositionChooser;
-    // Int for checking if auto is over
-    private int autoEnd = 0;
 
     public static Team1091Robot getDefaultInstance() {
         RobotComponents rc = RobotComponents.getDefaultInstance();
@@ -58,7 +59,6 @@ public class Team1091Robot {
     }
 
     public void robotInit() {
-//        SmartDashboard.putString("TestString", test);
 
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
         // camera.setResolution(640, 480);
@@ -71,16 +71,32 @@ public class Team1091Robot {
 
         visionSystem.init();
 
-        startingPositionChooser = new SendableChooser<>();
-        for (StartingPos p : StartingPos.values()) {
-            startingPositionChooser.addObject(p.name(), p);
-        }
-        startingPositionChooser.addDefault(StartingPos.CENTER.name(), StartingPos.CENTER);
-        SmartDashboard.putData(startingPositionChooser);
+        SmartDashboard.getString(startPosText, "C");
+
     }
 
+    private final String startPosText = "Starting Position (L,C,R)";
+
     public void autonomousInit() {
-        StartingPos start = startingPositionChooser.getSelected();
+
+        String startingInput = SmartDashboard.getString(startPosText, "C");
+        StartingPos start;
+
+        if (startingInput != null)
+            startingInput = startPosText.toUpperCase();
+
+        switch (startingInput) {
+            case "L":
+                start = StartingPos.LEFT;
+                break;
+            case "R":
+                start = StartingPos.RIGHT;
+                break;
+            default:
+                start = StartingPos.CENTER;
+                break;
+        }
+
         DriverStation driverStation = DriverStation.getInstance();
         String fieldConfig = driverStation.getGameSpecificMessage();
 
@@ -124,20 +140,13 @@ public class Team1091Robot {
 
     }
 
-    private String test = "";
     private void printTelemetry() {
-        String input = SmartDashboard.getString("TestString","test");
-//        if()
 
         SmartDashboard.putNumber("L-D", components.leftEncoder.getDistance());
         SmartDashboard.putNumber("L-TX", components.leftEncoder.get());
 
         SmartDashboard.putNumber("R-D", components.rightEncoder.getDistance());
         SmartDashboard.putNumber("R-TX", components.rightEncoder.get());
-
-       // components.leftEncoder.printDistanceTo();
-       // components.rightEncoder.printDistanceTo();
-//        System.out.println(components.leftEncoder.get() + " " + components.rightEncoder.get());
 
         SmartDashboard.putNumber("Elevator Motor Power", components.elevatorMotor.get());
         SmartDashboard.putNumber("elevator Encoder ", components.elevatorEncoder.getDistance());
