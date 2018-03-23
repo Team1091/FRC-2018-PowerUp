@@ -47,15 +47,15 @@ class FieldMeasurement {
 
         val safeDistance = 3 // blocks away from obstacles that we should avoid
 
-        val leftStart = Vec2[4.feet.toFeet().toInt(), 1]
-        val centerStart = Vec2[12.feet.toFeet().toInt(), 1]
-        val rightStart = Vec2[23.feet.toFeet().toInt(), 1]
+        val leftStart = Vec2[4.feet.toFeet().toInt(), 2]
+        val centerStart = Vec2[12.feet.toFeet().toInt(), 2]
+        val rightStart = Vec2[23.feet.toFeet().toInt(), 2]
 
 
         val leftSwitchEnd = Vec2[4, 13]
         val rightSwitchEnd = Vec2[23, 13]
-        val leftScaleEnd = Vec2[4, scaleLowerY.toFeet().toInt()+3]
-        val rightScaleEnd = Vec2[23, scaleLowerY.toFeet().toInt()+3]
+        val leftScaleEnd = Vec2[4, scaleLowerY.toFeet().toInt()]
+        val rightScaleEnd = Vec2[23, scaleLowerY.toFeet().toInt()]
 
     }
 

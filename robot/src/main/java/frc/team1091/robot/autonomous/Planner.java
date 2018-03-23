@@ -37,12 +37,12 @@ public class Planner {
         List<Vec3> farPath = makePath(start, far, obstacles);
         List<Vec3> closePath = makePath(start, close, obstacles);
         List<Vec3> actualPath;
-        if (farPath != null) {
-            // be ambitious
-            actualPath = farPath;
-        } else if (closePath != null) {
+        if (closePath != null) {
             // be less ambitious
             actualPath = closePath;
+        } else if (farPath != null) {
+            // be ambitious
+            actualPath = farPath;
         } else {
             // Well, at least we can drag ourselves forward
             return new DriveForwards(72, components, driveSystem);
@@ -50,11 +50,12 @@ public class Planner {
 
         ArrayList<Command> commandList = new ArrayList<>();
 
-        commandList.addAll(Arrays.asList(
+        // Pre-loaded, dont need to load.  Elevator encoder is broke, so don't use it
+//        commandList.addAll(Arrays.asList(
 //                new SuckBox(components, suckerSystem),
 //                new Wait(100),
-                new SetElevatorPosition(ElevatorPosition.SWITCH_HEIGHT, elevatorSystem)
-        ));
+//                new SetElevatorPosition(ElevatorPosition.SWITCH_HEIGHT, elevatorSystem)
+//        ));
         commandList.addAll(getCommandList(components, driveSystem, actualPath));
 
         // drive up to the target
