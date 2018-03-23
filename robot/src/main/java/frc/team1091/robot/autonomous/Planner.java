@@ -44,10 +44,10 @@ public class Planner {
         ArrayList<Command> commandList = new ArrayList<>();
         switch (start) {
             case LEFT:
-                    return new DriveForwards(9 * 12, components, driveSystem);
+                    return new DriveForwards(7 * 12, components, driveSystem);
 
             case RIGHT:
-                    return new DriveForwards(9 * 12, components, driveSystem);
+                    return new DriveForwards(7 * 12, components, driveSystem);
 
             default: // center
                 // TODO: select a far or close goal
