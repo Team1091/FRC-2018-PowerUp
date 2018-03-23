@@ -89,6 +89,8 @@ fun createMap(playerObstacles: List<Obstacle>): Matrix2d<Double> {
     val obstacles = mutableListOf<Obstacle>(
             FieldMeasurement.switch,
             FieldMeasurement.scale,
+            FieldMeasurement.boxPile,
+            //FieldMeasurement.startZone, // This doesnt work so hot
             InverseRectangle(Vec2[0, 0], Vec2[xSize, ySize])
     )
     obstacles.addAll(playerObstacles)

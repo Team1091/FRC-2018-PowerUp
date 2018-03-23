@@ -1,5 +1,7 @@
 package frc.team1091.robot.autonomous;
 
+import com.team1091.math.Rectangle;
+import com.team1091.math.Vec2;
 import com.team1091.math.Vec3;
 import com.team1091.planning.EndingPos;
 import com.team1091.planning.FieldMeasurement;
@@ -7,8 +9,14 @@ import com.team1091.planning.Obstacle;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
-import frc.team1091.robot.autonomous.commands.*;
-import frc.team1091.robot.systems.*;
+import frc.team1091.robot.autonomous.commands.Command;
+import frc.team1091.robot.autonomous.commands.CommandList;
+import frc.team1091.robot.autonomous.commands.DriveForwards;
+import frc.team1091.robot.autonomous.commands.Turn;
+import frc.team1091.robot.systems.DriveSystem;
+import frc.team1091.robot.systems.ElevatorSystem;
+import frc.team1091.robot.systems.SuckerSystem;
+import frc.team1091.robot.systems.VisionSystem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,24 +39,41 @@ public class Planner {
         EndingPos close = gameGoalData.charAt(0) == 'R' ? EndingPos.RIGHT_SWITCH : EndingPos.LEFT_SWITCH;
         EndingPos far = gameGoalData.charAt(1) == 'R' ? EndingPos.RIGHT_SCALE : EndingPos.LEFT_SCALE;
 
-        // TODO: select a far or close goal
-        List<Obstacle> obstacles = Arrays.asList();//visionSystem.getObstacles();
 
-        List<Vec3> farPath = makePath(start, far, obstacles);
-        List<Vec3> closePath = makePath(start, close, obstacles);
-        List<Vec3> actualPath;
-        if (closePath != null) {
-            // be less ambitious
-            actualPath = closePath;
-        } else if (farPath != null) {
-            // be ambitious
-            actualPath = farPath;
-        } else {
-            // Well, at least we can drag ourselves forward
-            return new DriveForwards(72, components, driveSystem);
-        }
 
         ArrayList<Command> commandList = new ArrayList<>();
+        switch (start) {
+            case LEFT:
+                    return new DriveForwards(12 * 12, components, driveSystem);
+
+            case RIGHT:
+                    return new DriveForwards(12 * 12, components, driveSystem);
+
+            default: // center
+                // TODO: select a far or close goal
+                List<Obstacle> obstacles = Arrays.asList(
+                        //FieldMeasurement.Companion.getBoxPile()
+                );//visionSystem.getObstacles();
+
+                List<Vec3> farPath = makePath(start, far, obstacles);
+                List<Vec3> closePath = makePath(start, close, obstacles);
+                List<Vec3> actualPath;
+
+                if (closePath != null) {
+                    // be less ambitious
+                    actualPath = closePath;
+                } else if (farPath != null) {
+                    // be ambitious
+                    actualPath = farPath;
+                } else {
+                    // Well, at least we can drag ourselves forward
+                    return new DriveForwards(72, components, driveSystem);
+                }
+                commandList.addAll(getCommandList(components, driveSystem, actualPath));
+                break;
+        }
+
+
 
         // Pre-loaded, dont need to load.  Elevator encoder is broke, so don't use it
 //        commandList.addAll(Arrays.asList(
@@ -56,7 +81,7 @@ public class Planner {
 //                new Wait(100),
 //                new SetElevatorPosition(ElevatorPosition.SWITCH_HEIGHT, elevatorSystem)
 //        ));
-        commandList.addAll(getCommandList(components, driveSystem, actualPath));
+
 
         // drive up to the target
 //        commandList.add(new DriveUntilClose(alliance, components, driveSystem, visionSystem));

@@ -91,16 +91,16 @@ class PathfinderTest {
     @Test
     fun testPathMakerWithTurns() {
 
-        val bi = ImageIO.read(File("${System.getProperty("user.home")}${File.separator}Desktop${File.separator}pathing${File.separator}editMap.png"))
+//        val bi = ImageIO.read(File("${System.getProperty("user.home")}${File.separator}Desktop${File.separator}pathing${File.separator}editMap.png"))
         val obstacles = mutableListOf<Obstacle>()
 
-        for (x in 0 until bi.getWidth()) {
-            for (y in 0 until bi.getHeight()) {
-                if (Color(bi.getRGB(x, bi.getHeight()-y -1)).red < 10) {
-                    obstacles.add(Rectangle(Vec2[x, y], Vec2[x, y]))
-                }
-            }
-        }
+//        for (x in 0 until bi.getWidth()) {
+//            for (y in 0 until bi.getHeight()) {
+//                if (Color(bi.getRGB(x, bi.getHeight()-y -1)).red < 10) {
+//                    obstacles.add(Rectangle(Vec2[x, y], Vec2[x, y]))
+//                }
+//            }
+//        }
 
         StartingPos.values().forEach { start ->
             EndingPos.values().forEach { end ->

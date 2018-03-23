@@ -1,6 +1,7 @@
 package com.team1091.planning
 
 import com.team1091.math.Rectangle
+import com.team1091.math.SuggestedRectangle
 import com.team1091.math.Vec2
 import com.team1091.math.measurement.feet
 import com.team1091.math.measurement.inches
@@ -44,6 +45,17 @@ class FieldMeasurement {
         val scale = Rectangle(
                 Vec2[scaleLowerX.toFeet().toInt(), scaleLowerY.toFeet().toInt()],
                 Vec2[scaleUpperX.toFeet().toInt(), scaleUpperY.toFeet().toInt()])
+
+        val boxPile = Rectangle(
+                Vec2[11,8],
+                Vec2[17, switchLowerY.toFeet().toInt()]
+        )
+
+        val startZone = SuggestedRectangle(
+                Vec2(0,0),
+                Vec2(27, 10),
+                3.0
+        )
 
         val safeDistance = 3 // blocks away from obstacles that we should avoid
 

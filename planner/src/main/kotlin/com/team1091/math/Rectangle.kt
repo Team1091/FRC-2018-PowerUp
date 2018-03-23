@@ -62,3 +62,7 @@ class InverseRectangle(lower: Vec2, upper: Vec2) : Rectangle(lower, upper) {
         }
     }
 }
+
+class SuggestedRectangle(lower: Vec2, upper: Vec2, val maxblock:Double) : Rectangle(lower, upper) {
+    override fun minDist(point: Vec2): Double = Math.min(super.minDist(point), maxblock)
+}
