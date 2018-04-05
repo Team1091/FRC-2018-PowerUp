@@ -3,7 +3,6 @@ package frc.team1091.robot.autonomous;
 import com.team1091.math.Vec3;
 import com.team1091.planning.EndingPos;
 import com.team1091.planning.FieldMeasurement;
-import com.team1091.planning.Obstacle;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
@@ -14,10 +13,7 @@ import frc.team1091.robot.systems.SuckerSystem;
 import frc.team1091.robot.systems.VisionSystem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static com.team1091.planning.PathMakerKt.makePath;
 
 public class Planner {
 
@@ -65,7 +61,7 @@ public class Planner {
                     commandList.add(new DriveForwards(3 * 12, components, driveSystem));
                     commandList.add(new DriveForwards(-1, components, driveSystem));
                     commandList.add(new Turn(-90, components, driveSystem));
-                }else{
+                } else {
                     commandList.add(new Turn(-90, components, driveSystem));
                     commandList.add(new DriveForwards(3 * 12, components, driveSystem));
                     commandList.add(new DriveForwards(-1, components, driveSystem));
