@@ -120,7 +120,8 @@ public class ElevatorSystem {
             robotComponents.elevatorMotor.set(-1);
             return;
         }
-        if (goDown) {
+        if (goDown && !robotComponents.elevatorLimitSwitch.get()) {
+
             robotComponents.elevatorMotor.set(0.5);
             return;
         }

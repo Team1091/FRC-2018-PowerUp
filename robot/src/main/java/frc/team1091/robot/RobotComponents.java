@@ -26,7 +26,7 @@ public class RobotComponents {
     public static final int boxElevatorEncoderChannel2 = 5;
 
     //Digital Inputs
-    public static final int boxElevatorLimitSwitchChannel = 9;
+    public static final int boxElevatorLimitSwitchChannel = 6;
 
     public static final double wheelBaseDiameter = 29.0;
     public static final double wheelDiameter = 6.0;

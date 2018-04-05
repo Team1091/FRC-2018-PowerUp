@@ -58,26 +58,42 @@ public class Planner {
                 }
                 break;
             default: // center
-                // TODO: select a far or close goal
-                List<Obstacle> obstacles = Arrays.asList(
-                        //FieldMeasurement.Companion.getBoxPile()
-                );//visionSystem.getObstacles();
-
-                List<Vec3> farPath = makePath(start, far, obstacles);
-                List<Vec3> closePath = makePath(start, close, obstacles);
-                List<Vec3> actualPath;
-
-                if (closePath != null) {
-                    // be less ambitious
-                    actualPath = closePath;
-                } else if (farPath != null) {
-                    // be ambitious
-                    actualPath = farPath;
-                } else {
-                    // Well, at least we can drag ourselves forward
-                    return new DriveForwards(72, components, driveSystem);
+                commandList.add(new DriveForwards(2 * 12, components, driveSystem));
+                commandList.add(new DriveForwards(-1, components, driveSystem));
+                if (close == EndingPos.RIGHT_SWITCH) {
+                    commandList.add(new Turn(90, components, driveSystem));
+                    commandList.add(new DriveForwards(4 * 12, components, driveSystem));
+                    commandList.add(new DriveForwards(-1, components, driveSystem));
+                    commandList.add(new Turn(-90, components, driveSystem));
+                }else{
+                    commandList.add(new Turn(-90, components, driveSystem));
+                    commandList.add(new DriveForwards(4 * 12, components, driveSystem));
+                    commandList.add(new DriveForwards(-1, components, driveSystem));
+                    commandList.add(new Turn(90, components, driveSystem));
                 }
-                commandList.addAll(getCommandList(components, driveSystem, actualPath));
+                commandList.add(new DriveForwards(2 * 12, components, driveSystem));
+                commandList.add(new LiftElevator(components));
+                commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
+                // TODO: select a far or close goal
+//                List<Obstacle> obstacles = Arrays.asList(
+//                        //FieldMeasurement.Companion.getBoxPile()
+//                );//visionSystem.getObstacles();
+//
+//                List<Vec3> farPath = makePath(start, far, obstacles);
+//                List<Vec3> closePath = makePath(start, close, obstacles);
+//                List<Vec3> actualPath;
+//
+//                if (closePath != null) {
+//                    // be less ambitious
+//                    actualPath = closePath;
+//                } else if (farPath != null) {
+//                    // be ambitious
+//                    actualPath = farPath;
+//                } else {
+//                    // Well, at least we can drag ourselves forward
+//                    return new DriveForwards(72, components, driveSystem);
+//                }
+//                commandList.addAll(getCommandList(components, driveSystem, actualPath));
                 break;
         }
 
