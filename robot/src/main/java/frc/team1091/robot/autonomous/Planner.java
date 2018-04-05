@@ -1,7 +1,5 @@
 package frc.team1091.robot.autonomous;
 
-import com.team1091.math.Rectangle;
-import com.team1091.math.Vec2;
 import com.team1091.math.Vec3;
 import com.team1091.planning.EndingPos;
 import com.team1091.planning.FieldMeasurement;
@@ -9,10 +7,7 @@ import com.team1091.planning.Obstacle;
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.team1091.robot.RobotComponents;
-import frc.team1091.robot.autonomous.commands.Command;
-import frc.team1091.robot.autonomous.commands.CommandList;
-import frc.team1091.robot.autonomous.commands.DriveForwards;
-import frc.team1091.robot.autonomous.commands.Turn;
+import frc.team1091.robot.autonomous.commands.*;
 import frc.team1091.robot.systems.DriveSystem;
 import frc.team1091.robot.systems.ElevatorSystem;
 import frc.team1091.robot.systems.SuckerSystem;
@@ -40,15 +35,28 @@ public class Planner {
         EndingPos far = gameGoalData.charAt(1) == 'R' ? EndingPos.RIGHT_SCALE : EndingPos.LEFT_SCALE;
 
 
-
         ArrayList<Command> commandList = new ArrayList<>();
         switch (start) {
             case LEFT:
-                    return new DriveForwards(6 * 12, components, driveSystem);
-
+                commandList.add(new DriveForwards(8 * 12, components, driveSystem));
+                commandList.add(new DriveForwards(-1, components, driveSystem));
+                if (close == EndingPos.LEFT_SWITCH) {
+                    commandList.add(new Turn(90, components, driveSystem));
+                    commandList.add(new DriveForwards(2, components, driveSystem));
+                    commandList.add(new LiftElevator(components));
+                    commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
+                }
+                break;
             case RIGHT:
-                    return new DriveForwards(6 * 12, components, driveSystem);
-
+                commandList.add(new DriveForwards(8 * 12, components, driveSystem));
+                commandList.add(new DriveForwards(-1, components, driveSystem));
+                if (close == EndingPos.RIGHT_SWITCH) {
+                    commandList.add(new Turn(-90, components, driveSystem));
+                    commandList.add(new DriveForwards(2, components, driveSystem));
+                    commandList.add(new LiftElevator(components));
+                    commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
+                }
+                break;
             default: // center
                 // TODO: select a far or close goal
                 List<Obstacle> obstacles = Arrays.asList(
@@ -72,7 +80,6 @@ public class Planner {
                 commandList.addAll(getCommandList(components, driveSystem, actualPath));
                 break;
         }
-
 
 
         // Pre-loaded, dont need to load.  Elevator encoder is broke, so don't use it

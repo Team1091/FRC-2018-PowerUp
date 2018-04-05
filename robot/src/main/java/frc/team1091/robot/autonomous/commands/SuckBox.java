@@ -18,7 +18,7 @@ public class SuckBox implements Command {
             timePushedMs = System.currentTimeMillis();
         }
 
-        if (timePushedMs + 1000 < System.currentTimeMillis() ) {
+        if (timePushedMs + 1000 > System.currentTimeMillis() ) {
             components.suckerMotor.set(1);
             return this;
         } else {

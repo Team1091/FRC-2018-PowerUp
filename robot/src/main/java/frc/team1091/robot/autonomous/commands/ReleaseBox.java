@@ -19,15 +19,15 @@ public class ReleaseBox implements Command {
 
     @Override
     public Command execute(double dt) {
-        if (!elevatorSystem.isAtDropPosition()) {
-            return this;
-        }
+     //   if (!elevatorSystem.isAtDropPosition()) {
+       //     return this;
+   //     }
 
         if (timePushedMs == 0) {
             timePushedMs = System.currentTimeMillis();
         }
 
-        if (timePushedMs < System.currentTimeMillis() + 1000) {
+        if (timePushedMs + 1000 > System.currentTimeMillis()) {
             components.suckerMotor.set(-1);
             return this;
         } else {

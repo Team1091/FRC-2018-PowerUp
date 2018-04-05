@@ -19,7 +19,7 @@ public class Turn implements Command {
         this.components = components;
         this.driveSystem = driveSystem;
         this.turnDegrees = turnDegrees;
-        this.requiredTurnDistance = (Math.abs(turnDegrees / 360)) * (29 * Math.PI);
+        this.requiredTurnDistance = (Math.abs(turnDegrees / 360.0)) * (29 * Math.PI);
 //        SmartDashboard.putNumber("requiredTurn",requiredTurnDistance);
         isTurnRight = turnDegrees > 0;
     }
