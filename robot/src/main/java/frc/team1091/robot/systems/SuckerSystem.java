@@ -15,7 +15,7 @@ public class SuckerSystem {
         if(robotComponents.xboxController.getRawAxis(Xbox.rt) > xboxTriggerPressedTolerance){
             robotComponents.suckerMotor.set(0.4);
         }else if(robotComponents.xboxController.getRawAxis(Xbox.lt) > xboxTriggerPressedTolerance){
-            robotComponents.suckerMotor.set(-0.4);
+            robotComponents.suckerMotor.set(-1);
         }else{
             robotComponents.suckerMotor.set(0);
         }
