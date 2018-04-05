@@ -62,12 +62,12 @@ public class Planner {
                 commandList.add(new DriveForwards(-1, components, driveSystem));
                 if (close == EndingPos.RIGHT_SWITCH) {
                     commandList.add(new Turn(90, components, driveSystem));
-                    commandList.add(new DriveForwards(4 * 12, components, driveSystem));
+                    commandList.add(new DriveForwards(3 * 12, components, driveSystem));
                     commandList.add(new DriveForwards(-1, components, driveSystem));
                     commandList.add(new Turn(-90, components, driveSystem));
                 }else{
                     commandList.add(new Turn(-90, components, driveSystem));
-                    commandList.add(new DriveForwards(4 * 12, components, driveSystem));
+                    commandList.add(new DriveForwards(3 * 12, components, driveSystem));
                     commandList.add(new DriveForwards(-1, components, driveSystem));
                     commandList.add(new Turn(90, components, driveSystem));
                 }
