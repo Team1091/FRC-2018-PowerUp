@@ -116,11 +116,12 @@ public class ElevatorSystem {
     private void manualControl() {
         Boolean goUp = robotComponents.xboxController.getRawButton(Xbox.rb);
         Boolean goDown = robotComponents.xboxController.getRawButton(Xbox.lb);
+        Boolean override = robotComponents.xboxController.getRawButton(Xbox.r3);
         if (goUp) {
             robotComponents.elevatorMotor.set(-1);
             return;
         }
-        if (goDown && !robotComponents.elevatorLimitSwitch.get()) {
+        if ((goDown && (!robotComponents.elevatorLimitSwitch.get())) || override) {
 
             robotComponents.elevatorMotor.set(0.5);
             return;

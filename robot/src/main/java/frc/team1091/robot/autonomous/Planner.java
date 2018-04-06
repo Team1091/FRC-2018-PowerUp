@@ -31,13 +31,14 @@ public class Planner {
         EndingPos far = gameGoalData.charAt(1) == 'R' ? EndingPos.RIGHT_SCALE : EndingPos.LEFT_SCALE;
 
 
+//        close = EndingPos.LEFT_SWITCH;
         ArrayList<Command> commandList = new ArrayList<>();
         switch (start) {
             case LEFT:
                 commandList.add(new DriveForwards(8 * 12, components, driveSystem));
                 commandList.add(new DriveForwards(-1, components, driveSystem));
+                commandList.add(new Turn(90, components, driveSystem));
                 if (close == EndingPos.LEFT_SWITCH) {
-                    commandList.add(new Turn(90, components, driveSystem));
                     commandList.add(new DriveForwards(2, components, driveSystem));
                     commandList.add(new LiftElevator(components));
                     commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
@@ -45,29 +46,31 @@ public class Planner {
                 break;
             case RIGHT:
                 commandList.add(new DriveForwards(8 * 12, components, driveSystem));
+                // not sure the backwords breaks, so turning to break
                 commandList.add(new DriveForwards(-1, components, driveSystem));
+                commandList.add(new Turn(-90, components, driveSystem));
                 if (close == EndingPos.RIGHT_SWITCH) {
-                    commandList.add(new Turn(-90, components, driveSystem));
                     commandList.add(new DriveForwards(2, components, driveSystem));
                     commandList.add(new LiftElevator(components));
                     commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
                 }
                 break;
             default: // center
+                components.suckerMotor.set(0.2);
                 commandList.add(new DriveForwards(2 * 12, components, driveSystem));
                 commandList.add(new DriveForwards(-1, components, driveSystem));
                 if (close == EndingPos.RIGHT_SWITCH) {
                     commandList.add(new Turn(90, components, driveSystem));
-                    commandList.add(new DriveForwards(3 * 12, components, driveSystem));
+                    commandList.add(new DriveForwards(2 * 12, components, driveSystem));
                     commandList.add(new DriveForwards(-1, components, driveSystem));
                     commandList.add(new Turn(-90, components, driveSystem));
                 } else {
                     commandList.add(new Turn(-90, components, driveSystem));
-                    commandList.add(new DriveForwards(3 * 12, components, driveSystem));
+                    commandList.add(new DriveForwards(2 * 12, components, driveSystem));
                     commandList.add(new DriveForwards(-1, components, driveSystem));
                     commandList.add(new Turn(90, components, driveSystem));
                 }
-                commandList.add(new DriveForwards(2 * 12, components, driveSystem));
+                commandList.add(new DriveForwards(1 * 12, components, driveSystem));
                 commandList.add(new LiftElevator(components));
                 commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
                 // TODO: select a far or close goal
