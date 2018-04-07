@@ -1,4 +1,8 @@
-.indicators #status {
+#status {
     border-radius: 1em;
     background-color: red;
+}
+
+#status .good {
+    background-color: green;
 }

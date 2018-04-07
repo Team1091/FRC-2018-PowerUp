@@ -102,7 +102,8 @@ fun main(args: Array<String>) {
     }
 
 }
-//
+
+// TODO: we need to get the angle out
 //
 //fun transform(input: BufferedImage): BufferedImage {
 //    val center = Point(input.width / 2, input.height / 2)
