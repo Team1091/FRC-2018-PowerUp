@@ -31,6 +31,7 @@ public class Planner {
         EndingPos close = gameGoalData.charAt(0) == 'R' ? EndingPos.RIGHT_SWITCH : EndingPos.LEFT_SWITCH;
         EndingPos far = gameGoalData.charAt(1) == 'R' ? EndingPos.RIGHT_SCALE : EndingPos.LEFT_SCALE;
 
+        components.suckerMotor.set(0.2);
 
 //        close = EndingPos.LEFT_SWITCH;
         ArrayList<Command> commandList = new ArrayList<>();
@@ -59,7 +60,6 @@ public class Planner {
                 }
                 break;
             default: // center
-                components.suckerMotor.set(0.2);
                 commandList.add(new DriveForwards(2 * 12, components, driveSystem));
                 commandList.add(new DriveForwards(-1, components, driveSystem));
                 if (close == EndingPos.RIGHT_SWITCH) {

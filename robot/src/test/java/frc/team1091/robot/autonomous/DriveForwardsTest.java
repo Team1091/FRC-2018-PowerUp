@@ -41,7 +41,7 @@ public class DriveForwardsTest {
 
         verify(lEncoder).getDistance();
         verify(rEncoder).getDistance();
-        verify(drive).drive(1, 0, dt);
+        verify(drive).drive(-0.6, 0, dt);
 
         // Next we want to test that when the encoder is past the threshold, that it stops and goes to the next command
         when(lEncoder.getDistance()).thenReturn(101.0 * 360.0 / 4.0);
@@ -60,7 +60,7 @@ public class DriveForwardsTest {
         // Lets try spinning, that's a nice trick
         autonomousSystem.drive(dt);
 
-        verify(drive).drive(0, 1, dt);
+        verify(drive).drive(0, 0.35, dt);
     }
 
 }

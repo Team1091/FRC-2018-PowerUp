@@ -2,6 +2,7 @@ package frc.team1091.robot.autonomous;
 
 import com.team1091.planning.StartingPos;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Victor;
 import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.autonomous.commands.Command;
 import frc.team1091.robot.systems.SuckerSystem;
@@ -21,9 +22,10 @@ public class PlanningTest {
         EncoderWrapper encoder = mock(EncoderWrapper.class);
         VisionSystem vs = mock(VisionSystem.class);
         SuckerSystem ps = mock(SuckerSystem.class);
+        Victor suckerMotor = mock(Victor.class);
         ElevatorSystem es = mock(ElevatorSystem.class);
 
-        RobotComponents rc = new RobotComponents(null, null, null, null, null, null, null, null, encoder, null, null);
+        RobotComponents rc = new RobotComponents(null, null, null, null, suckerMotor, null, null, null, encoder, null, null);
 
         Command result = Planner.plan(StartingPos.CENTER, DriverStation.Alliance.Blue, "RRR", rc, drive, vs, ps, es);
 

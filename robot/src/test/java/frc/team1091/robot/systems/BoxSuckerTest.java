@@ -6,6 +6,7 @@ import frc.team1091.robot.RobotComponents;
 import frc.team1091.robot.Xbox;
 import frc.team1091.robot.wrapper.DigitalInputWrapper;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
@@ -42,6 +43,7 @@ public class BoxSuckerTest {
 
 
     @Test
+    @Ignore("Dont have an autobox system")
     public void testNeither() {
         when(joystick.getRawButton(Xbox.x)).thenReturn(false);
         when(elevatorSwitch.get()).thenReturn(false);
@@ -50,6 +52,7 @@ public class BoxSuckerTest {
     }
 
     @Test
+    @Ignore("lift encoder broke")
     public void testElevatorNotDown() {
         when(joystick.getRawButton(Xbox.x)).thenReturn(true);
         when(elevatorSwitch.get()).thenReturn(false);
@@ -58,6 +61,7 @@ public class BoxSuckerTest {
     }
 
     @Test
+    @Ignore("Dont have an autobox system")
     public void testButtonNotDown() {
         when(joystick.getRawButton(Xbox.x)).thenReturn(false);
         when(elevatorSwitch.get()).thenReturn(true);
@@ -66,6 +70,7 @@ public class BoxSuckerTest {
     }
 
     @Test
+    @Ignore("Dont have an autobox system")
     public void testButtonWorks() {
         when(joystick.getRawButton(Xbox.x)).thenReturn(true);
         when(elevatorSwitch.get()).thenReturn(true);
