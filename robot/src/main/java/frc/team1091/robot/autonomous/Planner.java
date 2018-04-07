@@ -13,6 +13,7 @@ import frc.team1091.robot.systems.SuckerSystem;
 import frc.team1091.robot.systems.VisionSystem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Planner {
@@ -35,22 +36,24 @@ public class Planner {
         ArrayList<Command> commandList = new ArrayList<>();
         switch (start) {
             case LEFT:
-                commandList.add(new DriveForwards(8 * 12, components, driveSystem));
+                commandList.add(new DriveForwards(8.5 * 12, components, driveSystem));
                 commandList.add(new DriveForwards(-1, components, driveSystem));
-                commandList.add(new Turn(90, components, driveSystem));
+                commandList.add(new Turn(120, components, driveSystem));
                 if (close == EndingPos.LEFT_SWITCH) {
-                    commandList.add(new DriveForwards(2, components, driveSystem));
+                    commandList.add(new DriveForwardsTimer(500, components, driveSystem));
+                    commandList.add(new SuckBox(components,suckerSystem));
                     commandList.add(new LiftElevator(components));
                     commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
                 }
                 break;
             case RIGHT:
-                commandList.add(new DriveForwards(8 * 12, components, driveSystem));
+                commandList.add(new DriveForwards(8.5 * 12, components, driveSystem));
                 // not sure the backwords breaks, so turning to break
                 commandList.add(new DriveForwards(-1, components, driveSystem));
-                commandList.add(new Turn(-90, components, driveSystem));
+                commandList.add(new Turn(-120, components, driveSystem));
                 if (close == EndingPos.RIGHT_SWITCH) {
-                    commandList.add(new DriveForwards(2, components, driveSystem));
+                    commandList.add(new DriveForwardsTimer(500, components, driveSystem));
+                    commandList.add(new SuckBox(components,suckerSystem));
                     commandList.add(new LiftElevator(components));
                     commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
                 }
@@ -70,10 +73,10 @@ public class Planner {
                     commandList.add(new DriveForwards(-1, components, driveSystem));
                     commandList.add(new Turn(90, components, driveSystem));
                 }
-                commandList.add(new DriveForwards(1 * 12, components, driveSystem));
+                commandList.add(new DriveForwardsTimer(1000, components, driveSystem));
                 commandList.add(new LiftElevator(components));
                 commandList.add(new ReleaseBox(components, suckerSystem, elevatorSystem));
-                // TODO: select a far or close goal
+
 //                List<Obstacle> obstacles = Arrays.asList(
 //                        //FieldMeasurement.Companion.getBoxPile()
 //                );//visionSystem.getObstacles();

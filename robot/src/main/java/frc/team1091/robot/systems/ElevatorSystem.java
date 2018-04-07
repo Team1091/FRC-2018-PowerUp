@@ -121,6 +121,7 @@ public class ElevatorSystem {
             robotComponents.elevatorMotor.set(-1);
             return;
         }
+//        if (goDown) {
         if ((goDown && (!robotComponents.elevatorLimitSwitch.get())) || override) {
 
             robotComponents.elevatorMotor.set(0.5);
