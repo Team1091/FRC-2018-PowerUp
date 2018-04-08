@@ -15,8 +15,8 @@ We organize our code into subprojects to kinda split it up
 
 * robot - Our robot code. Java using gradlerio to deploy.
 
-* planner - Can plan a path across the field using Djikstra's algorithm.  We avoid walls by making driving near them cost more.  
-Allies can be drawn into a png to dodge. 
+* planner - Can plan a path across the field using [Djikstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm).  
+We avoid walls by making driving near them cost more.  Allies can be drawn into a png to dodge. We encode rotations as a 3rd dimension, so that we can account for cost and beginning and ending state.
 Removed mid competition, to make us more predictable.
 
 * vision - Vision that can find the center of blue, red, or yellow on the screen.
@@ -51,3 +51,5 @@ gradlew.bat riolog
 gradlew.bat shuffleboard
 
 ```
+
+Post season [Retrospective](./retrospective.md)
